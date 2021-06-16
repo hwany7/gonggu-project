@@ -11,3 +11,7 @@
 - Java SE Development Kit 8 241
 - Apache Tomcat 9.0
 - Oracle Database 11g Express Edition
+
+4. 저장소
+- 로컬 저장소 : D:/개발/프로젝트/공동구매-프로젝트/GongGu-Project/gonggu
+- 원격 저장소 : https://github.com/hwany7/GongGu-Project.git
