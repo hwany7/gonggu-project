@@ -7,7 +7,7 @@
 2. 프로젝트 구현 기능
 - 로그인 기능
 
-3. 사용 버전
+3. 개발 버전
 - Java SE Development Kit 8 241
 - Apache Tomcat 9.0
 - Oracle Database 11g Express Edition
@@ -15,3 +15,17 @@
 4. 저장소
 - 로컬 저장소 : D:/개발/프로젝트/공동구매-프로젝트/GongGu-Project/gonggu
 - 원격 저장소 : https://github.com/hwany7/GongGu-Project.git
+
+5. 사용한 jar 라이브러리
+- servlet-api.jar 									[2021-0616]
+- spring-aop-4.3.9.RELEASE.jar 						[2021-0616]
+- spring-beans-4.3.9.RELEASE.jar 					[2021-0616]
+- spring-context-4.3.9.RELEASE.jar 					[2021-0616]
+- spring-core-4.3.9.RELEASE.jar 					[2021-0616]
+- spring-expression-4.3.9.RELEASE.jar 				[2021-0616]
+- spring-web-4.3.9.RELEASE.jar 						[2021-0616]
+- spring-webmvc-4.3.9.RELEASE.jar 					[2021-0616]
+- cglib-2.1.95.jar 									[2021-0616]
+- commons-logging-1.1.2.jar 						[2021-0616]
+- jstl.jar											[2021-0616]
+- ojdbc6.jar
