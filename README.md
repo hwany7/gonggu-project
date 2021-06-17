@@ -16,16 +16,21 @@
 - 로컬 저장소 : D:/개발/프로젝트/공동구매-프로젝트/GongGu-Project/gonggu
 - 원격 저장소 : https://github.com/hwany7/GongGu-Project.git
 
-5. 사용한 jar 라이브러리
-- servlet-api.jar 									[2021-0616]
-- spring-aop-4.3.9.RELEASE.jar 						[2021-0616]
-- spring-beans-4.3.9.RELEASE.jar 					[2021-0616]
-- spring-context-4.3.9.RELEASE.jar 					[2021-0616]
-- spring-core-4.3.9.RELEASE.jar 					[2021-0616]
-- spring-expression-4.3.9.RELEASE.jar 				[2021-0616]
-- spring-web-4.3.9.RELEASE.jar 						[2021-0616]
-- spring-webmvc-4.3.9.RELEASE.jar 					[2021-0616]
-- cglib-2.1.95.jar 									[2021-0616]
-- commons-logging-1.1.2.jar 						[2021-0616]
-- jstl.jar											[2021-0616]
-- ojdbc6.jar
+5. 추가 라이브러리
+- Bootstrap v3.3.2
+- jquery-3.5.1
+
+6. 사용한 jar 목록
+- servlet-api.jar [2021-0616] 
+- spring-aop-4.3.9.RELEASE.jar [2021-0616] 
+- spring-beans-4.3.9.RELEASE.jar [2021-0616] 
+- spring-context-4.3.9.RELEASE.jar [2021-0616]
+- spring-core-4.3.9.RELEASE.jar [2021-0616]
+- spring-expression-4.3.9.RELEASE.jar [2021-0616]
+- spring-web-4.3.9.RELEASE.jar [2021-0616]
+- spring-webmvc-4.3.9.RELEASE.jar [2021-0616]
+- cglib-2.1.95.jar [2021-0616]
+- commons-logging-1.1.2.jar [2021-0616] 
+- ojdbc6.jar [2021-0616] 
+- jstl.jar [2021-0616]
+- standard.jar [2021-0616]
