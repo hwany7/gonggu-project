@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="user">
+
+	<!-- 멤버 로그인 -->
+	<select id="getMemberFromLogin" parameterType="String" resultType="dto.MemberDto">
+ 		select * from member_gg where member_email=#{member_email}
+ 	</select>
+ 	
+ 	<!-- 이메일 중복 검사  -->
+	<select id="checkEmail" parameterType="string" resultType="int">
+		select count(*) from member_gg where member_email = #{member_email}
+	</select>
+	
+	 <!-- 멤버 상태 체크 -->
+ 	<select id="checkStatus" parameterType="String" resultType="String">
+		select member_status from member_gg where member_email=#{member_email}
+ 	</select>
+
+</mapper>
+
