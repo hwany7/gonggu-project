@@ -10,14 +10,14 @@ public class MemberDaoImpl implements MemberDao {
 
 	SqlSession session = SqlMapClient.getSession();
 	
-	//로그인시 멤버 정보 가져오기
+	// 로그인시 멤버 정보 가져오기
 	@Override
 	public MemberDto getMemberFromLogin(String member_email) {
 		
 		return session.selectOne("user.getMemberFromLogin", member_email);
 	}
 	
-	//멤버 로그인 체크
+	// 멤버 로그인 체크
 	public int check(String member_email, String password) {
 		
 		int result = 0;
@@ -47,15 +47,38 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 	
-	//이메일 중복 검사
+	// 이메일 중복 검사
 	public int checkEmail(String member_email) {
 		
 		return session.selectOne("user.checkEmail", member_email);
 	}
 	
-	//상태 체크하기
+	// 로그인시 상태 체크
 	public String checkStatus(String member_email) {
 		
 		return session.selectOne("user.checkStatus", member_email);
 	}
+	
+	// 계정 활성화시 상태 체크
+	public int check(int member_id, String password) {
+		int result = 0;
+		MemberDto memberDto = getMemberFromMypage(member_id);
+		if(memberDto.getPassword().equals(password)) {
+			result = 1;
+		} else {
+			result = 0;
+		}
+		return result;
+	}
+	
+	// 계정 활성화시 멤버 정보 보기
+	public MemberDto getMemberFromMypage(int member_id){
+		return session.selectOne("user.getMemberFromMypage", member_id);
+	}
+	
+	// 휴면상태 -> 활동상태 변경
+	public int activateStatusFromLogin(int member_id) {
+		return session.update("user.activateStatusFromLogin", member_id);
+	}
+	
 }

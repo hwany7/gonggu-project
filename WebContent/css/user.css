@@ -2,6 +2,7 @@
 
 body{
 	font-family: 'Gothic A1', 'Black Han Sans', 'Do Hyeon', 'Nanum Pen Script', 'Noto Serif KR', sans-serif;
+	min-width: 1400px;
 }
 
 .login-menu a{

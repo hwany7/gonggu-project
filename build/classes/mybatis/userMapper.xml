@@ -20,6 +20,16 @@
  	<select id="checkStatus" parameterType="String" resultType="String">
 		select member_status from member_gg where member_email=#{member_email}
  	</select>
+ 	
+ 	<!-- 내정보 보기를 위한 멤버정보  -->
+ 	<select id="getMemberFromMypage" parameterType="int" resultType="dto.MemberDto">
+ 		select * from member_gg where member_id=#{member_id}
+ 	</select>
+ 	
+ 	 <!-- 멤버 상태 변경(휴먼) -->
+ 	<update id="activateStatusFromLogin" parameterType="int">
+ 		update member_gg set member_status = 'active' where member_id = #{member_id}
+ 	</update>
 
 </mapper>
 

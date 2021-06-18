@@ -12,7 +12,7 @@ public class SqlMapClient {
 	private static SqlSession session = null;
 	static {
 		try {
-			//설정 읽어오기
+			// 설정 읽어오기
 			Reader reader =  Resources.getResourceAsReader("mybatis/sqlMapConfig.xml");
 			SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMapper.openSession(true);
