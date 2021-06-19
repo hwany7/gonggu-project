@@ -37,7 +37,7 @@
 						<div class="mar-top-150">
 			                <h2>로그인</h2>
 			            </div>
-		                <form name="loginForm" role="form" action="loginPro.do" onsubmit="return loginCheck()">
+		                <form name="loginForm" role="form" action="loginPro.do" onsubmit="return checkNullLogin()">
 		                    <div class="form-group">
 		                        <input type="text" class="form-control height-40" name="member_email" placeholder="이메일 아이디를 입력하세요">
 		                    </div>

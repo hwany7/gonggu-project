@@ -8,9 +8,9 @@
 <link rel="stylesheet" type="text/css" href="/gonggu/css/user.css">
 
 <!---------------- 자바 스크립트 작성  ---------------->
+<script src="/gonggu/asset/jquery/js/jquery-3.5.1.js"></script> 
 <script src="/gonggu/asset/bootstrap/js/bootstrap.js"></script>
 <script src="/gonggu/asset/bootstrap/js/bootstrap.min.js"></script>
-<script src="/gonggu/asset/jquery/js/jquery-3.5.1.js"></script> 
 <script src="/gonggu/js/user.js"></script>
 
 <!---------------- JSTL  ---------------->

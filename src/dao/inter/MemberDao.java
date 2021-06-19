@@ -12,4 +12,8 @@ public interface MemberDao {
 	public int check(int member_id, String password);
 	public int activateStatusFromLogin(int member_id);
 	
+	//회원가입
+	public int checkEmail(String member_email);
+	public int checkNickname(String nickname);
+	
 }

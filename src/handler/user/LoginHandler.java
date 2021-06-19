@@ -20,15 +20,15 @@ public class LoginHandler {
 	@Resource(name="memberDao")
 	private MemberDao memberDao;
 
-	// 로그인 폼
+	//로그인 폼
 	@RequestMapping("/loginForm.do")
 	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse respons) {
 		
-		// 로그인 폼으로 이동
+		//로그인 폼으로 이동
 		return new ModelAndView("user/login/loginForm");
 	}
 	
-	// 로그인 프로
+	//로그인 프로
 	@RequestMapping("/loginPro.do")
 	public ModelAndView logInPro(HttpServletRequest request, HttpServletResponse respons) {
 		
@@ -41,19 +41,19 @@ public class LoginHandler {
 		int result = memberDao.check(member_email, password);
 		
 		if(result == 0) {
-			// 로그인 정보가 맞지 않음
+			//로그인 정보가 맞지 않음
 			memSession.put("result", "0");
 		} else if(result == 1) {
-			// 활동 회원
+			//활동 회원
 			memSession.put("result", "1");
 			memSession.put("nickname", memberDto.getNickname());
 			memSession.put("gender", memberDto.getGender());
 			memSession.put("member_id", Integer.toString(memberDto.getMember_id()));
 		} else if(result == 2) {
-			// 활동 정지 회원
+			//활동 정지 회원
 			memSession.put("result", "2");
 		} else if(result == 3) {
-			// 휴면상태 회원
+			//휴면상태 회원
 			memSession.put("result", "3");
 			memSession.put("member_id", Integer.toString(memberDto.getMember_id()));
 		}
@@ -63,14 +63,14 @@ public class LoginHandler {
 		return new ModelAndView("user/login/loginPro");
 	}
 	
-	// 휴면 계정 활성화 폼으로 이동
+	//휴면 계정 활성화 폼으로 이동
 	@RequestMapping("/activateStatus.do")
 	public ModelAndView activateStatus(HttpServletRequest request, HttpServletResponse response) {
 		
 		return new ModelAndView("user/login/activateStatus");
 	}
 	
-	// 휴면 계정 활성화
+	//휴면 계정 활성화
 	@RequestMapping("/activateStatusPro.do")
 	public ModelAndView activateStatusPro(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -81,11 +81,11 @@ public class LoginHandler {
 		int result = memberDao.check(member_id, password);
 		
 		if(result == 1) {
-			// 비밀번호 같다
+			//비밀번호 같다
 			memberDao.activateStatusFromLogin(member_id);
 			result = 1;
 		} else {
-			// 비밀번호 다르다
+			//비밀번호 다르다
 			result = 0;
 		}
 
@@ -95,11 +95,11 @@ public class LoginHandler {
 		return new ModelAndView("user/login/activateStatusPro");
 	}
 	
-	// 로그 아웃
+	//로그 아웃
 	@RequestMapping("/logout.do")
 	public ModelAndView logOutPro(HttpServletRequest request, HttpServletResponse response) {
 		
-		// 세션 초기화
+		//세션 초기화
 		request.getSession().invalidate();
 
 		return new ModelAndView("user/login/loginForm");

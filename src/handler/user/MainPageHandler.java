@@ -13,7 +13,7 @@ public class MainPageHandler {
 	@RequestMapping("/mainPage.do")
 	public ModelAndView mainPage(HttpServletRequest request, HttpServletResponse respons) {
 			
-		// 메인페이지로 가기(임시 페이지)
+		//메인페이지로 가기(임시 페이지)
 		return new ModelAndView("user/main/mainPage");
 	}
 
