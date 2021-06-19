@@ -34,10 +34,10 @@ public class SignUpHandler {
 		//이메일 중복 체크
 		int result = memberDao.checkEmail(member_email);
 		
-		//결과셋팅
+		//결과 반환
 		request.setAttribute("result", result);
 			
-		return new ModelAndView("user/signup/checkEmail");
+		return new ModelAndView("user/common/ajaxResult");
 	}
 	
 	//닉네임 중복 체크
@@ -53,8 +53,8 @@ public class SignUpHandler {
 	    //결과 셋팅
 	    request.setAttribute("result", result);
 	    
-	    //결과 반환	
-	    return new ModelAndView("user/signup/checkNickname");
+	    //결과 반환
+	    return new ModelAndView("user/common/ajaxResult");
 	}
 	
 }

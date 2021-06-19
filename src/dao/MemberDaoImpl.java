@@ -1,18 +1,18 @@
 package dao;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
 
 import dao.inter.MemberDao;
 import dto.MemberDto;
-import mybatis.SqlMapClient;
 
 public class MemberDaoImpl implements MemberDao {
-
-	//SQL 세션 생성
-	SqlSession session = SqlMapClient.getSession();
+	
+	@Resource(name="sqlSession")
+	SqlSession session;
 	
 	//로그인시 멤버 정보 가져오기
-	@Override
 	public MemberDto getMemberFromLogin(String member_email) {
 		
 		return session.selectOne("user.getMemberFromLogin", member_email);
@@ -56,8 +56,10 @@ public class MemberDaoImpl implements MemberDao {
 	
 	//계정 활성화시 상태 체크
 	public int check(int member_id, String password) {
+		
 		int result = 0;
 		MemberDto memberDto = getMemberFromMypage(member_id);
+		
 		if(memberDto.getPassword().equals(password)) {
 			result = 1;
 		} else {
@@ -68,11 +70,13 @@ public class MemberDaoImpl implements MemberDao {
 	
 	//계정 활성화시 멤버 정보 보기
 	public MemberDto getMemberFromMypage(int member_id){
+		
 		return session.selectOne("user.getMemberFromMypage", member_id);
 	}
 	
 	//휴면상태 -> 활동상태 변경
 	public int activateStatusFromLogin(int member_id) {
+		
 		return session.update("user.activateStatusFromLogin", member_id);
 	}
 	

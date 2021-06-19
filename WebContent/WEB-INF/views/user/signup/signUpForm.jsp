@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/view/setting.jsp" %>
+<%@ include file= "/WEB-INF/views/setting.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +43,7 @@
 		           			<input type="hidden" id="checkNickname" value="0">
 		                    <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-8">
+			                    	<div class="col-md-8">			                    		
 			                       		<input type="text" class="form-control" name="member_email" placeholder="이메일 계정" onkeyup="checkValidationEmail()" >
 			                        </div>
 			                    	<div class="col-md-4">
