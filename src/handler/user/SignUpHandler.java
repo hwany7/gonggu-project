@@ -6,14 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.inter.MemberDao;
+import service.inter.SignupService;
 
 @Controller
 public class SignUpHandler {
 	
-	//스프링 빈 객체 할당
-	@Resource(name="memberDaoImpl")
-	MemberDao memberDao;
+	@Resource(name="signupServiceImpl")
+	SignupService signupService;
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("/signUpForm.do")
@@ -28,11 +27,7 @@ public class SignUpHandler {
 
 		ModelAndView mav = new ModelAndView("user/common/ajaxResult");
 		
-		//이메일 중복 체크
-		int result = memberDao.checkEmail(member_email);
-		
-		//결과 반환
-		mav.addObject("result", result);
+		mav.addObject("result", signupService.CheckDuplicateForEmail(member_email));
 	
 		return mav;
 	}
@@ -43,14 +38,20 @@ public class SignUpHandler {
 		
 		ModelAndView mav = new ModelAndView("user/common/ajaxResult");
 			
-	    //닉네임 검사
-	    int result = memberDao.checkNickname(nickname);
-	   	    
-	    //결과 셋팅
-	    mav.addObject("result", result);
+	    mav.addObject("result", signupService.CheckDuplicateForNickname(nickname));
 
-	    //결과 반환
 	    return mav;
+	}
+	
+	//이메일 인증
+	@RequestMapping("/mailConfirmForm.do")
+	public ModelAndView mailConfirmForm(String member_email) {
+		
+		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
+		
+		mav.addObject("codeMsg", signupService.SendMailGetCode(member_email));
+		
+		return mav;
 	}
 	
 }

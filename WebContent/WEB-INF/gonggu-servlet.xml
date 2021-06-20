@@ -18,6 +18,6 @@
 	<context:component-scan base-package="bean"/>
 	<context:component-scan base-package="handler"/>
 	<context:component-scan base-package="dao"/>
-	<context:component-scan base-package="services"/>
+	<context:component-scan base-package="service"/>
 	
 </beans>

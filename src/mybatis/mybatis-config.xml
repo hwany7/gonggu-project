@@ -3,6 +3,7 @@
 <!DOCTYPE configuration
  	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+  	
 <configuration>
 	<!-- DB 연결정보 로드 -->
 	<properties resource="mybatis/connect.properties"/>
@@ -23,5 +24,6 @@
 	<!-- Mapper 설정 -->
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml"/>
-	</mappers>	
+	</mappers>
+	
 </configuration> 

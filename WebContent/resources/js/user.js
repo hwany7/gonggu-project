@@ -109,3 +109,39 @@ function checkValidationNickName() {
 		$("#nickname_check").html('');	
 	}
 }
+
+//회원가입 - 메일 인증
+function openMailConfimForm(){
+	
+	var member_email = $('input[name=member_email]').val();
+	   
+	var w = 500;
+	var h = 500;
+	var popupY= (window.screen.height/2) - (h/2);
+	var popupX = (window.screen.width/2) - (w/2);
+	var url = "mailConfirmForm.do?member_email=" + member_email;
+	
+	open(url, 'mailConfirmForm', 'menubar=no,statusbar=no,scrollbar=no, width=' + w + ', height=' + h + ', left=' + popupX + ', top=' + popupY);
+}
+
+//회원가입 - 메일인증 성공 여부
+function clickMailConfimForm(){
+	
+	var codeMsg = $('button[name=confim_btn]').attr('id');
+	var inputCode = $('.inputCode').val();
+	
+	if(codeMsg == inputCode){
+		alert('인증 완료');
+		opener.document.getElementById('mailConfirmForm').value = "인증 완료";
+		opener.document.getElementById('mailConfirmForm').disabled = true;
+		opener.document.getElementById('memberEmail').disabled = true;
+		opener.document.getElementById('emailConfirm').value = '1';
+		
+		
+		window.close();
+	}else{
+		alert('코드를 정확히 입력해 주세요');
+		return false;
+	}
+	
+}

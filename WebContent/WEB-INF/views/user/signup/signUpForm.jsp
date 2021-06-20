@@ -41,13 +41,15 @@
 		           		<form method="post" name="signUpForm" role="form" action="signUpPro.do" onsubmit="return checkConditionSignUpFrom()"><!-- 맨 마지막에 작성 -->
 		           			<input type="hidden" id="checkEmail" value="0">
 		           			<input type="hidden" id="checkNickname" value="0">
+		           			<input type="hidden" id="emailConfirm" value="0">
+		           			
 		                    <div class="form-group">
 		                    	<div class="row">
 			                    	<div class="col-md-8">			                    		
-			                       		<input type="text" class="form-control" name="member_email" placeholder="이메일 계정" onkeyup="checkValidationEmail()" >
+			                       		<input type="text" class="form-control" id ="memberEmail" name="member_email" placeholder="이메일 계정" onkeyup="checkValidationEmail()" >
 			                        </div>
 			                    	<div class="col-md-4">
-			                       		<input type="button" id="mailConfirmForm" class="btn btn-info width-100p" value="인증하기" disabled="disabled">
+			                       		<input type="button" id="mailConfirmForm" class="btn btn-info width-100p" value="인증하기" disabled="disabled" onclick="openMailConfimForm()">
 			                        </div>
 		                        </div>
 		                    </div>	                  
