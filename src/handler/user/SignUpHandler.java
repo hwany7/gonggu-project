@@ -1,8 +1,6 @@
 package handler.user;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,47 +12,45 @@ import dao.inter.MemberDao;
 public class SignUpHandler {
 	
 	//스프링 빈 객체 할당
-	@Resource(name="memberDao")
+	@Resource(name="memberDaoImpl")
 	MemberDao memberDao;
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("/signUpForm.do")
-	public ModelAndView signUp(HttpServletRequest request, HttpServletResponse response) {
+	public String signUp() {
 		
-		return new ModelAndView("user/signup/signUpForm");
+		return "user/signup/signUpForm";
 	}
 	
 	//이메일 중복 검사
 	@RequestMapping("/checkEmail.do")
-	public ModelAndView checkEmail(HttpServletRequest request, HttpServletResponse response) {
-			
-		//파라미터 받기
-		String member_email = request.getParameter("member_email");
+	public ModelAndView checkEmail(String member_email) {
+
+		ModelAndView mav = new ModelAndView("user/common/ajaxResult");
 		
 		//이메일 중복 체크
 		int result = memberDao.checkEmail(member_email);
 		
 		//결과 반환
-		request.setAttribute("result", result);
-			
-		return new ModelAndView("user/common/ajaxResult");
+		mav.addObject("result", result);
+	
+		return mav;
 	}
 	
 	//닉네임 중복 체크
 	@RequestMapping("/checkNickname.do")
-	public ModelAndView checkNickname(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView checkNickname(String nickname) {
 		
-		//파라미터 받기
-		String nickname = request.getParameter("nickname");
-		
+		ModelAndView mav = new ModelAndView("user/common/ajaxResult");
+			
 	    //닉네임 검사
 	    int result = memberDao.checkNickname(nickname);
 	   	    
 	    //결과 셋팅
-	    request.setAttribute("result", result);
-	    
+	    mav.addObject("result", result);
+
 	    //결과 반환
-	    return new ModelAndView("user/common/ajaxResult");
+	    return mav;
 	}
 	
 }

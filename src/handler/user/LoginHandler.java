@@ -17,23 +17,23 @@ import dto.MemberDto;
 @Controller
 public class LoginHandler {
 	
-	@Resource(name="memberDao")
+	@Resource(name="memberDaoImpl")
 	private MemberDao memberDao;
 
 	//로그인 폼
 	@RequestMapping("/loginForm.do")
-	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse respons) {
+	public String loginForm() {
 		
 		//로그인 폼으로 이동
-		return new ModelAndView("user/login/loginForm");
+		return "user/login/loginForm";
 	}
 	
 	//로그인 프로
 	@RequestMapping("/loginPro.do")
-	public ModelAndView logInPro(HttpServletRequest request, HttpServletResponse respons) {
+	public ModelAndView logInPro(String member_email, String password) {
 		
-		String member_email = request.getParameter("member_email");
-		String password = request.getParameter("password");
+		ModelAndView mav = new ModelAndView("user/login/loginPro");
+		
 		MemberDto memberDto = memberDao.getMemberFromLogin(member_email);
 		Map<String, String> memSession  = new HashMap<String, String>();
 		
@@ -58,25 +58,25 @@ public class LoginHandler {
 			memSession.put("member_id", Integer.toString(memberDto.getMember_id()));
 		}
 		
-		request.setAttribute("memSession", memSession);	
-		
-		return new ModelAndView("user/login/loginPro");
+		mav.addObject("memSession", memSession);
+	
+		return mav;
 	}
 	
 	//휴면 계정 활성화 폼으로 이동
 	@RequestMapping("/activateStatus.do")
-	public ModelAndView activateStatus(HttpServletRequest request, HttpServletResponse response) {
+	public String activateStatus(HttpServletRequest request, HttpServletResponse response) {
 		
-		return new ModelAndView("user/login/activateStatus");
+		return "user/login/activateStatus";
 	}
 	
 	//휴면 계정 활성화
 	@RequestMapping("/activateStatusPro.do")
-	public ModelAndView activateStatusPro(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView activateStatusPro(HttpServletRequest request, String password) {
 		
-		String mem_id = (String) request.getSession().getAttribute("member_id");
-		int member_id = Integer.parseInt(mem_id);
-		String password = request.getParameter("password");
+		ModelAndView mav = new ModelAndView("user/login/activateStatusPro");
+		
+		int member_id = Integer.parseInt(request.getSession().getAttribute("member_id").toString());
 		
 		int result = memberDao.check(member_id, password);
 		
@@ -90,19 +90,19 @@ public class LoginHandler {
 		}
 
 		//결과셋팅
-		request.setAttribute("result", result);
-		
-		return new ModelAndView("user/login/activateStatusPro");
+		mav.addObject("result", result);
+	
+		return mav;
 	}
 	
 	//로그 아웃
 	@RequestMapping("/logout.do")
-	public ModelAndView logOutPro(HttpServletRequest request, HttpServletResponse response) {
+	public String logOutPro(HttpServletRequest request) {
 		
 		//세션 초기화
 		request.getSession().invalidate();
 
-		return new ModelAndView("user/login/loginForm");
+		return "user/login/loginForm";
 	}
 	
 }
