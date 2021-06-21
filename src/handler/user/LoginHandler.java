@@ -13,7 +13,7 @@ import service.inter.LoginService;
 public class LoginHandler {
 	
 	@Resource(name="loginServiceImpl")
-	private LoginService loginService;
+	LoginService loginService;
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/loginForm.do")

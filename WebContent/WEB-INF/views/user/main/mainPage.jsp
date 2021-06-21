@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>MAIN PAGE</title>
+		<title>GongGu</title>
 	</head>
 	<body>
 		<h2>메인페이지 임시</h2>	

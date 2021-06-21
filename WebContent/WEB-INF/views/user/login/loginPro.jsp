@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>공구 프로젝트</title>
+		<title>GongGu</title>
 	</head>
 	<body>
 		<c:if test="${memSession.result eq '0'}">

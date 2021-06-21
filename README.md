@@ -1,6 +1,6 @@
 # GongGu-Project
 
-1. 프로젝트 개요:
+1. 프로젝트 개요
 - 스프링 기본을 황용한 공동구매 기능을 제공하는 웹사이트 제작
 - 메이븐을 활용하지 않고 직접 .jar 파일을 추가하면서 구현
 - 본 프로젝트는 능력내에서 빠르게 프로젝트를 완성하는 것에 중점을 둠
@@ -12,6 +12,7 @@
 - 이메일 중복 검사 기능 [2021-0619]
 - 닉네임 중복 검사 기능 [2021-0619]
 - 이메일 인증 기능 [2021-0621]
+- 주소 찾기 기능 [2021-0621]
 
 3. 개발 버전
 - Java SE Development Kit 8 241
@@ -27,7 +28,7 @@
 - jquery-3.5.1
 
 6. 사용한 jar 목록
-- servlet-api.jar [2021-0616] 
+- servlet-api.jar [2021-0616]
 - spring-aop-4.3.9.RELEASE.jar [2021-0616] 
 - spring-beans-4.3.9.RELEASE.jar [2021-0616] 
 - spring-context-4.3.9.RELEASE.jar [2021-0616]
@@ -36,8 +37,8 @@
 - spring-web-4.3.9.RELEASE.jar [2021-0616]
 - spring-webmvc-4.3.9.RELEASE.jar [2021-0616]
 - cglib-2.1.95.jar [2021-0616]
-- commons-logging-1.1.2.jar [2021-0616] 
-- ojdbc6.jar [2021-0616] 
+- commons-logging-1.1.2.jar [2021-0616]
+- ojdbc6.jar [2021-0616]
 - jstl.jar [2021-0616]
 - standard.jar [2021-0616]
 - mybatis-3.5.5.jar [2021-0617]
