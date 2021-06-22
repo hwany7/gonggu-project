@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.MemberDto;
 import service.inter.SignupService;
 
 @Controller
@@ -53,5 +54,16 @@ public class SignUpHandler {
 		
 		return mav;
 	}
+	
+	//회원 가입
+	@RequestMapping("/signUpPro.do")
+	public ModelAndView signUpPro(MemberDto member) {
+		
+		ModelAndView mav = new ModelAndView("user/signup/signUpPro");
+
+		mav.addObject("result", signupService.RegisteMember(member));
+		
+		return mav;
+	}	
 	
 }

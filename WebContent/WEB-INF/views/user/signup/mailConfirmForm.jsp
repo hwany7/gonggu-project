@@ -7,9 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GongGu</title>
-		<style type="text/css">
-			body { min-width: 500px; }
-		</style>
+		<style type="text/css"> body { min-width: 500px; } </style>
 	</head>
 	<body>
 		<div class="container-fluid">	

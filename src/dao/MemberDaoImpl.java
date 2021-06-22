@@ -56,5 +56,12 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.checkNickname", nickname);
 	}
 	
+	//멤버 등록
+	@Override
+	public int insertMember(MemberDto member) {
+		
+		return session.insert("member.insertMember", member);
+	}
+	
 	
 }

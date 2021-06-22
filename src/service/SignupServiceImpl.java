@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import dao.inter.MemberDao;
+import dto.MemberDto;
 import service.inter.SignupService;
 import util.MailSend;
 import util.RandomCode;
@@ -40,6 +41,13 @@ public class SignupServiceImpl implements SignupService {
 		MailSend send = new MailSend(member_email, codeMsg);
 		
 		return codeMsg;
+	}
+	
+	//멤버 추가 기능
+	@Override
+	public int RegisteMember(MemberDto member) {
+				
+		return memberDao.insertMember(member);
 	}
 	
 }

@@ -15,5 +15,6 @@ public interface MemberDao {
 	//회원가입
 	public int checkEmail(String member_email);
 	public int checkNickname(String nickname);
+	public int insertMember(MemberDto member);
 	
 }
