@@ -18,9 +18,13 @@ public class SignUpHandler {
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("/signUpForm.do")
-	public String signUp() {
+	public ModelAndView signUp() {
 		
-		return "user/signup/signUpForm";
+		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
+		
+		mav.addObject("page", "/WEB-INF/views/user/signup/signUpForm");
+		
+		return mav;
 	}
 	
 	//이메일 중복 검사

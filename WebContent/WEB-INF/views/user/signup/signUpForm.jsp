@@ -1,37 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file= "/WEB-INF/views/setting.jsp" %>
-
-<!DOCTYPE html>
-<html>
-	<head>	
-		<meta charset="UTF-8">
-		<title>GongGu</title>
-		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>	
-	</head>
-	<body>
-		<!-- 컨테이너 -->
-		<div class="container-fluid">
-		
-			<!-- 상단 메뉴바-->
-			<div class="row">
-				<div class="height-60 pd-top-15 hf login-menu line-a">
-					<div class="col-xs-6 col-md-6">
-						<div class="mar-left-100"><h4><a href="mainPage.do">GongGu</a></h4></div>
-					</div>
-					<div class="col-xs-6 col-md-6">
-						<div class="text-right mar-right-150">
-							<h4>
-								<span><a href="loginForm.do">로그인</a></span>
-								<span><a href="signUpForm.do">회원가입</a></span>
-							</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- 회원 가입 -->
-			<div class="row">
 	 			<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4">
 	 				<div class="div-center max-width-400">
 		 				<div class="mar-top-100">
@@ -143,8 +111,5 @@
 		                    </div>
 		                </form>        
 	                </div>
-	            </div>    			
-			</div>
-		</div>
-	</body>
-</html>
+	            </div>
+	            <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
