@@ -39,7 +39,6 @@ function checkValidationEmail(){
 			url : 'checkEmail.do',
 			type : 'get',
 			data : {'member_email' : email},
-			dataType : 'String',
 			success : function(result) {
 				if(result != 0){	
 					msg = "<h6 id='checkMsg' style='color: red;'>이미 등록된 이메일 입니다</h6>";
@@ -88,7 +87,6 @@ function checkValidationNickName() {
 			url : 'checkNickname.do',
 			type : 'get',
 			data : {'nickname' : nickname},
-			dataType : 'String',
 			success : function(result) {
 				if (result != 0) {
 					msg = "<h6 id='checkMsg' style='color: red;'>이미 사용중인 닉네임 입니다.</h6>";
