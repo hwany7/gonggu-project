@@ -106,7 +106,7 @@
 			                        </div>
 		                        </div>
 		                    </div>	                     
-		                    <div class="form-group mar-bottom-300">
+		                    <div class="form-group mar-bottom-100">
 		                        <button type="submit" class="btn btn-info width-100p height-40">가입</button>
 		                    </div>
 		                </form>        

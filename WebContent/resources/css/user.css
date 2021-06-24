@@ -4,8 +4,22 @@ body{
 	font-family: 'Gothic A1', 'Black Han Sans', 'Do Hyeon', 'Nanum Pen Script', 'Noto Serif KR', sans-serif;
 	min-width: 1400px;
 }
-
 .login-menu a{
 	color: gray;
 	font-weight: bold;
+}
+.footer{
+	height: 100px;
+	background-color: rgba(0,0,0,0.84);
+}
+.nav-footer li{
+	margin-right: 20px;
+}
+.nav-bar{
+	font-family: 'Gothic A1', sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+}
+.main_search_bar{
+	padding-top: 8px;
 }

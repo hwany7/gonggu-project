@@ -2,15 +2,19 @@ package handler.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainPageHandler {
 	
-	@RequestMapping("/mainPage.do")
-	public String mainPage() {
+	@RequestMapping("/main.do")
+	public ModelAndView main() {
+		
+		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
+		
+		mav.addObject("page","/WEB-INF/views/user/main/main");
 			
-		//메인페이지로 가기(임시 페이지)
-		return "user/main/mainPage";
+		return mav;
 	}
 
 }

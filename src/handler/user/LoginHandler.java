@@ -68,7 +68,7 @@ public class LoginHandler {
 		//세션 초기화
 		request.getSession().invalidate();
 
-		return "user/login/loginForm";
+		return "redirect:/loginForm.do";
 	}
 	
 }

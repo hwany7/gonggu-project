@@ -13,7 +13,7 @@
 		<!-- 네비게이션-->
 		<div class="container-fluid">	
 			<div class="row">
-				<jsp:include page="/WEB-INF/views/user/template/beginNav.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/user/template/beginNav.jsp"/>
 			</div>
 		</div>
 		

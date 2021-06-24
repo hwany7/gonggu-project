@@ -24,7 +24,7 @@
 				${sessionScope.member_id = memSession.member_id}
 				${sessionScope.nickname = memSession.nickname}
 				${sessionScope.gender = memSession.gender}
-				<c:redirect url="mainPage.do"/>
+				<c:redirect url="main.do"/>
 			</c:if>
 			<c:if test="${memSession.result eq '2'}">
 			<!-- 활동 정지 회원 -->
