@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="notification">
+	
+ 	<!-- 알림 가져오기 -->
+ 	<select id="getNotificationById" parameterType="int" resultType="dto.NotificationDto">
+ 		select * from notification_gg where member_id=#{member_id}
+ 	</select>
+ 	
+ 	 <!-- 읽음 상태로 바꾸기 -->
+ 	<update id="updateReadStatus" parameterType="int">
+ 		update notification_gg set read_status = '1' where member_id = #{member_id}
+ 	</update>
+ 	
+ 	<!-- 읽지 않은 알림 체크 -->
+ 	<select id="checkNotificationNotRead" parameterType="int" resultType="int">
+ 		select count(*) from notification_gg where member_id = #{member_id} and read_status = 0
+ 	</select>	
+
+</mapper>

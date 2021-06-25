@@ -1,14 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-		      	 <!-- 최상단 노티스 -->
+		        <script type="text/javascript">
+		        $(document).ready(function(){
+		           if('${sessionScope.member_id}' != ''){
+		              setInterval(function(){
+		                 $.ajax({
+		                    url : 'checkNotification.do',
+		                    type : 'get',
+		                    dataType : 'text',
+		                    success : function(result) {
+		                       if(result == 1 ){
+		                          $('#notify1').removeClass('dispNotify');
+		                          $('#notify1').addClass('nonDispNotify');
+		                          $('#notify2').removeClass('nonDispNotify');
+		                          $('#notify2').addClass('dispNotify');
+		                       }else{
+		                          $('#notify2').removeClass('dispNotify');
+		                          $('#notify2').addClass('nonDispNotify');
+		                          $('#notify1').removeClass('nonDispNotify');
+		                          $('#notify1').addClass('dispNotify');
+		                       }
+		                    },
+		                    error : function(e) {}               
+		                 });
+		              }, 3000);
+		           }//end if
+		        });
+		        </script>
+		      	<!-- 최상단 노티스 -->
 				<div class="row">
 		            <div class="col-md-12 col-xs-12 height-50 bg-black text-center text-white font-DH pd-top-15" >
 		              <span class="text-main-color">모두에게 드리는 혜택!</span>
 		               <span>지금 바로 신청 마감이 종료되는 제품을 찾아보세요</span>
 		            </div>
 		        </div>
-		         <!-- 상단 메뉴바-->
+		        <!-- 상단 메뉴바-->
 				<div class="row">
 					<div class="nav-bar height-50 hf">
 						<div class="col-md-2 col-xs-2">
@@ -42,6 +69,10 @@
 		                        	<li><a href="signUpForm.do">회원가입</a></li>
 		                     	</c:if>
 		                     	<c:if test="${sessionScope.member_id ne null}">
+			                        <li>
+			                           <a class="notifycation"><img src="resources/img/notify1.png" id="notify1" class="dispNotify" onclick="openNotifycation()"></a>
+			                           <a class="notifycation"><img src="resources/img/notify2.png" id="notify2" class="nonDispNotify" onclick="openNotifycation()"></a>
+			                        </li>		                     	
 		                        	<li><a href="payablePost.do">마이페이지</a></li>
 		                        	<li><a href="logout.do">로그아웃</a></li>
 		                     	</c:if>
@@ -49,3 +80,11 @@
 		               	</div>						
 					</div>
 				</div>
+      			<!-- 알림박스 -->
+				<div class="container-fluid">
+         			<div class="row">
+            			<div class="col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8">
+               				<div class="notifyBox text-center font-DH"></div>
+            			</div>
+         			</div>
+      			</div>				

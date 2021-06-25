@@ -266,3 +266,27 @@ function checkConditionSignUpFrom(){
 		return false;
 	}
 }
+
+function openNotifycation(){
+	
+        $(".notifyBox").toggleClass("notifyBox-toggled");
+        
+        if($('.notifyBox').hasClass("notifyBox-toggled")){
+           $.ajax({
+              type : 'get',
+               url : "getNotification.do",
+               dataType : "text",
+               success : function(data){
+            	   $('#notify2').removeClass('dispNotify');
+            	   $('#notify2').addClass('nonDispNotify');
+            	   $('#notify1').removeClass('nonDispNotify');
+            	   $('#notify1').addClass('dispNotify');
+            	   $(".notifyBox").html(data);
+               },
+               error : function(e){
+                   alert("에러입니다");
+                }
+           });
+        }
+}
+

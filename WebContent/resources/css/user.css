@@ -23,3 +23,51 @@ body{
 .main_search_bar{
 	padding-top: 8px;
 }
+.dispNotify{
+	width: 20px;
+	height: 20px;
+}
+.nonDispNotify{
+	display: none;
+	width: 20px;
+	height: 20px;
+}
+.notifyBox{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	background-color: white;
+	z-index: -99;
+    opacity: 0;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 1px 1px #8C8C8C;;
+}
+.notifyBox.notifyBox-toggled{
+	z-index: 99;
+    opacity: 1;
+}
+.cropping{
+  max-height: 300px;
+  overflow: hidden;
+}
+.cropping img{
+  max-height: initial;
+  margin-top: -15%;
+  width: 100%;
+}
+.mainPostImag{
+	width: 100%;
+	height: 250px;
+}
+.mainProdName{
+	font-weight: bold;
+}
+.mainPostTitle{
+	color: #8C8C8C;	
+	font-weight: 20;
+}
+.mainPostMount{
+	color: #3DB7CC;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 15px;
+}

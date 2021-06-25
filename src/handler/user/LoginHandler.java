@@ -1,10 +1,11 @@
 package handler.user;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.inter.LoginService;
@@ -13,7 +14,7 @@ import service.inter.LoginService;
 public class LoginHandler {
 	
 	@Resource(name="loginServiceImpl")
-	LoginService loginService;
+	private LoginService loginService;
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/loginForm.do")
@@ -50,11 +51,11 @@ public class LoginHandler {
 	
 	//휴면 계정 활성화
 	@RequestMapping("/activateStatusPro.do")
-	public ModelAndView activateStatusPro(HttpServletRequest request, String password) {
+	public ModelAndView activateStatusPro(String password) {
 		
 		ModelAndView mav = new ModelAndView("user/login/activateStatusPro");
 		
-		int member_id = Integer.parseInt(request.getSession().getAttribute("member_id").toString());
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		mav.addObject("result", loginService.activateUser(member_id, password));
 	
@@ -63,11 +64,10 @@ public class LoginHandler {
 	
 	//로그 아웃
 	@RequestMapping("/logout.do")
-	public String logOutPro(HttpServletRequest request) {
+	public String logOutPro() {
 		
-		//세션 초기화
-		request.getSession().invalidate();
-
+		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
+	
 		return "redirect:/loginForm.do";
 	}
 	

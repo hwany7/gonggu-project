@@ -14,7 +14,7 @@ import service.inter.SignupService;
 public class SignUpHandler {
 	
 	@Resource(name="signupServiceImpl")
-	SignupService signupService;
+	private SignupService signupService;
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("/signUpForm.do")

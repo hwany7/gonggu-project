@@ -14,7 +14,7 @@ import util.RandomCode;
 public class SignupServiceImpl implements SignupService {
 	
 	@Resource
-	MemberDao memberDao;
+	private MemberDao memberDao;
 	
 	//이메일 중복 검사 기능
 	@Override

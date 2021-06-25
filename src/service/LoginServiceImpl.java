@@ -15,7 +15,7 @@ import service.inter.LoginService;
 public class LoginServiceImpl implements LoginService {
 	
 	@Resource
-	MemberDao memberDao;
+	private MemberDao memberDao;
 	
 	//메인 로그인 방식
 	@Override

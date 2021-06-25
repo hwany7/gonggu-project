@@ -24,6 +24,7 @@
 	<!-- Mapper 설정 -->
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml"/>
+		<mapper resource="mybatis/mappers/notification.xml"/>
 	</mappers>
 	
 </configuration> 
