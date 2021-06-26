@@ -11,16 +11,12 @@
 	<body>
 		<!-- 네이게이션 -->
 		<div class="container-fluid">
-			<div class="row">
-				<jsp:include page="/WEB-INF/views/user/template/mainNav.jsp"/>
-			</div>
+			<jsp:include page="/WEB-INF/views/user/template/mainNav.jsp"/>
 		</div>
 		
 		<!-- 메인 콘텐츠 -->
 		<div class="container-fluid">
-			<div class="row">
-				<c:import url="${page}.jsp" />
-			</div>
+			<jsp:include page="${page}.jsp"/>
 		</div>
 		
 		<!-- 여백 -->
@@ -28,9 +24,7 @@
 		
 		<!-- 푸터 페이지 -->
 		<div class="container-fluid">
-			<div class="row">
-				<c:import url="footer.jsp" />
-			</div>
+			<jsp:include page="/WEB-INF/views/user/template/footer.jsp"/>
 		</div>
 	</body>
 </html>

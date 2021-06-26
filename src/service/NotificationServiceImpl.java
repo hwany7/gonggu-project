@@ -43,4 +43,13 @@ public class NotificationServiceImpl implements NotificationService {
 		return result;
 	}
 	
+	//알림 전부 삭제하기
+	@Override
+	public List<NotificationDto> deleteAllNotification(int member_id) {
+		
+		notificationDao.deleteAllNotification(member_id);
+		
+		return notificationDao.getNotificationById(member_id);
+	}
+	
 }

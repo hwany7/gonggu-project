@@ -10,5 +10,6 @@ public interface NotificationDao {
 	public List<NotificationDto> getNotificationById(int member_id);
 	public int updateReadStatus(int member_id);
 	public int checkNotificationNotRead(int member_id);
+	public int deleteAllNotification(int member_id);
 
 }

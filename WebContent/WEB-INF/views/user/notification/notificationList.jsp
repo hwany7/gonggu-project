@@ -14,7 +14,7 @@
 								<h5 class="font-DH mar-top-20 text-color-g2">알림이 없습니다</h5>
 							</div>
 						</div>
-					</div>http://localhost:8080/gonggu/resources/img/tamplate1.jpg
+					</div>
 				</c:if>
 				
 				<!-- 리스트 박스 -->
@@ -35,7 +35,7 @@
 			
 			<c:if test="${notifications[0].manager_id ne null }">
 				<div class="container-fluid">
-					<input type="button" class="btn btn-default form-control" value="전체삭제" onclick="location='deleteAllNotification.do'" >
+					<input type="button" class="btn btn-default form-control" value="전체삭제" onclick="deleteAllNotification()">
 				</div>
 			</c:if>
 		</div>

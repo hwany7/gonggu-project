@@ -315,3 +315,17 @@ function checkNotification(member_id){
 	     }, 3000);
 	}
 }
+
+function deleteAllNotification(){
+    $.ajax({
+        type : 'get',
+         url : "deleteAllNotification.do",
+         dataType : "text",
+         success : function(data){
+        	 $(".notifyBox").html(data);
+         },
+         error : function(e){
+             alert("에러입니다");
+          }
+     });
+}

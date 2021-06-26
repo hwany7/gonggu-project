@@ -16,6 +16,11 @@
  	<!-- 읽지 않은 알림 체크 -->
  	<select id="checkNotificationNotRead" parameterType="int" resultType="int">
  		select count(*) from notification_gg where member_id = #{member_id} and read_status = 0
- 	</select>	
+ 	</select>
+ 	
+ 	 <!-- 알림 삭제하기 -->
+ 	<delete id="deleteAllNotification" parameterType="int">
+ 		delete from notification_gg where member_id=#{member_id}
+ 	</delete>	
 
 </mapper>

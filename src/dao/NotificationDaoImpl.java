@@ -36,4 +36,12 @@ public class NotificationDaoImpl implements NotificationDao {
 		
 		return session.selectOne("notification.checkNotificationNotRead", member_id);
 	}
+	
+	//유저 알림 전부 지우기
+	@Override
+	public int deleteAllNotification(int member_id) {
+		
+		return session.delete("notification.deleteAllNotification", member_id);
+		
+	}
 }
