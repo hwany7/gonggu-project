@@ -10,4 +10,10 @@
 						</div>
 					</div>
 				</div>
-						
+				
+				<!-- 모듈1, 마감임박 게시글 6개 -->
+				<div class="container-fluid">
+					<div class="row div-center">
+						<jsp:include page="/WEB-INF/views/user/main/main-module-one.jsp"/>
+					</div>
+				</div>

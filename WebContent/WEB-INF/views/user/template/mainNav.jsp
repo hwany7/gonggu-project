@@ -1,33 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-		        <script type="text/javascript">
-		        $(document).ready(function(){
-		           if('${sessionScope.member_id}' != ''){
-		              setInterval(function(){
-		                 $.ajax({
-		                    url : 'checkNotification.do',
-		                    type : 'get',
-		                    dataType : 'text',
-		                    success : function(result) {
-		                       if(result == 1 ){
-		                          $('#notify1').removeClass('dispNotify');
-		                          $('#notify1').addClass('nonDispNotify');
-		                          $('#notify2').removeClass('nonDispNotify');
-		                          $('#notify2').addClass('dispNotify');
-		                       }else{
-		                          $('#notify2').removeClass('dispNotify');
-		                          $('#notify2').addClass('nonDispNotify');
-		                          $('#notify1').removeClass('nonDispNotify');
-		                          $('#notify1').addClass('dispNotify');
-		                       }
-		                    },
-		                    error : function(e) {}               
-		                 });
-		              }, 3000);
-		           }//end if
-		        });
-		        </script>
+				<script>document.addEventListener("DOMContentLoaded", checkNotification('${sessionScope.member_id}'));</script>		
 		      	<!-- 최상단 노티스 -->
 				<div class="row">
 		            <div class="col-md-12 col-xs-12 height-50 bg-black text-center text-white font-DH pd-top-15" >

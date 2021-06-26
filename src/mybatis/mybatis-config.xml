@@ -25,6 +25,7 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml"/>
 		<mapper resource="mybatis/mappers/notification.xml"/>
+		<mapper resource="mybatis/mappers/post.xml"/>
 	</mappers>
 	
 </configuration> 

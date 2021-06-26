@@ -290,3 +290,28 @@ function openNotifycation(){
         }
 }
 
+function checkNotification(member_id){
+	if(member_id != ''){
+		setInterval(function(){
+	        $.ajax({
+	           url : 'checkNotification.do',
+	           type : 'get',
+	           dataType : 'text',
+	           success : function(result) {
+	              if(result == 1 ){
+	                 $('#notify1').removeClass('dispNotify');
+	                 $('#notify1').addClass('nonDispNotify');
+	                 $('#notify2').removeClass('nonDispNotify');
+	                 $('#notify2').addClass('dispNotify');
+	              }else{
+	                 $('#notify2').removeClass('dispNotify');
+	                 $('#notify2').addClass('nonDispNotify');
+	                 $('#notify1').removeClass('nonDispNotify');
+	                 $('#notify1').addClass('dispNotify');
+	              }
+	           },
+	           error : function(e) {}               
+	        });
+	     }, 3000);
+	}
+}

@@ -5,7 +5,7 @@
 
 		<div class="max-width-1500 div-center">
 			<div class="container-fluid">
-					
+								
 				<!-- 내역이 없을경우 -->
 				<c:if test="${notifications[0].manager_id eq null }">
 					<div class="row">
@@ -14,7 +14,7 @@
 								<h5 class="font-DH mar-top-20 text-color-g2">알림이 없습니다</h5>
 							</div>
 						</div>
-					</div>
+					</div>http://localhost:8080/gonggu/resources/img/tamplate1.jpg
 				</c:if>
 				
 				<!-- 리스트 박스 -->

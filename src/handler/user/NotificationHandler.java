@@ -1,7 +1,6 @@
 package handler.user;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +19,10 @@ public class NotificationHandler {
 	
 	//알림 얻기
 	@RequestMapping("/getNotification.do")
-	public ModelAndView getNotification(HttpServletRequest request) {
+	public ModelAndView getNotification() {
 		
 		//세션 받기
-		int member_id = Integer.parseInt((String) request.getSession().getAttribute("member_id"));
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		ModelAndView mav = new ModelAndView("user/notification/getNotification");
 			
