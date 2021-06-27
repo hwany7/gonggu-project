@@ -16,7 +16,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="postContent.do?post_id=${hitPostDto[0].post_id}">		
+													<a href="post.do?post_id=${hitPostDto[0].post_id}">		
 														<img src="${hitPostDto[0].image}" class="mainPostImag">	
 													</a>		
 												</div>					
@@ -30,7 +30,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="postContent.do?post_id=${hitPostDto[1].post_id}">		
+													<a href="post.do?post_id=${hitPostDto[1].post_id}">		
 														<img src="${hitPostDto[1].image}" class="mainPostImag">		
 													</a>	
 												</div>					
@@ -44,7 +44,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="postContent.do?post_id=${hitPostDto[2].post_id}">		
+													<a href="post.do?post_id=${hitPostDto[2].post_id}">		
 														<img src="${hitPostDto[2].image}" class="mainPostImag">
 													</a>			
 												</div>					
@@ -65,7 +65,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="postContent.do?post_id=${hitPostDto[3].post_id}">		
+													<a href="post.do?post_id=${hitPostDto[3].post_id}">		
 														<img src="${hitPostDto[3].image}" class="mainPostImag">		
 													</a>	
 												</div>					
@@ -79,7 +79,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">		
-													<a href="postContent.do?post_id=${hitPostDto[4].post_id}">	
+													<a href="post.do?post_id=${hitPostDto[4].post_id}">	
 														<img src="${hitPostDto[4].image}" class="mainPostImag">			
 													</a>
 												</div>					

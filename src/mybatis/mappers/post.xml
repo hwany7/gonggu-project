@@ -21,6 +21,18 @@
 	 		)
 	 		where ranking =1
  	</select>
+ 	
+ 	<!-- postContent 페이지에 보여줄 content -->
+ 	<select id="getPostContentFromContent" parameterType="int" resultType="dto.join.PostContentDto">
+ 		select *
+		from (
+		    select post_id, post_gg.product_id, category_name, post_title, post_status, 
+		    		product_name, image, product_model, current_amount, default_price,content, payment_amount
+		    from post_gg, product_gg, category_gg
+		    where post_gg.product_id = product_gg.product_id 
+		    		and product_gg.category_id = category_gg.category_id)
+		where post_id=#{post_id}
+ 	</select>
 
 
 </mapper>

@@ -17,12 +17,12 @@ public class LoginHandler {
 	private LoginService loginService;
 	
 	//로그인 폼으로 이동
-	@RequestMapping("/loginForm.do")
-	public ModelAndView loginForm() {
+	@RequestMapping("/login.do")
+	public ModelAndView login() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
 		
-		mav.addObject("page", "/WEB-INF/views/user/login/loginForm");
+		mav.addObject("page", "/WEB-INF/views/user/login/login");
 		
 		return mav;
 	}
@@ -68,7 +68,7 @@ public class LoginHandler {
 		
 		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
 	
-		return "redirect:/loginForm.do";
+		return "redirect:/login.do";
 	}
 	
 }

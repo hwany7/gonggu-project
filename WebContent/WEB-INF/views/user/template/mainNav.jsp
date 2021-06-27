@@ -39,8 +39,8 @@
 			          	<div class="col-md-3 col-xs-3 pd-top-15 " >
 			            	<ul class="list-inline nav-bar hf">
 			                	<c:if test="${sessionScope.member_id eq null}">
-			                    	<li><a href="loginForm.do">로그인</a></li>
-			                    	<li><a href="signUpForm.do">회원가입</a></li>
+			                    	<li><a href="login.do">로그인</a></li>
+			                    	<li><a href="signup.do">회원가입</a></li>
 			                 	</c:if>
 			                 	<c:if test="${sessionScope.member_id ne null}">
 				                    <li>

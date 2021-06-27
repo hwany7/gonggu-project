@@ -17,12 +17,12 @@ public class SignUpHandler {
 	private SignupService signupService;
 	
 	//회원가입 폼으로 이동
-	@RequestMapping("/signUpForm.do")
-	public ModelAndView signUp() {
+	@RequestMapping("/signup.do")
+	public ModelAndView signup() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
 		
-		mav.addObject("page", "/WEB-INF/views/user/signup/signUpForm");
+		mav.addObject("page", "/WEB-INF/views/user/signup/signup");
 		
 		return mav;
 	}

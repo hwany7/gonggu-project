@@ -7,8 +7,8 @@
 					<div class="col-xs-6 col-md-6">
 						<div class="text-right mar-right-150">
 							<h4>
-								<span><a href="loginForm.do" >로그인</a></span>
-								<span><a href="signUpForm.do">회원가입</a></span>
+								<span><a href="login.do" >로그인</a></span>
+								<span><a href="signup.do">회원가입</a></span>
 							</h4>
 						</div>
 					</div>

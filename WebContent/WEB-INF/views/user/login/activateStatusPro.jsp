@@ -23,7 +23,7 @@
 					alert("상태가 변경되었습니다");
 					//-->
 				</script>
-			<c:redirect url="loginForm.do"/>
+			<c:redirect url="login.do"/>
 		</c:if>
 	</body>
 </html>

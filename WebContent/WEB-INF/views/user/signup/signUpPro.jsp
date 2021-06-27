@@ -15,7 +15,7 @@
 				alert("회원 가입에 실패했습니다.");
 			</script>
 			// -->
-			<meta http-equiv="refresh" content="0.5; url='loginForm.do">
+			<meta http-equiv="refresh" content="0.5; url='login.do">
 		</c:if>
 		<c:if test="${result eq 1}">
 			<!-- 
@@ -23,7 +23,7 @@
 				alert("회원 가입에 성공했습니다.");
 			</script>
 			// -->
-			<meta http-equiv="refresh" content="0.5; url='loginForm.do">
+			<meta http-equiv="refresh" content="0.5; url='login.do">
 		</c:if>
 	</body>
 </html>

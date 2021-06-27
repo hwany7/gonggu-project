@@ -15,7 +15,7 @@
 		                    		<button type="submit" class="btn btn-info width-100p height-40">휴먼 계정 풀기</button>
 		                    	</div>
 		                    	<div class="col-md-6 col-xs-6">
-		                    		<button type="button" class="btn btn-danger width-100p height-40" onclick="location='loginForm.do'">취소</button>
+		                    		<button type="button" class="btn btn-danger width-100p height-40" onclick="location='login.do'">취소</button>
 		                    	</div> 
             				</div>
 		                    </div>
