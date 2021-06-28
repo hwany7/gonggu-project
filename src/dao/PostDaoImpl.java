@@ -30,6 +30,21 @@ public class PostDaoImpl implements PostDao {
 		
 		return session.selectOne("post.getPostContentFromContent", post_id);
 	}	
+	
+	//현재 신청 수량	
+	@Override
+	public int getCurrentamountFromApply(int post_id) {
+		
+		return session.selectOne("post.getCurrentamountFromApply", post_id);
+	}
+	
+	//모집수량
+	@Override
+	public int getMinamountFromApply(int post_id) {
+		
+		return session.selectOne("post.getMinamountFromApply", post_id);
+	}
+	
 }
 
 

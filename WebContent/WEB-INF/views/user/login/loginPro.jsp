@@ -9,7 +9,7 @@
 		<title>GongGu</title>
 	</head>
 	<body>
-		<c:if test="${memSession.result eq '0'}">
+		<c:if test="${member.result eq '0'}">
 		<!-- 아이디 X / 비밀번호 불일치 / 탈퇴회원 -->
 			<script type="text/javascript">
 				<!--
@@ -18,15 +18,15 @@
 				//-->
 			</script>
 		</c:if>
-		<c:if test="${memSession.result ne '0'}">
-			<c:if test="${memSession.result eq '1'}">
+		<c:if test="${member.result ne '0'}">
+			<c:if test="${member.result eq '1'}">
 			<!-- 활동 회원 -->
-				${sessionScope.member_id = memSession.member_id}
-				${sessionScope.nickname = memSession.nickname}
-				${sessionScope.gender = memSession.gender}
+				${sessionScope.member_id = member.member_id}
+				${sessionScope.nickname = member.nickname}
+				${sessionScope.gender = member.gender}
 				<c:redirect url="main.do"/>
 			</c:if>
-			<c:if test="${memSession.result eq '2'}">
+			<c:if test="${member.result eq '2'}">
 			<!-- 활동 정지 회원 -->
 				<script type="text/javascript">
 					<!--
@@ -35,9 +35,9 @@
 					//-->
 				</script>
 			</c:if>
-			<c:if test="${memSession.result eq '3'}">
+			<c:if test="${member.result eq '3'}">
 			<!-- 휴면상태 회원 -->
-				${sessionScope.member_id = memSession.member_id}
+				${sessionScope.member_id = member.member_id}
 				<c:redirect url="activateStatus.do"/>
 			</c:if>
 		</c:if>

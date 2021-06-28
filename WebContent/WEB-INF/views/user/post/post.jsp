@@ -50,7 +50,7 @@
 										<input type="hidden" name="post_id" value="${postContentDto.post_id}">
 									</div>
 									<div class="col-md-8">
-										<button type="button" class="applyBtn btn btn-info width-100p">신청하기</button>
+										<button type="button" class="applyBtn btn btn-info width-100p" onclick="addApply()">신청하기</button>
 									</div>
 								</div>
 								</c:if>

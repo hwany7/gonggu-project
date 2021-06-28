@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="application">
+
+ 	<!-- 공구 신청 -->
+ 	<insert id="registerAppFromPostContent" parameterType="int">
+ 		insert into application_gg(member_id, post_id, amount) values (#{member_id}, #{post_id}, #{amount}) 
+ 	</insert>	
+
+  	<!-- 유저 공구 신청시 신청수량 변경 -->
+ 	<update id="updateAppFromPostContent" parameterType="java.util.Map">
+ 		update post_gg set current_amount = current_amount + #{amount} where post_id = #{post_id}
+ 	</update>	
+
+</mapper>
+

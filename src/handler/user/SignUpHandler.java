@@ -13,7 +13,7 @@ import service.inter.SignupService;
 @Controller
 public class SignUpHandler {
 	
-	@Resource(name="signupServiceImpl")
+	@Resource
 	private SignupService signupService;
 	
 	//회원가입 폼으로 이동

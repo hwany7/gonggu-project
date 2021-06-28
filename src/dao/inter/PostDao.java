@@ -12,5 +12,7 @@ public interface PostDao {
 	
 	//포스트 페이지
 	public PostContentDto getPostContentFromContent(int post_id);
+	public int getCurrentamountFromApply(int post_id);
+	public int getMinamountFromApply(int post_id);
 	
 }

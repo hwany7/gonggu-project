@@ -12,8 +12,8 @@ import service.inter.LoginService;
 
 @Controller
 public class LoginHandler {
-	
-	@Resource(name="loginServiceImpl")
+
+	@Resource
 	private LoginService loginService;
 	
 	//로그인 폼으로 이동
@@ -30,10 +30,10 @@ public class LoginHandler {
 	//로그인 기능
 	@RequestMapping("/loginPro.do")
 	public ModelAndView logInPro(String member_email, String password) {
-		
+			
 		ModelAndView mav = new ModelAndView("user/login/loginPro");
 
-		mav.addObject("memSession", loginService.directLogin(member_email, password));
+		mav.addObject("member", loginService.directLogin(member_email, password));
 		
 		return mav;
 	}

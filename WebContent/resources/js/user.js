@@ -329,3 +329,23 @@ function deleteAllNotification(){
           }
      });
 }
+
+function addApply(){
+
+	//세선 받기
+	if('${sessionScope.member_id}' == ''){
+		alert("로그인을 해주세요");
+		return false;
+	}					
+	
+	var post_id = $('input[name=post_id]').val();
+	var amount = $('input[name=amount]').val();
+	
+	if(amount == ""|| amount == 0){
+		alert("신청 개수를 입력해 주세요");
+	}else{
+		window.document.location="applyPro.do?post_id=" + post_id + "&amount=" + amount;	
+	}
+	
+}
+

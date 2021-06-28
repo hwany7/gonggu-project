@@ -33,6 +33,16 @@
 		    		and product_gg.category_id = category_gg.category_id)
 		where post_id=#{post_id}
  	</select>
+ 	
+ 	<!-- 신청 수량 초과 방어하기 위해 현재 진행 수량 가져오기 -->
+	<select id="getCurrentamountFromApply" parameterType="int" resultType="int">
+		select current_amount from post_gg where post_id = #{post_id}
+	</select> 
+	
+	 <!-- 그리고 진행수량 -->
+	<select id="getMinamountFromApply" parameterType="int" resultType="int">
+		select minimum_amount from post_gg where post_id = #{post_id}
+	</select>
 
 
 </mapper>
