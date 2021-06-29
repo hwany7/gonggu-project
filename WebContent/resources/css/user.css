@@ -73,14 +73,24 @@ body{
 }
 .postContentTop{
 	height: 400px;
-	border-bottom: 1px solid #e2e2e2;
 }
 .postContentImg{
-	width: 100%;
+	width: 500px;
 	height: 350px;
 }
 .hr-color-main{
 	height: 3px;
 	background-color: #5BC0DE;
 	border: none;
+}
+.post_content img{
+	width: 560px;
+}
+.reivewListBox{
+	height: 100px;
+	border-bottom: 1px solid #e2e2e2;	
+}
+.tt{
+	color: white;
+	z-index: 100;
 }

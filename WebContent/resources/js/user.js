@@ -330,14 +330,13 @@ function deleteAllNotification(){
      });
 }
 
-function addApply(){
-
-	//세선 받기
-	if('${sessionScope.member_id}' == ''){
-		alert("로그인을 해주세요");
-		return false;
-	}					
+function addApply(member_id){	
 	
+	if(!member_id){
+		alert("로그인을 해주세요");
+		return window.document.location="login.do";
+	}
+
 	var post_id = $('input[name=post_id]').val();
 	var amount = $('input[name=amount]').val();
 	
@@ -348,4 +347,6 @@ function addApply(){
 	}
 	
 }
+
+
 
