@@ -1,5 +1,7 @@
 package handler.user;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,11 @@ public class PostHandler {
 		
 		mav.addObject("page", "/WEB-INF/views/user/post/post");
 		
-		mav.addObject("postContentDto", postService.getPost(post_id));
-			
+		Map<String, Object> map = postService.getPost(post_id);
+		
+		mav.addObject("postContentDto", map.get("postContentDto"));
+		mav.addObject("postContentReview", map.get("postContentReview"));
+		
 		return mav;
 	}	
 	

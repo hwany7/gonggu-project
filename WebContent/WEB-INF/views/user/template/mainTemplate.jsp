@@ -21,7 +21,7 @@
 		
 		<!-- 여백 -->
 		<div class="height-300 mar-top-50"></div>
-		
+			
 		<!-- 푸터 페이지 -->
 		<div class="container-fluid">
 			<jsp:include page="/WEB-INF/views/user/template/footer.jsp"/>

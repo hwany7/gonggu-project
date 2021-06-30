@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import dao.inter.ApplicationDao;
 import dao.inter.PostDao;
+import dao.inter.ReviewDao;
+import dto.ReviewDto;
 import dto.join.HitPostDto;
 import dto.join.PostContentDto;
 import service.inter.PostService;
@@ -23,6 +25,9 @@ public class PostServiceImpl implements PostService {
 	@Resource
 	private ApplicationDao applicationDao;
 	
+	@Resource
+	private ReviewDao reviewDao;
+	
 	//메인페이지 - 게시글 얻기
 	@Override
 	public List<HitPostDto> getMainPost() {
@@ -33,9 +38,33 @@ public class PostServiceImpl implements PostService {
 	
 	//포스트 페이지 - 포스트 정보 얻기
 	@Override
-	public PostContentDto getPost(int post_id) {
+	public Map<String, Object> getPost(int post_id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//Post
+		PostContentDto postContentDto = postDao.getPostContentFromContent(post_id);
+		map.put("postContentDto", postContentDto);
+		
+		//Review
+		String textByContent = null;
+		String reg = "<[^>]*>";
+		int product_id = postContentDto.getPost_id();
+		
+		List<ReviewDto> postContentReview = reviewDao.getReviewFromContent(product_id);
+			
+		if(postContentReview != null) {		
+			for(int i=0; i<postContentReview.size(); i++) {
 
-		return postDao.getPostContentFromContent(post_id);
+				textByContent= postContentReview.get(i).getContent().replaceAll(reg, "");
+				textByContent = textByContent.trim().replaceAll("&nbsp;", "");
+				postContentReview.get(i).setContent(textByContent);
+			}
+		}
+		
+		map.put("postContentReview", postContentReview);
+		
+		return map;
 	}
 	
 	//포스트 페이지 - 신청하기

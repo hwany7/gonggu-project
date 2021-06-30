@@ -83,9 +83,6 @@ body{
 	background-color: #5BC0DE;
 	border: none;
 }
-.post_content img{
-	width: 560px;
-}
 .reivewListBox{
 	height: 100px;
 	border-bottom: 1px solid #e2e2e2;	
@@ -93,4 +90,11 @@ body{
 .tt{
 	color: white;
 	z-index: 100;
+}
+.etcOneLine{
+	display: inline-block; 
+	width: 100%;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;	
 }
