@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="reply">
+
+ 	<!-- 리뷰content 페이지에서 댓글 데이터 -->
+ 	<select id="getReplyContentFromReview" parameterType="int" resultType="dto.join.ReplyContentDto">
+	 	select nickname, member_gg.member_id, reply_num, review_num, upload_date, content
+		from member_gg, reply_gg
+		where member_gg.member_id = reply_gg.member_id 
+			and review_num = #{review_num}
+		order by reply_num DESC
+ 	</select>	
+
+</mapper>
+

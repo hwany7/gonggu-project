@@ -98,3 +98,10 @@ body{
 	overflow: hidden;
 	text-overflow: ellipsis;	
 }
+.myPageProfile{
+	border-radius: 50%;
+}
+.review-textarea {
+	width: 100%;
+	height: 150px;
+}

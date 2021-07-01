@@ -43,6 +43,19 @@
 	<select id="getMinamountFromApply" parameterType="int" resultType="int">
 		select minimum_amount from post_gg where post_id = #{post_id}
 	</select>
+	
+ 	<!-- 리뷰content 페이지에서 어떤 상품인지 가져오기 -->
+  	<select id="getPayedPostFromReview" parameterType="int" resultType="dto.join.PayedPostDto">
+ 		select * 
+		from (select thumbnail, payment_id, payment_gg.application_id, application_gg.post_id, 
+					post_title, product_name, fixed_price*amount as total_price, 
+					review_writable, paytime
+        	from post_gg, product_gg, application_gg, payment_gg
+        	where post_gg.post_id = application_gg.post_id
+            	and post_gg.product_id = product_gg.product_id
+            	and application_gg.application_id = payment_gg.application_id
+            	and payment_id = #{payment_id})
+ 	</select>
 
 
 </mapper>

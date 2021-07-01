@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.inter.PostDao;
 import dto.join.HitPostDto;
+import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
 
 @Repository
@@ -44,6 +45,13 @@ public class PostDaoImpl implements PostDao {
 		
 		return session.selectOne("post.getMinamountFromApply", post_id);
 	}
+	
+	//reviewContent 에서 post 정보
+	@Override
+	public PayedPostDto getPayedPostFromReview(int payment_id) {
+		
+		return session.selectOne("post.getPayedPostFromReview", payment_id);
+	}	
 	
 }
 

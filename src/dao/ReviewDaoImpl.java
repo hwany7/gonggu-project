@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
+import dto.join.ReviewContentDto;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
@@ -22,6 +23,21 @@ public class ReviewDaoImpl implements ReviewDao{
 		
 		return session.selectList("review.getReviewFromContent", product_id);
 	}
+	
+	//리뷰 컨텐트
+	@Override
+	public ReviewContentDto getReviewContent(int review_num) {
+		
+		return session.selectOne("review.getReviewContent", review_num);
+	}	
+	
+	//조회수 올리기
+	@Override
+	public int addCountFromReview(int review_num) {
+		
+		return session.update("review.addCountFromReview", review_num);
+	}
+	
 }
 
 

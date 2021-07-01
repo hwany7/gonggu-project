@@ -100,7 +100,7 @@
 								<c:forEach var="postContentReview" items="${postContentReview}">
 								<div class="reivewListBox">
 									<h4 class="mar-top-20 hf">
-									<a href="reviewContent.do?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
+									<a href="review.do?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
 									</h4>
 									
 									<h5 class="etcOneLine text-color-g2">${postContentReview.content}</h5>

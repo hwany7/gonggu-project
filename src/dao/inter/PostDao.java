@@ -3,6 +3,7 @@ package dao.inter;
 import java.util.List;
 
 import dto.join.HitPostDto;
+import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
 
 public interface PostDao {
@@ -14,5 +15,8 @@ public interface PostDao {
 	public PostContentDto getPostContentFromContent(int post_id);
 	public int getCurrentamountFromApply(int post_id);
 	public int getMinamountFromApply(int post_id);
+	
+	//리뷰 페이지
+	public PayedPostDto getPayedPostFromReview(int payment_id);
 	
 }

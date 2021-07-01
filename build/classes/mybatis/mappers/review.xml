@@ -22,6 +22,21 @@
 		    order by likecount desc)
 		where rownum &lt;=5
  	</select>
+ 	
+  	<!-- 리뷰content 페이지에서 리뷰 데이터 -->
+	<select id="getReviewContent" parameterType="int" resultType="dto.join.ReviewContentDto">
+		select nickname, member_gg.member_id, review_num, payment_id, title, upload_date, 
+				replycount, readcount, likecount, content
+		from member_gg, review_gg
+		where member_gg.member_id = review_gg.member_id
+		and review_num = #{review_num}
+	</select>
+	
+	<!-- 조회수 올리기 -->
+ 	<update id="addCountFromReview" parameterType="int">
+ 		update review_gg set readcount = readcount+1
+ 		where review_num = #{review_num}
+ 	</update>		
 
 </mapper>
 
