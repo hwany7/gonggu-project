@@ -50,7 +50,12 @@
 	<!-- like 증가 -->
 	<update id="addlike" parameterType="int">
 		update REVIEW_GG set likecount=likecount+1 where review_num=#{review_num}
-	</update>			
+	</update>
+	
+	 <!-- 리뷰에 댓글 작성시 리뷰개수 변경  +1-->
+ 	<update id="updateReplycountFromReview" parameterType="int">
+ 		update review_gg set replycount = replycount + 1 where review_num = #{review_num}
+ 	</update>			
 
 </mapper>
 

@@ -17,5 +17,6 @@ public interface ReviewDao {
 	public int checkLike(Map<String, Integer> map);
 	public int insertLike(Map<String, Integer> map);
 	public int addlike(int review_num);
+	public int updateReplycountFromReview(int review_num);	
 	
 }

@@ -8,6 +8,14 @@ public class ReplyDto {
     private int member_id;
     private Timestamp upload_date;
     private String content;
+    
+    public  ReplyDto() {};
+    public  ReplyDto(int member_id, int review_num, String content) {
+    	
+    	this.member_id = member_id;
+    	this.review_num = review_num;
+    	this.content = content;
+     } 
        
 	public int getReply_num() {
 		return reply_num;

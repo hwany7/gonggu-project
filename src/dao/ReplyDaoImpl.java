@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.ReplyDao;
+import dto.ReplyDto;
 import dto.join.ReplyContentDto;
 
 @Repository
@@ -22,4 +23,11 @@ public class ReplyDaoImpl implements ReplyDao {
 		
 		return session.selectList("reply.getReplyContentFromReview", review_num);
 	}
+	
+	//댓글 등록하기
+	@Override
+	public int uploadReplyFromReview(ReplyDto replyDto) {
+		
+		return session.insert("reply.uploadReplyFromReview", replyDto);
+	}	
 }

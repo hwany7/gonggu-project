@@ -10,7 +10,12 @@
 		where member_gg.member_id = reply_gg.member_id 
 			and review_num = #{review_num}
 		order by reply_num DESC
- 	</select>	
+ 	</select>
+ 	
+ 	<!-- 댓글 작성 -->
+ 	<insert id="uploadReplyFromReview" parameterType="dto.ReplyDto">
+ 		insert into reply_gg(review_num, member_id, content) values (#{review_num}, #{member_id}, #{content})
+ 	</insert>	
 
 </mapper>
 

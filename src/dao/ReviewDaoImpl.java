@@ -58,6 +58,13 @@ public class ReviewDaoImpl implements ReviewDao{
 	public int addlike(int review_num) {
 		
 		return session.update("review.addlike",review_num);
+	}
+	
+	//댓글 작성 시 replycount update +1
+	@Override
+	public int updateReplycountFromReview(int review_num) {
+		
+		return session.update("review.updateReplycountFromReview", review_num);
 	}	
 	
 	
