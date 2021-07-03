@@ -35,5 +35,24 @@ public class ReviewServiceImpl implements ReviewService {
 		return map;
 	}
 	
+	//리뷰 좋아요 누르기
+	@Override
+	public int likeReview(int member_id, int review_num) {
+	
+		int result = 0;
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("member_id", member_id);
+		map.put("review_num", review_num);
+		
+		if( reviewDao.checkLike(map) == 0 ) {
+			
+			reviewDao.insertLike(map);
+			result = reviewDao.addlike(review_num);
+		}
+	
+		return result;
+	}
+	
 	
 }

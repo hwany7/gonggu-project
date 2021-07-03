@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -37,6 +38,28 @@ public class ReviewDaoImpl implements ReviewDao{
 		
 		return session.update("review.addCountFromReview", review_num);
 	}
+	
+	//like 중복체크
+	@Override
+	public int checkLike(Map<String, Integer> map) {
+
+		return session.selectOne("review.checkLike", map);
+	}
+	
+	//like 추가하기
+	@Override
+	public int insertLike(Map<String, Integer> map) {
+		
+		return session.insert("review.insertLike", map);
+	}
+	
+	//클릭시 like + 1
+	@Override
+	public int addlike(int review_num) {
+		
+		return session.update("review.addlike",review_num);
+	}	
+	
 	
 }
 

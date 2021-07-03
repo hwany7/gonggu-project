@@ -58,7 +58,7 @@ public class SignUpHandler {
 	@RequestMapping("/signUpPro.do")
 	public ModelAndView signUpPro(MemberDto member) {
 		
-		ModelAndView mav = new ModelAndView("user/signup/signUpPro");
+		ModelAndView mav = new ModelAndView("user/pro/signUpPro");
 
 		mav.addObject("result", signupService.RegisteMember(member));
 		

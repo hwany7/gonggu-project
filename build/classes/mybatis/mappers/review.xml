@@ -34,9 +34,23 @@
 	
 	<!-- 조회수 올리기 -->
  	<update id="addCountFromReview" parameterType="int">
- 		update review_gg set readcount = readcount+1
- 		where review_num = #{review_num}
- 	</update>		
+ 		update review_gg set readcount = readcount+1 where review_num = #{review_num}
+ 	</update>
+ 	
+ 	 <!-- 이미 좋아요 눌렀는지 체크 -->
+	<select id="checkLike" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from like_gg where member_id=#{member_id} and review_num=#{review_num}
+ 	</select>
+ 	
+ 	<!-- 좋아요 하기-->
+	<insert id="insertLike" parameterType="dto.LikeDto">
+		insert into like_gg(review_num, member_id) values( #{review_num}, #{member_id} )	
+	</insert>
+	
+	<!-- like 증가 -->
+	<update id="addlike" parameterType="int">
+		update REVIEW_GG set likecount=likecount+1 where review_num=#{review_num}
+	</update>			
 
 </mapper>
 

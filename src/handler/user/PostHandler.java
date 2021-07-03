@@ -38,7 +38,7 @@ public class PostHandler {
 	@RequestMapping("/applyPro.do")
 	public ModelAndView applyPro(int post_id, int amount) {
 		
-		ModelAndView mav = new ModelAndView("user/post/applyPro");
+		ModelAndView mav = new ModelAndView("user/pro/applyPro");
 		mav.addObject("re", postService.addPostApply(Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString()), post_id,amount));
 		
 		return mav;

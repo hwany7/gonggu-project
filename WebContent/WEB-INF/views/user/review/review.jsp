@@ -21,7 +21,7 @@
 								${reviewContentDto.nickname} 
 							</div>
 							<div class="col-md-6 col-xs-6 text-right mar-top-10">
-								<img src="resources/img/like.png" width="15px" height="15px" class="likeCountPro" id="${reviewContentDto.review_num}">
+								<img src="resources/img/like.png" width="15px" height="15px" class="likeReviewPro" id="${reviewContentDto.review_num}" onclick="likeReview(${sessionScope.member_id})">
 								<span>${reviewContentDto.likecount}</span>							
 								<img src="resources/img/reply.png" width="15px" height="15px">
 								<span>${reviewContentDto.replycount}</span>								
@@ -44,7 +44,7 @@
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}"> 
 								<input class="deleteReview btn btn-danger" id="${reviewContentDto.review_num}"  type="button" value="삭제하기">
 							</c:if>	
-							<input class="likeCountPro btn btn-info" id="${reviewContentDto.review_num}"  type="button" value="추천하기">
+							<input class="likeReviewPro btn btn-info" id="${reviewContentDto.review_num}"  type="button" value="추천하기" onclick="likeReview(${sessionScope.member_id})">
 						</div>
 					</div>
 				</div>

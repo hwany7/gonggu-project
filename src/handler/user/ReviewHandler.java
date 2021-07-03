@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.inter.ReviewService;
@@ -31,4 +33,19 @@ public class ReviewHandler {
 	
 		return mav;
 	}
+	
+	//좋아요 누르기
+	@RequestMapping("/likeReviewPro.do")
+	public ModelAndView likeReviewPro(int review_num) {
+			
+		ModelAndView mav = new ModelAndView("user/pro/likeReviewPro");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+					
+		mav.addObject("result", reviewService.likeReview(member_id, review_num));
+		mav.addObject("review_num", review_num);
+	
+		return mav;
+	}	
+	
 }

@@ -31,7 +31,7 @@ public class LoginHandler {
 	@RequestMapping("/loginPro.do")
 	public ModelAndView logInPro(String member_email, String password) {
 			
-		ModelAndView mav = new ModelAndView("user/login/loginPro");
+		ModelAndView mav = new ModelAndView("user/pro/loginPro");
 
 		mav.addObject("member", loginService.directLogin(member_email, password));
 		
@@ -53,7 +53,7 @@ public class LoginHandler {
 	@RequestMapping("/activateStatusPro.do")
 	public ModelAndView activateStatusPro(String password) {
 		
-		ModelAndView mav = new ModelAndView("user/login/activateStatusPro");
+		ModelAndView mav = new ModelAndView("user/pro/activateStatusPro");
 		
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		

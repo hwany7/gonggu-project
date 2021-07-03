@@ -348,5 +348,23 @@ function addApply(member_id){
 	
 }
 
+function replyCheck(){
+	if(!replyForm.content.value){
+		alert("댓글을 입력하세요");
+		replyForm.content.focus();
+		return false;
+	}
+}
+
+function likeReview(member_id){
+	
+	if(!member_id){
+		alert("로그인을 해주세요");
+		return false;
+	}
+	var review_num = $(".likeReviewPro").attr('id');
+	window.document.location="likeReviewPro.do?review_num=" + review_num;
+	
+}
 
 
