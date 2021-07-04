@@ -23,14 +23,25 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		ReplyDto replyDto = new ReplyDto(member_id, review_num, content);
 		
-		//댓글 등록
 		int result = replyDao.uploadReplyFromReview(replyDto);
 		
-		//등록 성공시
 		if(result == 1) {
 			reviewDao.updateReplycountFromReview(review_num);
 		}
 		
+		return result;
+	}
+	
+	@Override
+	public int deleteReply(int reply_num, int review_num) {
+		
+		int result = replyDao.deleteReplyFromReview(reply_num);;
+
+		if(result == 1) {
+			reviewDao.deleteupdateReplycountFromReview(review_num);
+			
+		}
+
 		return result;
 	}
 }

@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 				<div class="height-60 pd-top-15 hf login-menu line-a">
 					<div class="col-xs-6 col-md-6">
-						<div class="mar-left-100"><h4><a href="main.do">GongGu</a></h4></div>
+						<div class="mar-left-100"><h4><a href="main">GongGu</a></h4></div>
 					</div>	
 					<div class="col-xs-6 col-md-6">
 						<div class="text-right mar-right-150">
 							<h4>
-								<span><a href="login.do" >로그인</a></span>
-								<span><a href="signup.do">회원가입</a></span>
+								<span><a href="login" >로그인</a></span>
+								<span><a href="signup">회원가입</a></span>
 							</h4>
 						</div>
 					</div>

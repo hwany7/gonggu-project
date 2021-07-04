@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+			<!-- post.jsp -->
 			<!-- 상단 이미지 -->
 			<div class="row">
 				<div class="cropping" style="height:100px;">
@@ -74,16 +75,17 @@
 				</div>
 				<!-- 패널 콘텐트 -->
 				<div class="tab-content">
-					<div class="tab-pane active" id="home">		
-						<!-- 게시글 콘텐트 -->
+					<!-- 게시글 콘텐트 -->
+					<div class="tab-pane active" id="home">			
 						<div class="row div-center">
 							<div class="row mar-top-50">
 								<div class="font-GD">${postContentDto.content}</div>							
 							</div>
 						</div>	
 					</div>
-					<div class="tab-pane container fade" id="review">		
-						<!-- 리뷰 리스트 3개 -->
+					
+					<!-- 리뷰 리스트 3개 -->
+					<div class="tab-pane container fade" id="review">			
 						<c:if test="${postContentReview[0].title eq null}">
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
@@ -96,11 +98,11 @@
 						<c:if test="${postContentReview[0].title ne null}">	
 						<div class="row max-width-1300 div-center">
 							<!-- 리뷰박스-->
-							<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 mar-top-20">	
+							<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 mar-top-20">
 								<c:forEach var="postContentReview" items="${postContentReview}">
 								<div class="reivewListBox">
 									<h4 class="mar-top-20 hf">
-									<a href="review.do?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
+									<a href="review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
 									</h4>
 									
 									<h5 class="etcOneLine text-color-g2">${postContentReview.content}</h5>

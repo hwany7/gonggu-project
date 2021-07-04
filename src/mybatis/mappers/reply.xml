@@ -15,7 +15,12 @@
  	<!-- 댓글 작성 -->
  	<insert id="uploadReplyFromReview" parameterType="dto.ReplyDto">
  		insert into reply_gg(review_num, member_id, content) values (#{review_num}, #{member_id}, #{content})
- 	</insert>	
+ 	</insert>
+ 	
+ 	<!-- 댓글 삭제 -->
+  	<delete id="deleteReplyFromReview" parameterType="int">
+ 		delete from reply_gg where reply_num=#{reply_num}
+ 	</delete>	
 
 </mapper>
 

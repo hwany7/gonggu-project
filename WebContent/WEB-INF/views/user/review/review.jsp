@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+			<!-- review.jsp -->
 			<!-- 상단 이미지 -->
 			<div class="row">
 				<div class="cropping" style="height: 100px;">
@@ -20,7 +21,7 @@
 								<img src="resources/img/profile.jpg" class="myPageProfile height-30 width-30">
 								${reviewContentDto.nickname} 
 							</div>
-							<div class="col-md-6 col-xs-6 text-right mar-top-10">
+							<div class="col-md-6 col-xs-6 text-right mar-top-5">
 								<img src="resources/img/like.png" width="15px" height="15px" class="likeReviewPro" id="${reviewContentDto.review_num}" onclick="likeReview(${sessionScope.member_id})">
 								<span>${reviewContentDto.likecount}</span>							
 								<img src="resources/img/reply.png" width="15px" height="15px">
@@ -71,7 +72,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-10">
-							<form method="post" action="writeReplyPro.do" name="replyForm" onsubmit="return replyCheck()">
+							<form method="post" action="writeReplyPro" name="replyForm" onsubmit="return replyCheck()">
 								<input type="hidden" name="review_num" value="${reviewContentDto.review_num}">
 								<div class="form-group">
 									<textarea class="review-textarea form-cotrol" name="content"></textarea>
@@ -97,7 +98,7 @@
 								
 								<c:if test= "${sessionScope.member_id eq replyContentDto.member_id}">
 									<div id="${replyContentDto.review_num}">
-										<input id="${replyContentDto.reply_num}" type="button" value="삭제" class="btn btn-default deleteReply">
+										<input id="${replyContentDto.reply_num}" type="button" value="삭제" class="btn btn-default deleteReply" onclick="deleteReply()">
 									</div>
 								</c:if>
 								<hr>

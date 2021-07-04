@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+		<!-- notificationList.jsp -->
 		<div class="max-width-1500 div-center">
-			<div class="container-fluid">
-								
+			<div class="container-fluid">							
 				<!-- 내역이 없을경우 -->
 				<c:if test="${notifications[0].manager_id eq null }">
 					<div class="row">

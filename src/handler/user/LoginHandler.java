@@ -17,7 +17,7 @@ public class LoginHandler {
 	private LoginService loginService;
 	
 	//로그인 폼으로 이동
-	@RequestMapping("/login.do")
+	@RequestMapping("/login")
 	public ModelAndView login() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
@@ -28,18 +28,18 @@ public class LoginHandler {
 	}
 	
 	//로그인 기능
-	@RequestMapping("/loginPro.do")
+	@RequestMapping("/loginPro")
 	public ModelAndView logInPro(String member_email, String password) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/loginPro");
 
-		mav.addObject("member", loginService.directLogin(member_email, password));
+		mav.addObject("result", loginService.directLogin(member_email, password));
 		
 		return mav;
 	}
 	
 	//휴면 계정 활성화 폼으로 이동
-	@RequestMapping("/activateStatus.do")
+	@RequestMapping("/activateStatus")
 	public ModelAndView activateStatus() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
@@ -50,7 +50,7 @@ public class LoginHandler {
 	}
 	
 	//휴면 계정 활성화
-	@RequestMapping("/activateStatusPro.do")
+	@RequestMapping("/activateStatusPro")
 	public ModelAndView activateStatusPro(String password) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/activateStatusPro");
@@ -63,12 +63,12 @@ public class LoginHandler {
 	}
 	
 	//로그 아웃
-	@RequestMapping("/logout.do")
+	@RequestMapping("/logout")
 	public String logOutPro() {
 		
 		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
 	
-		return "redirect:/login.do";
+		return "redirect:/login";
 	}
 	
 }

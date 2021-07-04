@@ -30,4 +30,11 @@ public class ReplyDaoImpl implements ReplyDao {
 		
 		return session.insert("reply.uploadReplyFromReview", replyDto);
 	}	
+	
+	//댓글 삭제하기
+	@Override
+	public int deleteReplyFromReview(int reply_num) {
+		
+		return session.delete("reply.deleteReplyFromReview", reply_num);
+	}
 }

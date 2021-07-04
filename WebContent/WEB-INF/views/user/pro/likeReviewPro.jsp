@@ -6,20 +6,17 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>GongGu</title>
 	</head>
 	<body>
-		<c:if test="${result eq 0 or result eq null}">
-			<script type="text/javascript">
-				alert("이미 추천한 리뷰입니다.");
-			</script>
-			<meta http-equiv="refresh" content="0.5; url='review.do?review_num=${review_num}">
+		<script type="text/javascript">
+		<c:if test="${result eq 0}">
+			alert("이미 추천한 리뷰입니다.");
 		</c:if>
 		<c:if test="${result eq 1}">
-			<script type="text/javascript">
-				alert("좋아요 성공");
-			</script>
-			<meta http-equiv="refresh" content="0.5; url=review.do?review_num=${review_num}">
+			alert("좋아요 성공");
 		</c:if>
+			location.href="review?review_num=${review_num}";
+		</script>
 	</body>
 </html>

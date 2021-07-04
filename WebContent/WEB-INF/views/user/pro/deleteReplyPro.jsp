@@ -10,13 +10,13 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-		<c:if test="${result eq 0}">
-			alert("로그인 정보를 다시한번 확인해주세요");
-			history.back();				
+		<c:if test="${result eq 0}">		
+			alert("댓글 삭제에 실패했습니다");
+			history.back();
 		</c:if>
 		<c:if test="${result eq 1}">
-			alert("상태가 변경되었습니다");
-			location.href="login";
+			alert("댓글 삭제 완료");
+			location.href="review?review_num=${review_num}";	
 		</c:if>
 		</script>
 	</body>

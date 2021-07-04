@@ -19,7 +19,7 @@ public class PostHandler {
 	PostService postService;
 
 	//게시글 콘텐트
-	@RequestMapping("/post.do")
+	@RequestMapping("/post")
 	public ModelAndView post(int post_id) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -35,11 +35,14 @@ public class PostHandler {
 	}	
 	
 	//구매 신청하기
-	@RequestMapping("/applyPro.do")
+	@RequestMapping("/applyPro")
 	public ModelAndView applyPro(int post_id, int amount) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/applyPro");
-		mav.addObject("re", postService.addPostApply(Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString()), post_id,amount));
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		
+		mav.addObject("result", postService.addPostApply(member_id, post_id, amount));
 		
 		return mav;
 	}

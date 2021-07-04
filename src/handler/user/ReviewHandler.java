@@ -19,7 +19,7 @@ public class ReviewHandler {
 	ReviewService reviewService;
 	
 	//리뷰 콘텐트 보기
-	@RequestMapping("/review.do")
+	@RequestMapping("/review")
 	public ModelAndView review(int review_num) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -35,7 +35,7 @@ public class ReviewHandler {
 	}
 	
 	//좋아요 누르기
-	@RequestMapping("/likeReviewPro.do")
+	@RequestMapping("/likeReviewPro")
 	public ModelAndView likeReviewPro(int review_num) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/likeReviewPro");

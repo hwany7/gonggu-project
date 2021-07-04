@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<script>document.addEventListener("DOMContentLoaded", checkNotification('${sessionScope.member_id}'));</script>		
-			    <!-- 최상단 노티스 -->
+			<!-- 최상단 노티스 -->
 			<div class="row">
 			        <div class="col-md-12 col-xs-12 height-50 bg-black text-center text-white font-DH pd-top-15" >
 			          <span class="text-main-color">모두에게 드리는 혜택!</span>
@@ -14,7 +14,7 @@
 				<div class="nav-bar height-50 hf">
 					<div class="col-md-2 col-xs-2">
 						<ul class="list-inline text-right mar-right-15 pd-top-15">
-			                	<li><a href="main.do">GongGu</a></li>
+			                	<li><a href="main">GongGu</a></li>
 			             	</ul>
 			          	</div>
 				<div class="col-md-5 col-xs-5 pd-top-15 text-center">
@@ -31,7 +31,7 @@
 				</div>
 			          	<!-- 검색 -->
 					<div class="col-md-2 col-xs-2 main_search_bar">
-			          		<form name="searchForm" action="mainPostList.do">
+			          		<form name="searchForm" action="mainPostList">
 			          			<input type="text" class=" form-control" placeholder="어떤 제품을 찾고 계신가요?" name="nav_search">
 			          		</form>
 					</div>
@@ -39,16 +39,16 @@
 			          	<div class="col-md-3 col-xs-3 pd-top-15 " >
 			            	<ul class="list-inline nav-bar hf">
 			                	<c:if test="${sessionScope.member_id eq null}">
-			                    	<li><a href="login.do">로그인</a></li>
-			                    	<li><a href="signup.do">회원가입</a></li>
+			                    	<li><a href="login">로그인</a></li>
+			                    	<li><a href="signup">회원가입</a></li>
 			                 	</c:if>
 			                 	<c:if test="${sessionScope.member_id ne null}">
 				                    <li>
 				                       <a class="notifycation"><img src="resources/img/notify1.png" id="notify1" class="dispNotify" onclick="openNotifycation()"></a>
 				                       <a class="notifycation"><img src="resources/img/notify2.png" id="notify2" class="nonDispNotify" onclick="openNotifycation()"></a>
 				                    </li>		                     	
-			                    	<li><a href="payablePost.do">마이페이지</a></li>
-			                    	<li><a href="logout.do">로그아웃</a></li>
+			                    	<li><a href="payablePost">마이페이지</a></li>
+			                    	<li><a href="logout">로그아웃</a></li>
 			                 	</c:if>
 			              	</ul>
 			           	</div>						

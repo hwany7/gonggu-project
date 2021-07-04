@@ -17,7 +17,7 @@ public class SignUpHandler {
 	private SignupService signupService;
 	
 	//회원가입 폼으로 이동
-	@RequestMapping("/signup.do")
+	@RequestMapping("/signup")
 	public ModelAndView signup() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
@@ -29,7 +29,7 @@ public class SignUpHandler {
 	
 	//이메일 중복 검사
 	@ResponseBody
-	@RequestMapping("/checkEmail.do")
+	@RequestMapping("/checkEmail")
 	public String checkEmail(String member_email) {
 
 		return Integer.toString(signupService.CheckDuplicateForEmail(member_email));
@@ -37,14 +37,14 @@ public class SignUpHandler {
 	
 	//닉네임 중복 체크
 	@ResponseBody
-	@RequestMapping("/checkNickname.do")
+	@RequestMapping("/checkNickname")
 	public String checkNickname(String nickname) {
 		
 	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
 	}
 	
 	//이메일 인증
-	@RequestMapping("/mailConfirmForm.do")
+	@RequestMapping("/mailConfirmForm")
 	public ModelAndView mailConfirmForm(String member_email) {
 		
 		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
@@ -55,7 +55,7 @@ public class SignUpHandler {
 	}
 	
 	//회원 가입
-	@RequestMapping("/signUpPro.do")
+	@RequestMapping("/signUpPro")
 	public ModelAndView signUpPro(MemberDto member) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/signUpPro");

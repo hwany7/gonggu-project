@@ -69,10 +69,10 @@ public class PostServiceImpl implements PostService {
 	
 	//포스트 페이지 - 신청하기
 	@Override
-	public Map<String, Integer> addPostApply(int member_id, int post_id, int amount) {
+	public int addPostApply(int member_id, int post_id, int amount) {
 
 			
-		Map<String, Integer> result = new HashMap<String, Integer>();
+		int result = 0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("member_id", member_id);
@@ -87,12 +87,12 @@ public class PostServiceImpl implements PostService {
 		// 진행 수량 이상으로 신청시 신청 막는 방어코드
 		if(amountCheck < 0) {
 			// 진행 수량보다 초과되는 경우
-			result.put("result", -1);
+			result = -1;
 		} else {
-			result.put("result",applicationDao.registerAppFromPostContent(map));
+			result = applicationDao.registerAppFromPostContent(map);
 			
-			if(result.get("result") == 1) {
-				result.put("resultUpdate", applicationDao.updateAppFromPostPostContent(map));
+			if(result == 1) {
+				applicationDao.updateAppFromPostPostContent(map);
 			}
 		}
 		

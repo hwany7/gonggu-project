@@ -14,7 +14,7 @@ public class MainPageHandler {
 	@Resource
 	private PostService postService;
 	
-	@RequestMapping("/main.do")
+	@RequestMapping("/main")
 	public ModelAndView main() {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");

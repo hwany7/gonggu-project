@@ -9,21 +9,15 @@
 		<title>GongGu</title>
 	</head>
 	<body>
+		<script type="text/javascript">
 		<c:if test="${result eq 0}">
-			<script type="text/javascript">
-				<!-- 
-				alert("댓글 작성에 실패했습니다");
-				history.back();
-				 -->
-			</script>
+			alert("댓글 작성에 실패했습니다");
+			history.back();
 		</c:if>
 		<c:if test="${result eq 1}">
-			<script type="text/javascript">
-				<!--
-				alert("댓글 작성 완료");
-				-->
-			</script>
-			<meta http-equiv="refresh" content="0.5; url=review.do?review_num=${review_num}">
+			alert("댓글 작성 완료");
+			location.href="review?review_num=${review_num}";
 		</c:if>
+		</script>
 	</body>
 </html>

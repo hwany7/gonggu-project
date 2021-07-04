@@ -16,7 +16,7 @@ public class ReplyHandler {
 	@Resource
 	ReplyService replyService;
 
-	@RequestMapping("/writeReplyPro.do")
+	@RequestMapping("/writeReplyPro")
 	public ModelAndView writeReplyPro(int review_num, String content){
 		
 		ModelAndView mav = new ModelAndView("user/pro/writeReplyPro");
@@ -24,6 +24,18 @@ public class ReplyHandler {
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 				
 		mav.addObject("result", replyService.writeReply(member_id, review_num, content));
+		mav.addObject("review_num", review_num);
+	
+		return mav;
+	}
+	
+	//댓글 삭제하기
+	@RequestMapping("/deleteReplyPro")
+	public ModelAndView deleteReplyPro(int reply_num, int review_num) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/deleteReplyPro");
+		
+		mav.addObject("result", replyService.deleteReply(reply_num, review_num));
 		mav.addObject("review_num", review_num);
 	
 		return mav;

@@ -9,6 +9,6 @@ public interface PostService {
 	
 	public List<HitPostDto> getMainPost();
 	public Map<String, Object> getPost(int post_id);
-	public Map<String, Integer> addPostApply(int member_id, int post_id, int amount);
+	public int addPostApply(int member_id, int post_id, int amount);
 
 }

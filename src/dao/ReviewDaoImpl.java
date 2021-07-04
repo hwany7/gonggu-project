@@ -68,6 +68,13 @@ public class ReviewDaoImpl implements ReviewDao{
 	}	
 	
 	
+	// 댓글 삭제 시 replycount update -1
+	@Override
+	public int deleteupdateReplycountFromReview(int review_num) {
+		
+		return session.update("review.deleteupdateReplycountFromReview", review_num);
+	}
+	
 }
 
 

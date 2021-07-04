@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    			<!-- signup.jsp -->
 	 			<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4">
 	 				<div class="div-center max-width-400">
 		 				<div class="mar-top-100">
 			                <h2>회원가입</h2>
 			            </div>	
 		            	<!-- 회원가입 폼 -->
-		           		<form method="post" name="signUpForm" role="form" action="signUpPro.do" onsubmit="return checkConditionSignUpFrom()">
+		           		<form method="post" name="signUpForm" role="form" action="signUpPro" onsubmit="return checkConditionSignUpFrom()">
 		           			<input type="hidden" id="checkEmail" value="0">
 		           			<input type="hidden" id="checkNickname" value="0">
 		           			<input type="hidden" id="emailConfirm" value="0">

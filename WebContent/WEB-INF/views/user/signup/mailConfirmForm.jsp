@@ -10,6 +10,7 @@
 		<style type="text/css"> body { min-width: 500px; } </style>
 	</head>
 	<body>
+		<!-- mailConfirmForm.jsp -->
 		<div class="container-fluid">	
 	         <!-- 로그인 폼 -->   
              <div class="row">       

@@ -36,7 +36,7 @@ function checkValidationEmail(){
 	  	
 		//이메일 중복 검사
 		$.ajax({
-			url : 'checkEmail.do',
+			url : 'checkEmail',
 			type : 'get',
 			data : {'member_email' : email},
 			success : function(result) {
@@ -84,7 +84,7 @@ function checkValidationNickName() {
 		
 		//닉네임 중복 검사
 		$.ajax({
-			url : 'checkNickname.do',
+			url : 'checkNickname',
 			type : 'get',
 			data : {'nickname' : nickname},
 			success : function(result) {
@@ -118,7 +118,7 @@ function openMailConfimForm(){
 	var h = 500;
 	var popupY= (window.screen.height/2) - (h/2);
 	var popupX = (window.screen.width/2) - (w/2);
-	var url = "mailConfirmForm.do?member_email=" + member_email;
+	var url = "mailConfirmForm?member_email=" + member_email;
 	
 	open(url, 'mailConfirmForm', 'menubar=no,statusbar=no,scrollbar=no, width=' + w + ', height=' + h + ', left=' + popupX + ', top=' + popupY);
 }
@@ -274,7 +274,7 @@ function openNotifycation(){
         if($('.notifyBox').hasClass("notifyBox-toggled")){
            $.ajax({
               type : 'get',
-               url : "getNotification.do",
+               url : "getNotification",
                dataType : "text",
                success : function(data){
             	   $('#notify2').removeClass('dispNotify');
@@ -292,9 +292,30 @@ function openNotifycation(){
 
 function checkNotification(member_id){
 	if(member_id != ''){
+		
+		$.ajax({
+	           url : 'checkNotification',
+	           type : 'get',
+	           dataType : 'text',
+	           success : function(result) {
+	              if(result == 1 ){
+	                 $('#notify1').removeClass('dispNotify');
+	                 $('#notify1').addClass('nonDispNotify');
+	                 $('#notify2').removeClass('nonDispNotify');
+	                 $('#notify2').addClass('dispNotify');
+	              }else{
+	                 $('#notify2').removeClass('dispNotify');
+	                 $('#notify2').addClass('nonDispNotify');
+	                 $('#notify1').removeClass('nonDispNotify');
+	                 $('#notify1').addClass('dispNotify');
+	              }
+	           },
+	           error : function(e) {}               
+	        });
+		
 		setInterval(function(){
 	        $.ajax({
-	           url : 'checkNotification.do',
+	           url : 'checkNotification',
 	           type : 'get',
 	           dataType : 'text',
 	           success : function(result) {
@@ -319,7 +340,7 @@ function checkNotification(member_id){
 function deleteAllNotification(){
     $.ajax({
         type : 'get',
-         url : "deleteAllNotification.do",
+         url : "deleteAllNotification",
          dataType : "text",
          success : function(data){
         	 $(".notifyBox").html(data);
@@ -334,7 +355,7 @@ function addApply(member_id){
 	
 	if(!member_id){
 		alert("로그인을 해주세요");
-		return window.document.location="login.do";
+		return window.document.location="login";
 	}
 
 	var post_id = $('input[name=post_id]').val();
@@ -343,7 +364,7 @@ function addApply(member_id){
 	if(amount == ""|| amount == 0){
 		alert("신청 개수를 입력해 주세요");
 	}else{
-		window.document.location="applyPro.do?post_id=" + post_id + "&amount=" + amount;	
+		window.document.location="applyPro?post_id=" + post_id + "&amount=" + amount;	
 	}
 	
 }
@@ -363,8 +384,19 @@ function likeReview(member_id){
 		return false;
 	}
 	var review_num = $(".likeReviewPro").attr('id');
-	window.document.location="likeReviewPro.do?review_num=" + review_num;
+	window.document.location="likeReviewPro?review_num=" + review_num;
 	
 }
 
+function deleteReply(){
+
+	var reply = confirm("삭제하시겠습니까 ?");
+	
+	if( reply == true ) {
+		var reply_num = $(".deleteReply").attr('id');
+		var review_num = $(".deleteReply").parent().attr('id');
+		window.document.location="deleteReplyPro?reply_num=" + reply_num +"&review_num=" + review_num;
+	}
+	
+}
 

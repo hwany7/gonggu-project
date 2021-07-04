@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-						<!-- 히트 게시물 -->
+						<!-- main-module-one.jsp -->
 						<div class="container-fluid">
 							<!-- 1열 -->
 							<div class="row max-width-1300 div-center">
@@ -16,7 +16,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="post.do?post_id=${hitPostDto[0].post_id}">		
+													<a href="post?post_id=${hitPostDto[0].post_id}">		
 														<img src="${hitPostDto[0].image}" class="mainPostImag">	
 													</a>		
 												</div>					
@@ -30,7 +30,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="post.do?post_id=${hitPostDto[1].post_id}">		
+													<a href="post?post_id=${hitPostDto[1].post_id}">		
 														<img src="${hitPostDto[1].image}" class="mainPostImag">		
 													</a>	
 												</div>					
@@ -44,7 +44,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="post.do?post_id=${hitPostDto[2].post_id}">		
+													<a href="post?post_id=${hitPostDto[2].post_id}">		
 														<img src="${hitPostDto[2].image}" class="mainPostImag">
 													</a>			
 												</div>					
@@ -65,7 +65,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="post.do?post_id=${hitPostDto[3].post_id}">		
+													<a href="post?post_id=${hitPostDto[3].post_id}">		
 														<img src="${hitPostDto[3].image}" class="mainPostImag">		
 													</a>	
 												</div>					
@@ -79,7 +79,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">		
-													<a href="post.do?post_id=${hitPostDto[4].post_id}">	
+													<a href="post?post_id=${hitPostDto[4].post_id}">	
 														<img src="${hitPostDto[4].image}" class="mainPostImag">			
 													</a>
 												</div>					
@@ -93,12 +93,12 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="mainPostList.do">
+													<a href="mainPostList">
 														<img src="https://cdn.wadiz.kr/ft/images/green001/2020/0519/20200519112516982_null.png/wadiz/optimize/" class="mainPostImag">
 													</a>					
 												</div>					
 												<div class="font-GD mar-top-5 text-right"> 
-													<span class="mainProdName hf"><a href="mainPostList.do">더 많은 상품 보러가기 ▶</a><br></span>
+													<span class="mainProdName hf"><a href="mainPostList">더 많은 상품 보러가기 ▶</a><br></span>
 												</div>		
 											</div>
 										</div>
