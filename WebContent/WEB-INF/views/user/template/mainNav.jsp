@@ -19,7 +19,7 @@
 			          	</div>
 				<div class="col-md-5 col-xs-5 pd-top-15 text-center">
 					<ul class="list-inline ">
-						<li><a href="#">전체보기</a></li>
+						<li><a href="posts">전체보기</a></li>
 						<li><a href="#">핸드폰</a></li>
 						<li><a href="#">PC/노트북</a></li>
 						<li><a href="#">카메라</a></li>
@@ -31,7 +31,7 @@
 				</div>
 			          	<!-- 검색 -->
 					<div class="col-md-2 col-xs-2 main_search_bar">
-			          		<form name="searchForm" action="mainPostList">
+			          		<form name="searchForm" action="posts">
 			          			<input type="text" class=" form-control" placeholder="어떤 제품을 찾고 계신가요?" name="nav_search">
 			          		</form>
 					</div>

@@ -7,6 +7,7 @@
 			                <h2>휴먼상태 해제하기</h2>
 			            </div>
 		                <form method="post" action="activateStatusPro" name="passwordform" onsubmit="return checkNullPassword">
+		                	<input type="hidden" name="member_id" value="${member_id}">
 		                    <div class="form-group">
 		                        <input type="password" class="form-control height-40"  name="password" placeholder="비밀번호를 입력하세요">
 		                    </div>

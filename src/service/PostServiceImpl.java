@@ -14,7 +14,9 @@ import dao.inter.ReviewDao;
 import dto.ReviewDto;
 import dto.join.HitPostDto;
 import dto.join.PostContentDto;
+import service.inter.PageService;
 import service.inter.PostService;
+import util.PageInfo;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -27,6 +29,9 @@ public class PostServiceImpl implements PostService {
 	
 	@Resource
 	private ReviewDao reviewDao;
+	
+	@Resource
+	private PageService pageService;
 	
 	//메인페이지 - 게시글 얻기
 	@Override
@@ -63,6 +68,40 @@ public class PostServiceImpl implements PostService {
 		}
 		
 		map.put("postContentReview", postContentReview);
+		
+		return map;
+	}
+	
+	//포스트 리스트 
+	@Override
+	public Map<String, Object> getPostList(String pageNum, String nav_search) {
+	
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int cnt = (nav_search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(nav_search);
+		
+		PageInfo info = pageService.process(cnt, pageNum);
+		
+		if(info.getCnt()>0) {
+			
+			String textByContent = null;
+			String reg = "<[^>]*>";
+
+			info.setNav_search(nav_search);			
+			
+			List<HitPostDto> postListDto = postDao.getPostFromPostList(info);			
+			
+			for(int i=0; i<postListDto.size(); i++) {
+
+				textByContent= postListDto.get(i).getContent().replaceAll(reg, "");
+				textByContent = textByContent.trim().replaceAll("&nbsp;", "");
+				postListDto.get(i).setContent(textByContent);
+			}
+	
+			map.put("postListDto", postListDto);
+		}
+		
+		map.put("info", info);
 		
 		return map;
 	}

@@ -11,6 +11,7 @@ import dao.inter.PostDao;
 import dto.join.HitPostDto;
 import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
+import util.PageInfo;
 
 @Repository
 public class PostDaoImpl implements PostDao {
@@ -23,6 +24,27 @@ public class PostDaoImpl implements PostDao {
 	public List<HitPostDto> getHitPostFromMain(){
 		
 		return session.selectList("post.getHitPostFromMain");
+	}
+	
+	//전체 포스트 개수
+	@Override
+	public int getPostCount() {
+		
+		return session.selectOne("post.getPostCount");
+	}
+	
+	//검색된 전체 포스트 개수
+	@Override
+	public int getPostCountBySearch(String nav_search) {
+
+		return session.selectOne("post.getPostCountBySearch", nav_search);
+	}
+	
+	//post 리스트 뿌리기
+	@Override
+	public List<HitPostDto> getPostFromPostList(PageInfo info){
+		
+		return session.selectList("post.getPostFromPostList", info);
 	}
 	
 	// 게시글 콘텐트 보기

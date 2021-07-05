@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+			<!-- 1. 리뷰삭제 2. 리뷰 수정 구현예정 -->
 			<!-- review.jsp -->
 			<!-- 상단 이미지 -->
 			<div class="row">

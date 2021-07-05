@@ -17,6 +17,20 @@ public class PostHandler {
 	
 	@Resource
 	PostService postService;
+	
+	@RequestMapping("/posts")
+	public ModelAndView posts(String pageNum, String nav_search) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
+		mav.addObject("page", "/WEB-INF/views/user/post/posts");
+		
+		Map<String, Object> map = postService.getPostList(pageNum, nav_search);
+
+		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("info", map.get("info"));
+		
+		return mav;
+	}
 
 	//게시글 콘텐트
 	@RequestMapping("/post")

@@ -43,19 +43,21 @@ public class LoginHandler {
 	public ModelAndView activateStatus() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
-		
 		mav.addObject("page", "/WEB-INF/views/user/login/activateStatus");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
+
+		mav.addObject("member_id", member_id);
 		
 		return mav;
 	}
 	
 	//휴면 계정 활성화
 	@RequestMapping("/activateStatusPro")
-	public ModelAndView activateStatusPro(String password) {
+	public ModelAndView activateStatusPro(int member_id, String password) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/activateStatusPro");
-		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		mav.addObject("result", loginService.activateUser(member_id, password));
 	

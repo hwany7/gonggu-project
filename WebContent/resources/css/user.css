@@ -105,3 +105,26 @@ body{
 	width: 100%;
 	height: 150px;
 }
+.postListBox{
+	height: 250px;
+	border-bottom: 1px solid #e2e2e2;
+}
+.postListImage{
+	width: 200px;
+	height: 170px;
+	margin-top: 40px;
+}
+.postList-amount-absolute{
+	font-family: 'Do Hyeon', sans-serif;
+	position: absolute;
+	top: 40px;
+	left: 16px;
+	border: none;
+	background-color: #5BC0DE;
+	color: white;
+}
+.postListInfo{
+	margin-top: 40px;
+	margin-left: 20px;
+	font-family: 'Do Hyeon', sans-serif;
+}

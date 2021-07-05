@@ -93,12 +93,12 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="mainPostList">
+													<a href="posts">
 														<img src="https://cdn.wadiz.kr/ft/images/green001/2020/0519/20200519112516982_null.png/wadiz/optimize/" class="mainPostImag">
 													</a>					
 												</div>					
 												<div class="font-GD mar-top-5 text-right"> 
-													<span class="mainProdName hf"><a href="mainPostList">더 많은 상품 보러가기 ▶</a><br></span>
+													<span class="mainProdName hf"><a href="posts">더 많은 상품 보러가기 ▶</a><br></span>
 												</div>		
 											</div>
 										</div>
