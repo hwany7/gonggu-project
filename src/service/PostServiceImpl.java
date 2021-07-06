@@ -74,31 +74,27 @@ public class PostServiceImpl implements PostService {
 	
 	//포스트 리스트 
 	@Override
-	public Map<String, Object> getPostList(String pageNum, String nav_search) {
-	
-		Map<String, Object> map = new HashMap<String, Object>();
+	public Map<String, Object> getPostList(String pageNum, String search, int category_id) {
 		
-		int cnt = (nav_search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(nav_search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int cnt = 0;
+			
+		if(category_id == 0) {
+			cnt  = (search == null) ?  postDao.getPostCount() : postDao.getPostCountBySearch(search);
+		}else {
+			cnt = postDao.getPostCountByCategory(category_id);
+		}
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
 		if(info.getCnt()>0) {
 			
-			String textByContent = null;
-			String reg = "<[^>]*>";
-
-			info.setNav_search(nav_search);			
+			info.setSearch(search);	
+			info.setCategory_id(category_id);
+								
+			List<HitPostDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) : postDao.getPostFromPostListByCategory(info);			
 			
-			List<HitPostDto> postListDto = postDao.getPostFromPostList(info);			
-			
-			for(int i=0; i<postListDto.size(); i++) {
-
-				textByContent= postListDto.get(i).getContent().replaceAll(reg, "");
-				textByContent = textByContent.trim().replaceAll("&nbsp;", "");
-				postListDto.get(i).setContent(textByContent);
-			}
-	
-			map.put("postListDto", postListDto);
+			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
 		}
 		
 		map.put("info", info);
@@ -110,7 +106,6 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int addPostApply(int member_id, int post_id, int amount) {
 
-			
 		int result = 0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		

@@ -14,8 +14,10 @@ public interface PostDao {
 	
 	//포스트 리스트
 	public int getPostCount();
-	public int getPostCountBySearch(String nav_search);
+	public int getPostCountBySearch(String search);
+	public int getPostCountByCategory(int category_id);
 	public List<HitPostDto> getPostFromPostList(PageInfo info);
+	public List<HitPostDto> getPostFromPostListByCategory(PageInfo info);
 	
 	//포스트 페이지
 	public PostContentDto getPostContentFromContent(int post_id);

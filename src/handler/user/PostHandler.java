@@ -19,12 +19,12 @@ public class PostHandler {
 	PostService postService;
 	
 	@RequestMapping("/posts")
-	public ModelAndView posts(String pageNum, String nav_search) {
+	public ModelAndView posts(String pageNum, String search, int category_id) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
 		mav.addObject("page", "/WEB-INF/views/user/post/posts");
 		
-		Map<String, Object> map = postService.getPostList(pageNum, nav_search);
+		Map<String, Object> map = postService.getPostList(pageNum, search, category_id);
 
 		mav.addObject("postListDto", map.get("postListDto"));
 		mav.addObject("info", map.get("info"));

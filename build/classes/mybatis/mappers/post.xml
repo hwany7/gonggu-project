@@ -87,9 +87,9 @@
 		            pp.post_status
 		            from product_gg p, post_gg pp, category_gg c
 		            where p.product_id = pp.product_id and p.category_id = c.category_id
-		            and (upper(c.category_name) like upper('%'|| trim(#{nav_search, jdbcType=VARCHAR}) ||'%')
-              			or upper(pp.post_title) like upper('%'|| trim(#{nav_search, jdbcType=VARCHAR}) ||'%')
-              			or upper(p.product_name) like upper('%'|| trim(#{nav_search, jdbcType=VARCHAR}) ||'%'))
+		            and (upper(pp.post_title) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%') 
+		            		or upper(p.product_name) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%'))
+      
 		            order by post_status, post_id desc)
 		        )
 		where r &gt;= #{start} and r &lt;= #{end}
@@ -98,9 +98,50 @@
 	<!-- 검색된 게시글 전체 개수 -->
 	<select id="getPostCountBySearch" parameterType="string" resultType="int">
 		select COUNT(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
-														and (upper(post_title) like upper('%'|| #{nav_search} ||'%') 
-														or upper(product_name) like upper('%'|| #{nav_search} ||'%'))
+														and (upper(post_title) like upper('%'|| #{search} ||'%') 
+														or upper(product_name) like upper('%'|| #{search} ||'%'))
 	</select>
+	
+	<!-- 카테고리별 list 만들기 위한 포스트 개수 -->
+	<select id="getPostCountByCategory" parameterType="int" resultType="int">
+		select count(*) 
+		from post_gg 
+		where product_id in 
+			(select product_id 
+			from product_gg 
+			where category_id=#{category_id})
+	</select>
+	
+	<!-- 전상품 다 나와있는 리스트 -->
+ 	<select id="getPostFromPostListByCategory" parameterType="util.PageInfo" resultType="dto.join.HitPostDto">
+ 		select * 
+		from (select category_id,
+		       category_name,
+		       post_id, 
+		       post_title,
+		       current_amount,
+		       content,
+		       product_name,
+		       thumbnail,
+		       image,
+		       rownum r
+		    from (select p.category_id,
+		            c.category_name,
+		            pp.post_id, 
+		            pp.post_title,
+		            pp.current_amount,
+		            pp.content,
+		            p.product_name,
+		            p.thumbnail,
+		          	p.image,
+		            pp.post_status
+		            from product_gg p, post_gg pp, category_gg c
+		            where p.product_id = pp.product_id and p.category_id = c.category_id and p.category_id = #{category_id}
+		            order by post_status, post_id desc)
+		        )
+		where r &gt;= #{start} and r &lt;= #{end}
+	</select>
+	
 	
 
 

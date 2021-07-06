@@ -15,10 +15,10 @@
 		           			
 		                    <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-8">			                    		
+			                    	<div class="col-md-8 col-xs-8">			                    		
 			                       		<input type="text" class="form-control" id ="memberEmail" name="member_email" placeholder="이메일 계정" onkeyup="checkValidationEmail()" >
 			                        </div>
-			                    	<div class="col-md-4">
+			                    	<div class="col-md-4 col-xs-4">
 			                       		<input type="button" id="mailConfirmForm" class="btn btn-info width-100p" value="인증하기" disabled="disabled" onclick="openMailConfimForm()">
 			                        </div>
 		                        </div>
@@ -42,20 +42,20 @@
 		                    </div>
 		                    <div class="form-group mar-top-30">
 		                    	<div class="row">
-			                    	<div class="col-md-5">
+			                    	<div class="col-md-5 col-xs-5">
 			                       		<input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="우편번호" readonly="readonly">
 			                        </div>
-			                    	<div class="col-md-7">
+			                    	<div class="col-md-7 col-xs-7">
 			                       		<input type="text" class="form-control" name="address1" id="address1" placeholder="도로명주소" readonly="readonly">
 			                        </div>
 		                        </div>
 		                    </div>
 		                    <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-8">
+			                    	<div class="col-md-8 col-xs-8">
 			                       		<input type="text" class="form-control" name="address2" id="address2" placeholder="상세주소">
 			                        </div>
-			                    	<div class="col-md-4">
+			                    	<div class="col-md-4 col-xs-4">
 			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="sample4_execDaumPostcode();">
 			                        </div>
 		                        </div>
@@ -69,10 +69,10 @@
 		                    </div>		                                   
 		                    <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-4 text-center">
+			                    	<div class="col-md-4 col-xs-4 text-center">
 			                       		<label class="form-control">성별</label>
 			                        </div>
-			                    	<div class="col-md-8">
+			                    	<div class="col-md-8 col-xs-8">
 			                       		<select class="form-control" id="inputGender" name="gender" >
 								        	<option value= "">선택</option>
 								        	<option value="남자">남자</option>
@@ -83,20 +83,20 @@
 		                    </div>
 						            <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-4 text-center">
+			                    	<div class="col-md-4 col-xs-4 text-center">
 			                       		<label class="form-control">생년월일</label>
 			                        </div>
-			                    	<div class="col-md-8">
+			                    	<div class="col-md-8 col-xs-8">
 			                       		<input class="form-control" type="date" name="birth_date">
 			                        </div>
 		                        </div>
 		                    </div>
 		                     <div class="form-group">
 		                    	<div class="row">
-			                    	<div class="col-md-4 text-center">
+			                    	<div class="col-md-4 col-xs-4 text-center">
 			                       		<label class="form-control">방문경로</label>
 			                        </div>
-			                    	<div class="col-md-8">	
+			                    	<div class="col-md-8 col-xs-8">	
 			                       		<select class="form-control" name="visit_path" >
 								        	<option value=0>선택</option>
 								        	<option value=1>검색</option>

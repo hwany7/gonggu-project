@@ -35,16 +35,30 @@ public class PostDaoImpl implements PostDao {
 	
 	//검색된 전체 포스트 개수
 	@Override
-	public int getPostCountBySearch(String nav_search) {
+	public int getPostCountBySearch(String search) {
 
-		return session.selectOne("post.getPostCountBySearch", nav_search);
+		return session.selectOne("post.getPostCountBySearch", search);
 	}
 	
-	//post 리스트 뿌리기
+	//카테고리별 전체 포스트 개수
+	@Override
+	public int getPostCountByCategory(int category_id) {
+		
+		return session.selectOne("post.getPostCountByCategory", category_id);
+	}
+	
+	//포스트 리스트 뿌리기
 	@Override
 	public List<HitPostDto> getPostFromPostList(PageInfo info){
 		
 		return session.selectList("post.getPostFromPostList", info);
+	}
+	
+	//카테고리별 포스트 리스트 뿌리기
+	@Override
+	public List<HitPostDto> getPostFromPostListByCategory(PageInfo info) {
+		
+		return session.selectList("post.getPostFromPostListByCategory", info);
 	}
 	
 	// 게시글 콘텐트 보기

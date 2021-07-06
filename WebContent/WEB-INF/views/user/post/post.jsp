@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			<!-- 콘텐트 테스트 -->
-			<div class="container-fluid font-DH">		
+			<div class="container-fluid font-DH max-width-1300">		
 				<!-- 게시글 -->
 				<div class="row div-center">
 					<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 mar-top-50">	
@@ -40,16 +40,16 @@
 									<hr>
 								</div>
 								<c:if test="${postContentDto.post_status ne 'A'}">
-									<button type="button" class="btn btn-info width-100p">마감된 제품</button>
+									<button type="button" class="btn btn-danger width-100p">마감된 제품</button>
 								</c:if>
 								<c:if test="${postContentDto.post_status eq 'A'}">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-4 col-xs-4">
 										<input type="text" class="form-control" name="amount" placeholder="개수" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 										<!-- 파라미터 값 -->
 										<input type="hidden" name="post_id" value="${postContentDto.post_id}">
 									</div>
-									<div class="col-md-8">
+									<div class="col-md-8 col-xs-8">
 										<button type="button" class="applyBtn btn btn-info width-100p" onclick="addApply(${sessionScope.member_id})">신청하기</button>
 									</div>
 								</div>
@@ -60,8 +60,8 @@
 				</div>
 				<!-- 탭 패널-->
 				<div class="row div-center">
-					<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 mar-top-50">
-						<div class="row">
+					<div class="row mar-top-50">
+						<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
 							<ul class="nav nav-tabs nav-justified">
 							  <li class="nav-item">
 							    <a class="nav-link active" data-toggle="tab" href="#home">상품상세</a>
@@ -96,16 +96,18 @@
 						</div>
 						</c:if>
 						<c:if test="${postContentReview[0].title ne null}">	
-						<div class="row max-width-1300 div-center">
+						<div class="row div-center">
 							<!-- 리뷰박스-->
 							<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 mar-top-20">
 								<c:forEach var="postContentReview" items="${postContentReview}">
 								<div class="reivewListBox">
 									<h4 class="mar-top-20 hf">
-									<a href="review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
+										<a href="review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
 									</h4>
 									
-									<h5 class="etcOneLine text-color-g2">${postContentReview.content}</h5>
+									<h5 class="etcOneLine text-color-g2">
+										${postContentReview.content}
+									</h5>
 									<div class="text-right">
 										<img src="resources/img/like.png" width="15px" height="15px">
 										<span>${postContentReview.likecount}</span>

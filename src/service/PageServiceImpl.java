@@ -1,7 +1,10 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import dto.join.HitPostDto;
 import service.inter.PageService;
 import util.PageInfo;
 
@@ -82,6 +85,23 @@ public class PageServiceImpl implements PageService {
 		
 		//페이지 정보 리턴
 		return info;
+	}
+	
+	//포스트 리스트 전처리
+	@Override
+	public List<HitPostDto> preprocessingFromPostList(List<HitPostDto> postList) {
+		
+		String textByContent = null;
+		String reg = "<[^>]*>";
+		
+		for(int i=0; i<postList.size(); i++) {
+
+			textByContent= postList.get(i).getContent().replaceAll(reg, "");
+			textByContent = textByContent.trim().replaceAll("&nbsp;", "");
+			postList.get(i).setContent(textByContent);
+		}
+
+		return postList;
 	}
 
 }

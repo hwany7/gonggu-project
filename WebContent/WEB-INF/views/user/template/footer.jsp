@@ -18,6 +18,6 @@
 					<br>
 					<!-- 하단 노티스 -->	
 					<div class="footer" style="color: #BDBDBD; text-align: center; padding-top: 30px">
-						<h6>© Copyright 2020 GongGu TEAM. All rights reserved. Various trademarks held by their respective owners.</h6>
+						<h6>© Copyright 2020 Hwan. All rights reserved. Various trademarks held by their respective owners.</h6>
 					</div>
 				</div>

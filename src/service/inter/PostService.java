@@ -8,7 +8,7 @@ import dto.join.HitPostDto;
 public interface PostService {
 	
 	public List<HitPostDto> getMainPost();
-	public Map<String, Object> getPostList(String pageNum, String nav_search);
+	public Map<String, Object> getPostList(String pageNum, String search, int category_id);
 	public Map<String, Object> getPost(int post_id);
 	public int addPostApply(int member_id, int post_id, int amount);
 	

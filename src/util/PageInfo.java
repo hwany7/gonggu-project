@@ -4,7 +4,7 @@ public class PageInfo {
 	
 	//Use Mapper
 	private int member_id;			// 필요시에 추가
-	private String nav_search;		// 서치바
+	private String search;		// 서치바
 	private int category_id;		// 카테코리 id
 	private int start;				// 현재페이지 시작 rownum
 	private int end;				// 현재페이지 끝 rownum
@@ -19,18 +19,17 @@ public class PageInfo {
 	private int startPage;			// 시작페이지
 	private int endPage;			// 끝페이지
 	private int pageCount;			// 전체 페이지 개수
-	
 	public int getMember_id() {
 		return member_id;
 	}
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-	public String getNav_search() {
-		return nav_search;
+	public String getSearch() {
+		return search;
 	}
-	public void setNav_search(String nav_search) {
-		this.nav_search = nav_search;
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	public int getCategory_id() {
 		return category_id;

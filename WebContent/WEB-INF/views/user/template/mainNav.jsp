@@ -10,7 +10,7 @@
 			        </div>
 			    </div>
 			    <!-- 상단 메뉴바-->
-			<div class="row">
+			<div class="row max-width-1800 div-center">
 				<div class="nav-bar height-50 hf">
 					<div class="col-md-2 col-xs-2">
 						<ul class="list-inline text-right mar-right-15 pd-top-15">
@@ -19,12 +19,12 @@
 			          	</div>
 				<div class="col-md-5 col-xs-5 pd-top-15 text-center">
 					<ul class="list-inline ">
-						<li><a href="posts">전체보기</a></li>
-						<li><a href="#">핸드폰</a></li>
-						<li><a href="#">PC/노트북</a></li>
-						<li><a href="#">카메라</a></li>
-						<li><a href="#">웨어러블</a></li>
-						<li><a href="#">태블릿</a></li>
+						<li><a href="posts?category_id=0">전체보기</a></li>
+						<li><a href="posts?category_id=1">핸드폰</a></li>
+						<li><a href="posts?category_id=2">PC/노트북</a></li>
+						<li><a href="posts?category_id=3">카메라</a></li>
+						<li><a href="posts?category_id=4">웨어러블</a></li>
+						<li><a href="posts?category_id=5">태블릿</a></li>
 						<li><a href="#" style="color: #3DB7CC;">리뷰보기</a></li>
 						<li><a href="#" style="color: #FF0000;">판매종료</a></li>
 					</ul>
@@ -32,7 +32,8 @@
 			          	<!-- 검색 -->
 					<div class="col-md-2 col-xs-2 main_search_bar">
 			          		<form name="searchForm" action="posts">
-			          			<input type="text" class=" form-control" placeholder="어떤 제품을 찾고 계신가요?" name="nav_search">
+			          			<input type="hidden" name="category_id" value="0">
+			          			<input type="text" class=" form-control" placeholder="어떤 제품을 찾고 계신가요?" name="search">
 			          		</form>
 					</div>
 					

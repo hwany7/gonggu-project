@@ -45,9 +45,6 @@
 				</c:forEach>
 			</div>
 			
-			<!-- 검색창 추가 예정-->
-
-			
 			<!-- 페이지 넘버 -->
 			<div class="container-fluid">
 				<div class="row">
@@ -56,7 +53,7 @@
 						<c:if test="${info.cnt gt 0}">
 							<div class="col-md-2 text-center">
 							<c:if test="${info.startPage gt info.pageBlock}">
-								<a href="posts?pageNum=${info.startPage-info.pageBlock}">◀</a>
+								<a href="posts?pageNum=${info.startPage-info.pageBlock}&category_id=${info.category_id}&search=${info.search}">◀</a>
 							</c:if>
 							</div>
 							<div class="col-md-8">
@@ -65,13 +62,13 @@
 									<span style="color: #5BC0DE;">[${i}]</span>
 								</c:if>
 								<c:if test="${i ne info.currentPage}">
-									<a href="posts?pageNum=${i}">[${i}]</a>
+									<a href="posts?pageNum=${i}&category_id=${info.category_id}&search=${info.search}">[${i}]</a>
 								</c:if>
 							</c:forEach>
 							</div>
 							<div class="col-md-2">
 							<c:if test="${info.pageCount gt info.endPage}">
-								<a href="posts?pageNum=${info.startPage+info.pageBlock}">▶</a>	
+								<a href="posts?pageNum=${info.startPage+info.pageBlock}&category_id=${info.category_id}&search=${info.search}">▶</a>	
 							</c:if>
 							</div>
 						</c:if>
