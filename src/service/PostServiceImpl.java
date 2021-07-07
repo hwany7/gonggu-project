@@ -14,6 +14,7 @@ import dao.inter.ReviewDao;
 import dto.ReviewDto;
 import dto.join.HitPostDto;
 import dto.join.PostContentDto;
+import dto.join.PostSearchAndCaterogy;
 import service.inter.PageService;
 import service.inter.PostService;
 import util.PageInfo;
@@ -80,9 +81,9 @@ public class PostServiceImpl implements PostService {
 		int cnt = 0;
 			
 		if(category_id == 0) {
-			cnt  = (search == null) ?  postDao.getPostCount() : postDao.getPostCountBySearch(search);
+			cnt = (search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(search);
 		}else {
-			cnt = postDao.getPostCountByCategory(category_id);
+			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : 0;
 		}
 		
 		PageInfo info = pageService.process(cnt, pageNum);

@@ -62,7 +62,7 @@
 		select count(*) from post_gg
 	</select>
 	
-	<!-- 전상품 다 나와있는 리스트 -->
+	<!-- 전상품 다 나와있는 리스트(검색기능 포함) -->
  	<select id="getPostFromPostList" parameterType="util.PageInfo" resultType="dto.join.HitPostDto">
  		select * 
 		from (select category_id,
@@ -97,7 +97,7 @@
 	
 	<!-- 검색된 게시글 전체 개수 -->
 	<select id="getPostCountBySearch" parameterType="string" resultType="int">
-		select COUNT(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
+		select count(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
 														and (upper(post_title) like upper('%'|| #{search} ||'%') 
 														or upper(product_name) like upper('%'|| #{search} ||'%'))
 	</select>
@@ -106,13 +106,10 @@
 	<select id="getPostCountByCategory" parameterType="int" resultType="int">
 		select count(*) 
 		from post_gg 
-		where product_id in 
-			(select product_id 
-			from product_gg 
-			where category_id=#{category_id})
+		where product_id in (select product_id from product_gg where category_id=#{category_id})
 	</select>
 	
-	<!-- 전상품 다 나와있는 리스트 -->
+	<!-- 전상품 다 나와있는 카테고리 리스트(검색기능 포함) -->
  	<select id="getPostFromPostListByCategory" parameterType="util.PageInfo" resultType="dto.join.HitPostDto">
  		select * 
 		from (select category_id,
@@ -136,13 +133,17 @@
 		          	p.image,
 		            pp.post_status
 		            from product_gg p, post_gg pp, category_gg c
-		            where p.product_id = pp.product_id and p.category_id = c.category_id and p.category_id = #{category_id}
+		            where p.product_id = pp.product_id 
+		            			and p.category_id = c.category_id 
+		            			and p.category_id = #{category_id}
+		            			and (upper(pp.post_title) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%') or upper(p.product_name) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%'))
 		            order by post_status, post_id desc)
 		        )
 		where r &gt;= #{start} and r &lt;= #{end}
 	</select>
 	
-	
 
+	
+	
 
 </mapper>

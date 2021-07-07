@@ -11,6 +11,7 @@ import dao.inter.PostDao;
 import dto.join.HitPostDto;
 import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
+import dto.join.PostSearchAndCaterogy;
 import util.PageInfo;
 
 @Repository
@@ -45,6 +46,12 @@ public class PostDaoImpl implements PostDao {
 	public int getPostCountByCategory(int category_id) {
 		
 		return session.selectOne("post.getPostCountByCategory", category_id);
+	}
+	
+	//검색, 카테고리별 전체 포스트 개수
+	@Override
+	public int getPostCountByCategoryAndSerarch(PostSearchAndCaterogy postSearchAndCaterogy) {
+		return session.selectOne("post.getPostCountByCategoryAndSerarch", postSearchAndCaterogy);
 	}
 	
 	//포스트 리스트 뿌리기

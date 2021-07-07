@@ -5,6 +5,7 @@ import java.util.List;
 import dto.join.HitPostDto;
 import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
+import dto.join.PostSearchAndCaterogy;
 import util.PageInfo;
 
 public interface PostDao {
@@ -16,6 +17,7 @@ public interface PostDao {
 	public int getPostCount();
 	public int getPostCountBySearch(String search);
 	public int getPostCountByCategory(int category_id);
+	public int getPostCountByCategoryAndSerarch(PostSearchAndCaterogy postSearchAndCaterogy);
 	public List<HitPostDto> getPostFromPostList(PageInfo info);
 	public List<HitPostDto> getPostFromPostListByCategory(PageInfo info);
 	

@@ -45,6 +45,24 @@
 				</c:forEach>
 			</div>
 			
+			<!-- 검색창 -->
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-20">
+					<form method="post" action="posts">
+						<input type="hidden" name="category_id" value="${info.category_id}">				
+						<div class="col-md-3 col-xs-3 text-center">
+			                <label class="form-control">제목 / 모델</label>
+			            </div>			
+						<div class="col-md-7 col-xs-7">
+				           	<input type="text" class="form-control" name="search">
+						</div>				
+						<div class="col-md-2 col-xs-2">
+							<button type="submit" class="btn btn-info width-100p">검색</button>	
+						</div>	
+					</form>	
+				</div>
+			</div>
+
 			<!-- 페이지 넘버 -->
 			<div class="container-fluid">
 				<div class="row">
