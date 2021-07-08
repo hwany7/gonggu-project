@@ -83,7 +83,7 @@ public class PostServiceImpl implements PostService {
 		if(category_id == 0) {
 			cnt = (search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(search);
 		}else {
-			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : 0;
+			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : postDao.getPostCountByCategoryAndSerarch(new PostSearchAndCaterogy(category_id, search));
 		}
 		
 		PageInfo info = pageService.process(cnt, pageNum);

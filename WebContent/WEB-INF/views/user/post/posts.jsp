@@ -50,11 +50,15 @@
 				<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-20">
 					<form method="post" action="posts">
 						<input type="hidden" name="category_id" value="${info.category_id}">				
-						<div class="col-md-3 col-xs-3 text-center">
-			                <label class="form-control">제목 / 모델</label>
+						<div class="col-md-2 col-xs-2">
+							<select class="form-control" id="inputGender" name="gender" >
+								<option value="post_title+product_model">공통</option>
+								<option value="post_title">제목</option>
+								<option value="product_model">모델</option>
+							</select>
 			            </div>			
-						<div class="col-md-7 col-xs-7">
-				           	<input type="text" class="form-control" name="search">
+						<div class="col-md-8 col-xs-8">
+				           	<input type="text" class="form-control" name="search" autocomplete="off">
 						</div>				
 						<div class="col-md-2 col-xs-2">
 							<button type="submit" class="btn btn-info width-100p">검색</button>	
