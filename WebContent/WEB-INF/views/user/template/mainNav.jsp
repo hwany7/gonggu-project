@@ -25,7 +25,7 @@
 						<li><a href="posts?category_id=3">카메라</a></li>
 						<li><a href="posts?category_id=4">웨어러블</a></li>
 						<li><a href="posts?category_id=5">태블릿</a></li>
-						<li><a href="#" style="color: #3DB7CC;">리뷰보기</a></li>
+						<li><a href="reviews" style="color: #3DB7CC;">리뷰보기</a></li>
 						<li><a href="#" style="color: #FF0000;">판매종료</a></li>
 					</ul>
 				</div>
@@ -33,7 +33,7 @@
 					<div class="col-md-2 col-xs-2 main_search_bar">
 			          		<form name="searchForm" action="posts">
 			          			<input type="hidden" name="category_id" value="0">
-			          			<input type="text" class=" form-control" placeholder="어떤 제품을 찾고 계신가요?" name="search">
+			          			<input type="text" class=" form-control" placeholder="검색어를 입력해 주세요." name="search">
 			          		</form>
 					</div>
 					
