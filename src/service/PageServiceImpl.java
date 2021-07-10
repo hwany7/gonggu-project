@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import dto.join.HitPostDto;
+import dto.join.ReviewContentDto;
 import service.inter.PageService;
 import util.PageInfo;
 
 @Service
 public class PageServiceImpl implements PageService {
-
+	
 	@Override
 	public PageInfo process(int cnt, String pageNum) {
 		
@@ -102,6 +103,22 @@ public class PageServiceImpl implements PageService {
 		}
 
 		return postList;
+	}
+	
+	//리뷰 리스트 전처리
+	@Override
+	public List<ReviewContentDto> preprocessingFromReviewList(List<ReviewContentDto> reviewContentDtos) {
+		String textByContent = null;
+		String reg = "<[^>]*>";
+		
+		for(int i=0; i<reviewContentDtos.size(); i++) {
+
+			textByContent= reviewContentDtos.get(i).getContent().replaceAll(reg, "");
+			textByContent = textByContent.trim().replaceAll("&nbsp;", "");
+			reviewContentDtos.get(i).setContent(textByContent);
+		}
+
+		return reviewContentDtos;
 	}
 
 }

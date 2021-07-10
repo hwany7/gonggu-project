@@ -51,10 +51,8 @@
 					<form method="post" action="posts">
 						<input type="hidden" name="category_id" value="${info.category_id}">				
 						<div class="col-md-2 col-xs-2">
-							<select class="form-control" id="inputGender" name="gender" >
+							<select class="form-control" name="select" >
 								<option value="post_title+product_model">공통</option>
-								<option value="post_title">제목</option>
-								<option value="product_model">모델</option>
 							</select>
 			            </div>			
 						<div class="col-md-8 col-xs-8">

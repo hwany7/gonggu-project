@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import dao.inter.ReplyDao;
 import dao.inter.ReviewDao;
+import dto.join.ReviewContentDto;
+import service.inter.PageService;
 import service.inter.ReviewService;
+import util.PageInfo;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -19,6 +23,31 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Resource
 	ReplyDao replyDao;
+	
+	@Resource
+	PageService pageService;
+	
+	@Override
+	public Map<String, Object> getReviewList(String pageNum, String search) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		int cnt = (search == null) ? reviewDao.getReviewCount() : reviewDao.geReviewCountBySearch(search);
+		
+		PageInfo info = pageService.process(cnt, pageNum);
+		
+		if(info.getCnt()>0) {
+			
+			info.setSearch(search);	
+			
+			List<ReviewContentDto> reviewContentDtos = reviewDao.getReviewtFromReviewList(info);	
+								
+			map.put("reviewContentDtos", pageService.preprocessingFromReviewList(reviewContentDtos));
+		}
+		
+		map.put("info", info);
+		
+		return map;
+	}
 	
 	
 	//리뷰 가져오기
@@ -53,6 +82,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 		return result;
 	}
+	
+	
 	
 	
 }

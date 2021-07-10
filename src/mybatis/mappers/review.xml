@@ -60,7 +60,52 @@
  	 <!-- 리뷰에 댓글 삭제시 리뷰개수 변경  -1 -->
  	<update id="deleteupdateReplycountFromReview" parameterType="int">
  		update review_gg set replycount = replycount - 1 where review_num = #{review_num}
- 	</update>			
-
+ 	</update>	
+ 	
+ 	<!-- 리뷰 전체 개수 -->
+	<select id="getReviewCount" resultType="int">
+		select count(*) from review_gg
+	</select>
+	
+	<!-- 검색된 리뷰 전체 개수 -->
+	<select id="geReviewCountBySearch" parameterType="String" resultType="int">
+		select count(*) from review_gg, member_gg 
+		where review_gg.member_id = member_gg.member_id and
+				(upper(review_gg.title) like upper('%'|| #{search} ||'%') or upper(member_gg.nickname) like upper('%'|| #{search} ||'%'))
+	</select>
+	
+	<!-- 리뷰리스트 -->
+ 	<select id="getReviewtFromReviewList" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
+		select  *
+		from (select nickname,
+				member_id,
+				review_num,
+				payment_id,
+				title,
+				upload_date,
+				replycount,
+				readcount,
+				likecount,
+				content,
+				rownum r
+			from (select nickname,
+					member_gg.member_id,
+					review_num,
+					payment_id,
+					title,
+					upload_date, 
+					replycount,
+					readcount, 
+					likecount, 
+					content
+        			from member_gg, review_gg
+        			where member_gg.member_id = review_gg.member_id
+        				and (upper(review_gg.title) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%') 
+		            		or upper(member_gg.nickname) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%'))
+                    order by review_num desc)
+		        )
+		where r &gt;= #{start} and r &lt;=#{end}
+	</select>	
+	
 </mapper>
 

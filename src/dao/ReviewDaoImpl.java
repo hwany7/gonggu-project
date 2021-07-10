@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
 import dto.join.ReviewContentDto;
+import util.PageInfo;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
@@ -75,6 +76,25 @@ public class ReviewDaoImpl implements ReviewDao{
 		return session.update("review.deleteupdateReplycountFromReview", review_num);
 	}
 	
+	//리뷰 전체 개수
+	@Override
+	public int getReviewCount() {
+		return session.selectOne("review.getReviewCount");
+	}
+	
+	//검색된 전체 리뷰 개수
+	@Override
+	public int geReviewCountBySearch(String search) {
+		
+		return session.selectOne("review.geReviewCountBySearch", search);
+	}
+	
+	
+	@Override
+	public List<ReviewContentDto> getReviewtFromReviewList(PageInfo info) {
+		
+		return session.selectList("review.getReviewtFromReviewList", info);
+	}
 }
 
 

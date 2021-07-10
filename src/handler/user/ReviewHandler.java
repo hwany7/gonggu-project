@@ -18,6 +18,22 @@ public class ReviewHandler {
 	@Resource
 	ReviewService reviewService;
 	
+	//리뷰 리스트보기
+	@RequestMapping("/reviews")
+	public ModelAndView reviews(String pageNum, String search) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
+		mav.addObject("page", "/WEB-INF/views/user/review/reviews");
+		
+		Map<String, Object> map = reviewService.getReviewList(pageNum, search);
+
+		mav.addObject("reviewContentDtos", map.get("reviewContentDtos"));
+		mav.addObject("info", map.get("info"));
+	
+		
+		return mav;
+	}
+	
 	//리뷰 콘텐트 보기
 	@RequestMapping("/review")
 	public ModelAndView review(int review_num) {

@@ -32,8 +32,8 @@
 									<span>${reviewContentDto.nickname}</span>
 								</div>
 								<div class="col-md-6 text-right">
-									<img src="img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
-									<img src="img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
+									<img src="resources/img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
+									<img src="resources/img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
 								</div>
 							</div>
 						</div>	
@@ -45,16 +45,14 @@
 			<!-- 검색창 -->
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-20">
-					<form method="post" action="reviewBoard.do">
+					<form method="post" action="reviews">
 						<div class="col-md-2 col-xs-2 pd-right-0">
 				        	<select class="form-control" name="select">
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-								<option value="nickname">작성자</option>
+								<option value="title+nickname">공통</option>
 							</select>
 						</div>			
 						<div class="col-md-8 col-xs-8">
-				           	<input type="text" class="form-control" name="keyword" value="${keyword}">
+				           	<input type="text" class="form-control" name="search" autocomplete="off" placeholder="검색어를 입력해 주세요.">
 						</div>				
 						<div class="col-md-2 col-xs-2">
 							<button type="submit" class="btn btn-info width-100p">검색</button>	
@@ -71,7 +69,7 @@
 						<c:if test="${info.cnt gt 0}">
 							<div class="col-md-2 text-center">
 							<c:if test="${info.startPage gt info.pageBlock}">
-								<a href="reviews?pageNum=${info.startPage-info.pageBlock}">◀</a>
+								<a href="reviews?pageNum=${info.startPage-info.pageBlock}&search=${info.search}">◀</a>
 							</c:if>
 							</div>
 							<div class="col-md-8">
@@ -80,13 +78,13 @@
 									<span style="color: #5BC0DE;">[${i}]</span>
 								</c:if>
 								<c:if test="${i ne info.currentPage}">
-									<a href="reviews?pageNum=${i}">[${i}]</a>
+									<a href="reviews?pageNum=${i}&search=${info.search}">[${i}]</a>
 								</c:if>
 							</c:forEach>
 							</div>
 							<div class="col-md-2">
 							<c:if test="${info.pageCount gt info.endPage}">
-								<a href="reviews?pageNum=${info.startPage+info.pageBlock}">▶</a>	
+								<a href="reviews?pageNum=${info.startPage+info.pageBlock}&search=${info.search}">▶</a>	
 							</c:if>
 							</div>
 						</c:if>
