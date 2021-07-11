@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import dto.join.HitPostDto;
+import dto.join.PostContentDto;
 import dto.join.ReviewContentDto;
 import service.inter.PageService;
 import util.PageInfo;
@@ -87,10 +87,10 @@ public class PageServiceImpl implements PageService {
 		//페이지 정보 리턴
 		return info;
 	}
-	
+
 	//포스트 리스트 전처리
 	@Override
-	public List<HitPostDto> preprocessingFromPostList(List<HitPostDto> postList) {
+	public List<PostContentDto> preprocessingFromPostList(List<PostContentDto> postList) {
 		
 		String textByContent = null;
 		String reg = "<[^>]*>";

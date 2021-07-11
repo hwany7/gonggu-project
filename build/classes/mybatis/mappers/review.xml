@@ -3,6 +3,16 @@
   	
 <mapper namespace="review">
 
+	<!-- 리뷰 가져오기 -->
+	<select id="getReview" parameterType="int" resultType="dto.ReviewDto">
+		select * from review_gg where review_num=#{review_num}
+	</select>
+	
+	<!-- 리뷰 삭제하기 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from review_gg where review_num=#{review_num}
+	</delete>
+
  	<!-- postContent에서 top3 리뷰 가져오기 -->
  	<select id="getReviewFromContent" parameterType="int" resultType="dto.ReviewDto">
  		select * from
@@ -106,6 +116,14 @@
 		        )
 		where r &gt;= #{start} and r &lt;=#{end}
 	</select>	
+	
+	<!-- 삭제된 리뷰 테이블에 리뷰 삽입 -->
+	<insert id="insetReviewToDeletedReview" parameterType="dto.ReviewDto">
+		insert into deleted_review_gg(review_num, member_id, payment_id, title, upload_date, replycount, readcount, likecount, content)
+		values(#{review_num}, #{member_id}, #{payment_id}, #{title}, #{upload_date}, #{replycount}, #{readcount},#{likecount}, #{content})			
+	</insert>
+	
+	
 	
 </mapper>
 

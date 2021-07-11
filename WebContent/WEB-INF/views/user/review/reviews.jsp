@@ -9,12 +9,12 @@
 			</div>
 		</div>
 		
-		<div class="max-width-1500 div-center">
+		<div class="max-width-1500 div-center font-DH">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 border-under-a">	
 						<div class="col-md-12">
-							<h3 class="font-DH mar-top-50 ">리뷰보기</h3>
+							<h3 class="mar-top-50 ">리뷰보기</h3>
 						</div>
 					</div>
 				</div>

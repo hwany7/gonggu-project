@@ -12,7 +12,6 @@ import dao.inter.ApplicationDao;
 import dao.inter.PostDao;
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
-import dto.join.HitPostDto;
 import dto.join.PostContentDto;
 import dto.join.PostSearchAndCaterogy;
 import service.inter.PageService;
@@ -36,7 +35,7 @@ public class PostServiceImpl implements PostService {
 	
 	//메인페이지 - 게시글 얻기
 	@Override
-	public List<HitPostDto> getMainPost() {
+	public List<PostContentDto> getMainPost() {
 		
 		return postDao.getHitPostFromMain();
 	}
@@ -93,7 +92,7 @@ public class PostServiceImpl implements PostService {
 			info.setSearch(search);	
 			info.setCategory_id(category_id);
 								
-			List<HitPostDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) : postDao.getPostFromPostListByCategory(info);			
+			List<PostContentDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) : postDao.getPostFromPostListByCategory(info);			
 			
 			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
 		}
@@ -109,7 +108,6 @@ public class PostServiceImpl implements PostService {
 
 		int result = 0;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		
 		map.put("member_id", member_id);
 		map.put("post_id", post_id);
 		map.put("amount", amount);
@@ -117,7 +115,7 @@ public class PostServiceImpl implements PostService {
 		//게시글의 신청 정보를 가져온다
 		int curamount = postDao.getCurrentamountFromApply(post_id);
 		int minamount = postDao.getMinamountFromApply(post_id);
-		int amountCheck = minamount - curamount-amount;
+		int amountCheck = minamount - curamount - amount;
 			
 		// 진행 수량 이상으로 신청시 신청 막는 방어코드
 		if(amountCheck < 0) {

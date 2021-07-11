@@ -64,4 +64,15 @@ public class ReviewHandler {
 		return mav;
 	}	
 	
+	//리뷰 삭제하기
+	@RequestMapping("/deleteReviewPro")
+	public ModelAndView deleteReviewPro(int review_num) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/deleteReviewPro");
+		
+		mav.addObject("result", reviewService.deleteReview(review_num));
+		mav.addObject("review_num",review_num);
+		
+		return mav;
+	}
 }

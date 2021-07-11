@@ -396,7 +396,15 @@ function deleteReply(){
 		var reply_num = $(".deleteReply").attr('id');
 		var review_num = $(".deleteReply").parent().attr('id');
 		window.document.location="deleteReplyPro?reply_num=" + reply_num +"&review_num=" + review_num;
-	}
-	
+	}	
 }
+
+function deleteReview(review_num){
+
+	if(confirm("삭제하시겠습니까 ?")){
+		window.document.location="deleteReviewPro?review_num=" + review_num;
+	}
+
+}
+
 

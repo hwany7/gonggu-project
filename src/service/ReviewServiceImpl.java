@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import dao.inter.ReplyDao;
 import dao.inter.ReviewDao;
+import dto.ReviewDto;
 import dto.join.ReviewContentDto;
 import service.inter.PageService;
 import service.inter.ReviewService;
@@ -83,7 +84,21 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 	
-	
+	//리뷰 삭제
+	@Override
+	public int deleteReview(int review_num) {
+		
+		//삭제하기 전 리뷰 따로 저장
+		ReviewDto reviewDto = reviewDao.getReview(review_num);
+		int result = reviewDao.insetReviewToDeletedReview(reviewDto);
+		
+		//리뷰 삭제
+		if(result == 1) {
+			result = reviewDao.deleteReview(review_num);
+		}
+		
+		return result;
+	}
 	
 	
 }

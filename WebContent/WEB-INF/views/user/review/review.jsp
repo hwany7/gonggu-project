@@ -44,13 +44,12 @@
 								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기">			
 							</c:if>
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}"> 
-								<input class="deleteReview btn btn-danger" id="${reviewContentDto.review_num}"  type="button" value="삭제하기">
+								<input class="deleteReview btn btn-danger" type="button" value="삭제하기" onclick="deleteReview(${reviewContentDto.review_num})">
 							</c:if>	
 							<input class="likeReviewPro btn btn-info" id="${reviewContentDto.review_num}"  type="button" value="추천하기" onclick="likeReview(${sessionScope.member_id})">
 						</div>
 					</div>
 				</div>
-		
 				
 				<!-- 댓글 경계 이미지 -->
 				<div class="row max-width-1300 div-center ">

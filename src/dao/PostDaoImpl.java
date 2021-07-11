@@ -8,8 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.PostDao;
-import dto.join.HitPostDto;
-import dto.join.PayedPostDto;
 import dto.join.PostContentDto;
 import dto.join.PostSearchAndCaterogy;
 import util.PageInfo;
@@ -22,7 +20,7 @@ public class PostDaoImpl implements PostDao {
 	
 	//마감 임박 게시글 정보 가져오기
 	@Override
-	public List<HitPostDto> getHitPostFromMain(){
+	public List<PostContentDto> getHitPostFromMain(){
 		
 		return session.selectList("post.getHitPostFromMain");
 	}
@@ -56,14 +54,14 @@ public class PostDaoImpl implements PostDao {
 	
 	//포스트 리스트 뿌리기
 	@Override
-	public List<HitPostDto> getPostFromPostList(PageInfo info){
+	public List<PostContentDto> getPostFromPostList(PageInfo info){
 		
 		return session.selectList("post.getPostFromPostList", info);
 	}
 	
 	//카테고리별 포스트 리스트 뿌리기
 	@Override
-	public List<HitPostDto> getPostFromPostListByCategory(PageInfo info) {
+	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info) {
 		
 		return session.selectList("post.getPostFromPostListByCategory", info);
 	}
@@ -91,7 +89,7 @@ public class PostDaoImpl implements PostDao {
 	
 	//reviewContent 에서 post 정보
 	@Override
-	public PayedPostDto getPayedPostFromReview(int payment_id) {
+	public PostContentDto getPayedPostFromReview(int payment_id) {
 		
 		return session.selectOne("post.getPayedPostFromReview", payment_id);
 	}	
