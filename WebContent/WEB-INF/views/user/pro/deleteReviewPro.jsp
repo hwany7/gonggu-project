@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert('리뷰가 삭제되었습니다');
-			history.go(-2);
+			location.href="reviews";
 		</c:if>
 		</script>
 	</body>

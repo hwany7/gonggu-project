@@ -13,11 +13,14 @@ public interface PostDao {
 	
 	//포스트 리스트
 	public int getPostCount();
+	public int getPostCountByfinished();
 	public int getPostCountBySearch(String search);
+	public int getPostCountByFinishedAndSearch(String search);
 	public int getPostCountByCategory(int category_id);
 	public int getPostCountByCategoryAndSerarch(PostSearchAndCaterogy postSearchAndCaterogy);
 	public List<PostContentDto> getPostFromPostList(PageInfo info);
 	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info);
+	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info);
 	
 	//포스트 페이지
 	public PostContentDto getPostContentFromContent(int post_id);

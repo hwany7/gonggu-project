@@ -81,6 +81,8 @@ public class PostServiceImpl implements PostService {
 			
 		if(category_id == 0) {
 			cnt = (search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(search);
+		}else if(category_id == -1) {
+			cnt = (search == null) ? postDao.getPostCountByfinished() : postDao.getPostCountByFinishedAndSearch(search);
 		}else {
 			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : postDao.getPostCountByCategoryAndSerarch(new PostSearchAndCaterogy(category_id, search));
 		}
@@ -92,7 +94,8 @@ public class PostServiceImpl implements PostService {
 			info.setSearch(search);	
 			info.setCategory_id(category_id);
 								
-			List<PostContentDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) : postDao.getPostFromPostListByCategory(info);			
+			List<PostContentDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) :
+														(category_id == -1) ? postDao.getPostFromPostListByFinished(info) : postDao.getPostFromPostListByCategory(info);			
 			
 			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
 		}

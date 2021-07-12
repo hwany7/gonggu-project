@@ -52,6 +52,20 @@ public class PostDaoImpl implements PostDao {
 		return session.selectOne("post.getPostCountByCategoryAndSerarch", postSearchAndCaterogy);
 	}
 	
+	//종료된 전체 포스트 개수
+	@Override
+	public int getPostCountByfinished() {
+		
+		return session.selectOne("post.getPostCountByfinished");
+	}
+	
+	//검색, 종료된 전체 포스트 개수
+	@Override
+	public int getPostCountByFinishedAndSearch(String search) {
+
+		return session.selectOne("post.getPostCountByFinishedAndSearch", search);
+	}
+	
 	//포스트 리스트 뿌리기
 	@Override
 	public List<PostContentDto> getPostFromPostList(PageInfo info){
@@ -64,6 +78,13 @@ public class PostDaoImpl implements PostDao {
 	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info) {
 		
 		return session.selectList("post.getPostFromPostListByCategory", info);
+	}
+	
+	//종료된 포스트 리스트 뿌리기
+	@Override
+	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info) {
+		// TODO Auto-generated method stub
+		return session.selectList("post.getPostFromPostListByFinished", info);
 	}
 	
 	// 게시글 콘텐트 보기
@@ -93,7 +114,7 @@ public class PostDaoImpl implements PostDao {
 		
 		return session.selectOne("post.getPayedPostFromReview", payment_id);
 	}	
-	
+		
 }
 
 
