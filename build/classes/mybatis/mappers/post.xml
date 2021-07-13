@@ -143,7 +143,7 @@
 	</select>
 	
 	<!--검색, 카테고리별 list 만들기 위한 포스트 개수 -->
-	<select id="getPostCountByCategoryAndSerarch" parameterType="dto.join.PostSearchAndCaterogy" resultType="int">
+	<select id="getPostCountByCategoryAndSerarch" parameterType="java.util.Map" resultType="int">
 		select count(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
 											and post_gg.product_id in (select product_id from product_gg where category_id=#{category_id})
 											and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%')) 
@@ -195,6 +195,33 @@
 		where r &gt;= #{start} and r &lt;= #{end}
 	</select>
 	
+	<!-- A : Apply 공구 시작 , C : Complete 모집 완료, N : Negotiation 가격 협상, P : Pay 결제 대기, S : StandBy 대기상태 -->
+	<select id="getMyPostCountByStatus" parameterType="java.util.Map" resultType="int">
+		select count(*) from post_gg, application_gg 
+		where post_gg.post_id = application_gg.post_id and post_gg.post_status=#{post_status} and application_gg.member_id=#{member_id}
+	</select>
+	
+	<!-- 결제 가능한 상품 -->
+ 	<select id="getMyPostListByStatus" parameterType="java.util.Map" resultType="dto.join.PostContentDto">
+ 		select * 
+ 		from (select thumbnail, 
+ 					post_title, 
+ 					product_name,
+ 					amount, 
+					fixed_price*amount as total_price, 
+					application_gg.post_id, 
+					application_id,
+					content, 
+					current_amount,
+					rownum r
+      		 from post_gg, product_gg, application_gg 
+      		 where post_gg.post_id = application_gg.post_id 
+        			and post_gg.product_id = product_gg.product_id 
+        			and member_id = #{member_id} and post_status = #{post_status})
+        where r &gt;= #{start} and r &lt;= #{end}
+ 	</select>
+	
+
 	
 
 </mapper>

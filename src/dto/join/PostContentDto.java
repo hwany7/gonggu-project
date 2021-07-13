@@ -3,25 +3,34 @@ package dto.join;
 import java.sql.Timestamp;
 
 public class PostContentDto {
-	private int post_id;
-	private int product_id;
-	private String category_name;
-	private String post_title;
-	private String post_status;
-	private String product_name;
-	private String image;
-	private String product_model;
-	private int current_amount;
-	private int default_price;
-	private String content;
-	private int payment_amount;
-	private int category_id;
-	private String thumbnail;
+	
+	//PostDto
+    private int post_id;
+    private String post_title;
+    private int product_id;
+    private int default_price;              
+    private int current_amount;
+    private int payment_amount;
+    private String post_status;
+    private String content;
+    
+    //ProductDto
+    private String product_name;    
+    private String product_model;   
+    private int category_id;
+    private String thumbnail;        
+    private String image;             
+
+    //PaymentDto
 	private int payment_id;
-	private int application_id;
-	private int total_price;
-	private int review_writable;
-	private Timestamp paytime;
+    private int application_id;
+    private int review_writable;
+    private Timestamp paytime;
+    private int total_price;					
+
+    //Other
+	private String category_name;
+	private int amount;
 
 	public int getPost_id() {
 		return post_id;
@@ -136,5 +145,11 @@ public class PostContentDto {
 	}
 	public void setPaytime(Timestamp paytime) {
 		this.paytime = paytime;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 }

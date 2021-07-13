@@ -41,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
 		} else if(status.equals("inactive")) {
 			result = 0;
 		}
+		
 
 		return result;
 	}

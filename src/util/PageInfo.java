@@ -4,10 +4,11 @@ public class PageInfo {
 	
 	//Use Mapper
 	private int member_id;			// 필요시에 추가
-	private String search;		// 서치바
+	private String search;			// 서치바
 	private int category_id;		// 카테코리 id
 	private int start;				// 현재페이지 시작 rownum
 	private int end;				// 현재페이지 끝 rownum
+	private String post_status;		// 포스트 상태
 
 	//페이지 셋팅값
 	private int pageSize;			// 한 페이지당 글 개수
@@ -102,5 +103,11 @@ public class PageInfo {
 	}
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
+	}
+	public String getPost_status() {
+		return post_status;
+	}
+	public void setPost_status(String post_status) {
+		this.post_status = post_status;
 	}
 }

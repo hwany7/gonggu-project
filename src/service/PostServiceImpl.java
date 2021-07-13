@@ -13,7 +13,6 @@ import dao.inter.PostDao;
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
 import dto.join.PostContentDto;
-import dto.join.PostSearchAndCaterogy;
 import service.inter.PageService;
 import service.inter.PostService;
 import util.PageInfo;
@@ -39,7 +38,6 @@ public class PostServiceImpl implements PostService {
 		
 		return postDao.getHitPostFromMain();
 	}
-	
 	
 	//포스트 페이지 - 포스트 정보 얻기
 	@Override
@@ -84,7 +82,10 @@ public class PostServiceImpl implements PostService {
 		}else if(category_id == -1) {
 			cnt = (search == null) ? postDao.getPostCountByfinished() : postDao.getPostCountByFinishedAndSearch(search);
 		}else {
-			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : postDao.getPostCountByCategoryAndSerarch(new PostSearchAndCaterogy(category_id, search));
+			map.put("category_id", category_id);
+			map.put("search", search);
+			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : postDao.getPostCountByCategoryAndSerarch(map);
+			map.clear();
 		}
 		
 		PageInfo info = pageService.process(cnt, pageNum);
@@ -134,4 +135,33 @@ public class PostServiceImpl implements PostService {
 		
 		return result;
 	}
+	
+	//상태에 따라 내 포스트 리스트 가져오기
+	@Override
+	public Map<String, Object> myPostListByStatus(String pageNum, int member_id, String post_status) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member_id", member_id);
+		map.put("post_status", post_status);
+		int cnt = postDao.getMyPostCountByStatus(map);
+		
+		PageInfo info = pageService.process(cnt, pageNum);
+		
+		if(info.getCnt()>0) {
+					
+			info.setMember_id(member_id);
+			info.setPost_status(post_status);
+			
+			List<PostContentDto> postListDto = postDao.getMyPostListByStatus(info);
+			System.out.println(postListDto);
+			System.out.println(cnt);
+			
+			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
+		}
+		
+		map.put("info", info);
+		
+		return map;
+	}
+	
 }

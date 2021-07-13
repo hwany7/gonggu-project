@@ -1,9 +1,9 @@
 package dao.inter;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.join.PostContentDto;
-import dto.join.PostSearchAndCaterogy;
 import util.PageInfo;
 
 public interface PostDao {
@@ -15,12 +15,14 @@ public interface PostDao {
 	public int getPostCount();
 	public int getPostCountByfinished();
 	public int getPostCountBySearch(String search);
-	public int getPostCountByFinishedAndSearch(String search);
 	public int getPostCountByCategory(int category_id);
-	public int getPostCountByCategoryAndSerarch(PostSearchAndCaterogy postSearchAndCaterogy);
+	public int getPostCountByFinishedAndSearch(String search);
+	public int getMyPostCountByStatus(Map<String,Object> map);
+	public int getPostCountByCategoryAndSerarch(Map<String,Object> map);
 	public List<PostContentDto> getPostFromPostList(PageInfo info);
 	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info);
 	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info);
+	public List<PostContentDto> getMyPostListByStatus(PageInfo info);
 	
 	//포스트 페이지
 	public PostContentDto getPostContentFromContent(int post_id);
@@ -29,5 +31,7 @@ public interface PostDao {
 	
 	//리뷰 페이지
 	public PostContentDto getPayedPostFromReview(int payment_id);
+	
+	//마이 페이지
 	
 }

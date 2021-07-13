@@ -128,3 +128,6 @@ body{
 	margin-left: 20px;
 	font-family: 'Do Hyeon', sans-serif;
 }
+.nav-myPage li{
+	margin-right: 10px;
+}

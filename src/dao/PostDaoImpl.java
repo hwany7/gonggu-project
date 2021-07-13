@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import dao.inter.PostDao;
 import dto.join.PostContentDto;
-import dto.join.PostSearchAndCaterogy;
 import util.PageInfo;
 
 @Repository
@@ -48,8 +48,8 @@ public class PostDaoImpl implements PostDao {
 	
 	//검색, 카테고리별 전체 포스트 개수
 	@Override
-	public int getPostCountByCategoryAndSerarch(PostSearchAndCaterogy postSearchAndCaterogy) {
-		return session.selectOne("post.getPostCountByCategoryAndSerarch", postSearchAndCaterogy);
+	public int getPostCountByCategoryAndSerarch(Map<String, Object> map) {
+		return session.selectOne("post.getPostCountByCategoryAndSerarch", map);
 	}
 	
 	//종료된 전체 포스트 개수
@@ -83,7 +83,7 @@ public class PostDaoImpl implements PostDao {
 	//종료된 포스트 리스트 뿌리기
 	@Override
 	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info) {
-		// TODO Auto-generated method stub
+		
 		return session.selectList("post.getPostFromPostListByFinished", info);
 	}
 	
@@ -114,7 +114,21 @@ public class PostDaoImpl implements PostDao {
 		
 		return session.selectOne("post.getPayedPostFromReview", payment_id);
 	}	
+	
+	//상태에 따른 내 포스트 전체 개수 가져오기
+	@Override
+	public int getMyPostCountByStatus(Map<String, Object> map) {
 		
+		return session.selectOne("post.getMyPostCountByStatus", map);
+	}
+	
+	//상태에 따른 내 포스트 리스트 가져오기
+	@Override
+	public List<PostContentDto> getMyPostListByStatus(PageInfo info) {
+
+		return session.selectList("post.getMyPostListByStatus", info);
+	}
+
 }
 
 

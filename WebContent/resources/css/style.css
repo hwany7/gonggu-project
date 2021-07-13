@@ -177,6 +177,9 @@
 .mar-right-150{
 	margin-right: 150px;
 }				
+.mar-left-5{
+	margin-left: 5x;
+}
 .mar-left-10{
 	margin-left: 10px;
 }
@@ -369,6 +372,18 @@
 .hf a{ 
 	text-decoration:none;
 	color: black;
+}
+.border-bottom-g1{
+	border-bottom: 1px solid #5D5D5D;	
+}
+.border-bottom-g2{
+	border-bottom: 1px solid #8C8C8C;	
+}
+.border-bottom-g3{
+	border-bottom: 1px solid #BDBDBD;	
+}
+.border-bottom-g4{
+	border-bottom: 1px solid #EAEAEA;	
 }
 ::-webkit-scrollbar {
   width: 10px;

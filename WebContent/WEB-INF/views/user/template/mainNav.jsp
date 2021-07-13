@@ -33,7 +33,7 @@
 					<div class="col-md-2 col-xs-2 main_search_bar">
 			          		<form name="searchForm" action="posts">
 			          			<input type="hidden" name="category_id" value="0">
-			          			<input type="text" class=" form-control" placeholder="검색어를 입력해 주세요." name="search">
+			          			<input type="text" class=" form-control" name="search" autocomplete="off" placeholder="검색어를 입력해 주세요.">
 			          		</form>
 					</div>
 					
@@ -48,7 +48,7 @@
 				                       <a class="notifycation"><img src="resources/img/notify1.png" id="notify1" class="dispNotify" onclick="openNotifycation()"></a>
 				                       <a class="notifycation"><img src="resources/img/notify2.png" id="notify2" class="nonDispNotify" onclick="openNotifycation()"></a>
 				                    </li>		                     	
-			                    	<li><a href="payablePost">마이페이지</a></li>
+			                    	<li><a href="myPage">마이페이지</a></li>
 			                    	<li><a href="logout">로그아웃</a></li>
 			                 	</c:if>
 			              	</ul>
