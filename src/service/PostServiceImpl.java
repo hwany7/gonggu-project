@@ -153,8 +153,6 @@ public class PostServiceImpl implements PostService {
 			info.setPost_status(post_status);
 			
 			List<PostContentDto> postListDto = postDao.getMyPostListByStatus(info);
-			System.out.println(postListDto);
-			System.out.println(cnt);
 			
 			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
 		}

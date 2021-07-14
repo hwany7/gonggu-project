@@ -1,5 +1,8 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -21,28 +24,36 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int directLogin(String member_email, String password) {
 		
-		MemberDto memberDto = memberDao.getMemberFromLogin(member_email);
-		
+		int result = 0;
 		HttpSession session = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
 		
-		int result = memberDao.checkEmail(member_email);
-		String status = memberDao.checkStatus(member_email);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member_email", member_email);
+		map.put("password", password);
 		
-		if(status.equals("active")) {
-			result = 1;
-			session.setAttribute("nickname", memberDto.getNickname());
-			session.setAttribute("gender", memberDto.getGender());
-			session.setAttribute("member_id", Integer.toString(memberDto.getMember_id()));
-		} else if(status.equals("suspended")){
-			result = 2;
-		} else if(status.equals("dormant")) {
-			result = 3;
-			session.setAttribute("member_id", Integer.toString(memberDto.getMember_id()));
-		} else if(status.equals("inactive")) {
+		MemberDto memberDto = memberDao.getMemberFromLogin(map);
+		
+		if (memberDto == null) {
 			result = 0;
+		}else {
+			String status = memberDto.getMember_status();
+			
+			if(status.equals("active")) {
+				result = 1;
+				session.setAttribute("nickname", memberDto.getNickname());
+				session.setAttribute("gender", memberDto.getGender());
+				session.setAttribute("member_id", Integer.toString(memberDto.getMember_id()));
+			} else if(status.equals("suspended")){
+				result = 2;
+			} else if(status.equals("dormant")) {
+				result = 3;
+				session.setAttribute("member_id", Integer.toString(memberDto.getMember_id()));
+			} else if(status.equals("inactive")) {
+				result = 0;
+			}
+			
 		}
 		
-
 		return result;
 	}
 	

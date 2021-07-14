@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,9 +18,9 @@ public class MemberDaoImpl implements MemberDao {
 	
 	//로그인시 멤버 정보 가져오기
 	@Override
-	public MemberDto getMemberFromLogin(String member_email) {
+	public MemberDto getMemberFromLogin(Map<String, Object> map) {
 		
-		return session.selectOne("member.getMemberFromLogin", member_email);
+		return session.selectOne("member.getMemberFromLogin", map);
 	}
 			
 	//로그인시 상태 체크

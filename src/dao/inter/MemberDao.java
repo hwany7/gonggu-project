@@ -1,12 +1,14 @@
 package dao.inter;
 
+import java.util.Map;
+
 import dto.MemberDto;
 
 public interface MemberDao {
 	
 	//로그인
-	public MemberDto getMemberFromLogin(String member_email);
-	public String checkStatus(String member_email);
+	public MemberDto getMemberFromLogin(Map<String, Object> map);
+	public String checkStatus(String member_email);//미사용(리팩토링)
 	
 	//계정 활성화
 	public int activateStatusFromLogin(int member_id);

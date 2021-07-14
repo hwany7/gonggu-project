@@ -5,7 +5,7 @@
 
 	<!-- 멤버 로그인 -->
 	<select id="getMemberFromLogin" parameterType="String" resultType="dto.MemberDto">
- 		select * from member_gg where member_email=#{member_email}
+ 		select * from member_gg where member_email=#{member_email} and password=#{password}
  	</select>
  		
 	 <!-- 멤버 상태 체크 -->

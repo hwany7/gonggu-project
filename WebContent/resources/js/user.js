@@ -407,4 +407,18 @@ function deleteReview(review_num){
 
 }
 
+function getMyPosts(pageNum, post_status){
+	
+	$.ajax({
+         url : "myPosts?pageNum="+ pageNum + "&post_status=" + post_status,
+         type : 'get',
+         dataType : "text",
+         success : function(data){
+      	   $("#list_box").html(data);
+         },
+         error : function(e){}
+            
+     });
+}
+
 

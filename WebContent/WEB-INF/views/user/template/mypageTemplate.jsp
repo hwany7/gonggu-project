@@ -7,6 +7,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GongGu</title>
+		<script type="text/javascript">
+			$(document).ready(function(){	
+				var navIndex = $('.navIndex').val();
+				var li = $('.nav-myPage').children();
+				li.eq(navIndex).children().css('color', '#5BC0DE');
+			});
+		</script>
 	</head>
 	<body>
 		<!-- 네이게이션 -->

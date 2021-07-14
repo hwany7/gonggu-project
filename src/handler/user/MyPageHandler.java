@@ -33,4 +33,17 @@ public class MyPageHandler {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/myPosts")
+	public ModelAndView myPosts(String pageNum, String post_status) {
+		
+		ModelAndView mav = new ModelAndView("/user/mypage/myPostsAjax");
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, post_status);
+		
+		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("info", map.get("info"));
+		
+		return mav;
+	}
 }
