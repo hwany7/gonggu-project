@@ -33,7 +33,12 @@
 										<h6 class="text-main-color">[${postListDto.product_name}]</h6>
 										<h4>${postListDto.post_title}</h4>			
 										<div class="etc text-color-g2">${postListDto.content}</div>
-										<input type="button" value="결제" class="btn btn-default" >
+										<c:if test="${info.post_status eq 'P'}">
+											<input type="button" value="결제" class="btn btn-default" >
+										</c:if>
+										<c:if test="${info.post_status eq 'A'}">
+											<input type="button" value="취소" class="btn btn-default" >
+										</c:if>
 									</div>							
 								</div>
 							</div>
@@ -48,7 +53,7 @@
 							<c:if test="${info.cnt gt 0}">
 								<div class="col-md-2 text-center">
 								<c:if test="${info.startPage gt info.pageBlock}">
-									<a href="posts?pageNum=${info.startPage-info.pageBlock}&category_id=${info.category_id}&search=${info.search}">◀</a>
+									<a onclick="getMyPosts('${info.startPage-info.pageBlock}', '${info.post_status}')">◀</a>
 								</c:if>
 								</div>
 								<div class="col-md-8">
@@ -57,13 +62,13 @@
 										<span style="color: #5BC0DE;">[${i}]</span>
 									</c:if>
 									<c:if test="${i ne info.currentPage}">
-										<a href="posts?pageNum=${i}&category_id=${info.category_id}&search=${info.search}">[${i}]</a>
+										<a onclick="getMyPosts('${i}', '${info.post_status}')">[${i}]</a>
 									</c:if>
 								</c:forEach>
 								</div>
 								<div class="col-md-2">
-								<c:if test="${info.pageCount gt info.endPage}">
-									<a href="posts?pageNum=${info.startPage+info.pageBlock}&category_id=${info.category_id}&search=${info.search}">▶</a>	
+								<c:if test="${info.pageCount gt info.endPage}">	
+									<a onclick="getMyPosts('${info.startPage+info.pageBlock}', '${info.post_status}')">▶</a>
 								</c:if>
 								</div>
 							</c:if>

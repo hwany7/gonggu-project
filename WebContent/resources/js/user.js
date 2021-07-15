@@ -409,6 +409,22 @@ function deleteReview(review_num){
 
 function getMyPosts(pageNum, post_status){
 	
+	var li = $('.nav-myPage').children();
+	var navIndex = '';
+	
+	for(i=0; i<5; i++){
+		li.eq(i).children().css('color', '');
+	}
+	
+	if(post_status == "P"){
+		navIndex = 0;
+	}else{
+		navIndex = 1;
+	}
+	
+	var li = $('.nav-myPage').children();
+	li.eq(navIndex).children().css('color', '#5BC0DE');
+	
 	$.ajax({
          url : "myPosts?pageNum="+ pageNum + "&post_status=" + post_status,
          type : 'get',
