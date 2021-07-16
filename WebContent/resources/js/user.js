@@ -430,11 +430,46 @@ function getMyPosts(pageNum, post_status){
          type : 'get',
          dataType : "text",
          success : function(data){
-      	   $("#list_box").html(data);
+      	   $("#mypage_content").html(data);
          },
          error : function(e){}
             
      });
+}
+
+function paymentFormCheck(){
+	var receiver_name = paymentForm.receiver_name.value;
+	var address1 = paymentForm.address1.value;
+	var address2 = paymentForm.address2.value;
+	
+	if( !receiver_name ){
+		alert("배송 받는 사람을 입력해주세요");
+		return false;
+	} 
+	if( !address1 ){
+		alert("주소를 입력해 주세요");
+		return false;
+	} 
+	if( !address2 ){
+		alert("상세 주소를 입력해 주세요");
+		paymentForm.address2.focus();
+		return false;
+	}
+}
+
+function pay_post(total_price, application_id){
+	
+	$.ajax({
+		url : "payPosts?total_price=" + total_price + "&application_id=" + application_id,
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });
+	
 }
 
 

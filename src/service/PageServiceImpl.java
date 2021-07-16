@@ -31,7 +31,9 @@ public class PageServiceImpl implements PageService {
 		//첫 페이지인 경우
 		if(pageNum == null) {
 			pageNum = "1";
-		}	
+		}else if(pageNum == "") {
+			pageNum = "1";
+		}
 		
 		//현재 페이지
 		currentPage = Integer.parseInt(pageNum);

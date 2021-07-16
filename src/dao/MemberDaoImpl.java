@@ -65,5 +65,12 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.insertMember", member);
 	}
 	
+	//멤버 가져오기
+	@Override
+	public MemberDto getMember(int member_id) {
+
+		return session.selectOne("member.getMember", member_id);
+	}
+	
 	
 }

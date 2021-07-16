@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<div class="max-width-1500 div-center">
-			<div id="list_box">
 				<div class="container-fluid">
 					<!-- 내역이 없을경우 -->
 					<c:if test="${postListDto[0].post_id eq null }">
@@ -35,7 +35,12 @@
 										<h6 class="text-main-color">[${postListDto.product_name}]</h6>
 										<h4>${postListDto.post_title}</h4>			
 										<div class="etc text-color-g2">${postListDto.content}</div>
-										<input type="button" value="결제" class="btn btn-default" >
+										<c:if test="${info.post_status eq 'P'}">
+											<input type="button" value="결제" class="btn btn-default" onclick="pay_post('${postListDto.total_price}', '${postListDto.application_id}')">
+										</c:if>
+										<c:if test="${info.post_status eq 'A'}">
+											<input type="button" value="취소" class="btn btn-default" >
+										</c:if>
 									</div>							
 								</div>
 							</div>
@@ -73,5 +78,4 @@
 						</div>
 					</div>
 				</div>
-			</div>	
 		</div>

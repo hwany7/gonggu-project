@@ -22,7 +22,7 @@
 		<hr>
 				
 		<!-- 마이페이지 콘텐트 -->
-		<div class="container-fluid max-width-1300">
+		<div class="container-fluid max-width-1300"  id="mypage_content">
 			<jsp:include page="${page}.jsp"/>
 		</div>	
 	

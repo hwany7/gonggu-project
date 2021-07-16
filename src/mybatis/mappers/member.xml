@@ -38,6 +38,11 @@
 		insert into member_gg(member_email, nickname, password, zipcode, address1, address2, tel, gender, birth_date, visit_path)
 		 		values(#{member_email}, #{nickname}, #{password}, #{zipcode}, #{address1}, #{address2}, #{tel}, #{gender, jdbcType=VARCHAR}, #{birth_date, jdbcType=VARCHAR}, #{visit_path, jdbcType=VARCHAR})		
 	</insert>
+	
+	 <!-- 내정보 보기를 위한 멤버정보  -->
+ 	<select id="getMember" parameterType="int" resultType="dto.MemberDto">
+ 		select * from member_gg where member_id=#{member_id}
+ 	</select>
 
 </mapper>
 

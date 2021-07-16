@@ -10,13 +10,19 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import service.inter.PaymentService;
 import service.inter.PostService;
+
 
 @Controller
 public class MyPageHandler {
 	
 	@Resource
 	PostService postService;
+	
+	@Resource
+	PaymentService paymentService;
+
 	
 	@RequestMapping("/myPage")
 	public ModelAndView myPage(String pageNum) {
@@ -43,6 +49,19 @@ public class MyPageHandler {
 		
 		mav.addObject("postListDto", map.get("postListDto"));
 		mav.addObject("info", map.get("info"));
+		
+		return mav;
+	}
+	
+	@RequestMapping("/payPost")
+	public ModelAndView payPost(int total_price, int application_id) {
+		
+		ModelAndView mav = new ModelAndView("/user/mypage/payPost");
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+
+		mav.addObject("total_price", total_price);
+		mav.addObject("application_id", application_id);
+		mav.addObject("memberDto", paymentService.getUserInfo(member_id));
 		
 		return mav;
 	}

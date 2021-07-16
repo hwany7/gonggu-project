@@ -34,7 +34,7 @@
 										<h4>${postListDto.post_title}</h4>			
 										<div class="etc text-color-g2">${postListDto.content}</div>
 										<c:if test="${info.post_status eq 'P'}">
-											<input type="button" value="결제" class="btn btn-default" >
+											<input type="button" value="결제" class="btn btn-default" onclick="pay_post('${postListDto.total_price}', '${postListDto.application_id}')">					
 										</c:if>
 										<c:if test="${info.post_status eq 'A'}">
 											<input type="button" value="취소" class="btn btn-default" >

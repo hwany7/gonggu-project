@@ -19,4 +19,7 @@ public interface MemberDao {
 	public int checkNickname(String nickname);
 	public int insertMember(MemberDto member);
 	
+	//마이페이지
+	public MemberDto getMember(int member_id);
+	
 }
