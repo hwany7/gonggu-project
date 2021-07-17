@@ -14,7 +14,6 @@
 					<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4 border-under-a">
 						<!-- 로그인 폼 -->
 		           		<form method="post" name="paymentForm" action="payPostPro" onsubmit="return paymentFormCheck()">
-		 					<input type="hidden" name="total_price" value="${total_price}">
 							<input type="hidden" name="application_id" value="${application_id}">		     			
 		                    <div class="form-group">
 			                	<input type="text" class="form-control mar-top-30" name="receiver_name" placeholder="받는 사람 이름" >                    

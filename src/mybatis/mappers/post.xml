@@ -198,7 +198,10 @@
 	<!-- A : Apply 공구 시작 , C : Complete 모집 완료, N : Negotiation 가격 협상, P : Pay 결제 대기, S : StandBy 대기상태 -->
 	<select id="getMyPostCountByStatus" parameterType="java.util.Map" resultType="int">
 		select count(*) from post_gg, application_gg 
-		where post_gg.post_id = application_gg.post_id and post_gg.post_status=#{post_status} and application_gg.member_id=#{member_id}
+		where post_gg.post_id = application_gg.post_id 
+								and post_gg.post_status=#{post_status} 
+								and application_gg.member_id=#{member_id}
+								and application_id not in (select application_id from payment_gg)
 	</select>
 	
 	<!-- 결제 가능한 상품 -->
@@ -217,7 +220,8 @@
       		 from post_gg, product_gg, application_gg 
       		 where post_gg.post_id = application_gg.post_id 
         			and post_gg.product_id = product_gg.product_id 
-        			and member_id = #{member_id} and post_status = #{post_status})
+        			and member_id = #{member_id} and post_status = #{post_status}
+        			and application_id not in (select application_id from payment_gg))
         where r &gt;= #{start} and r &lt;= #{end}
  	</select>
 	

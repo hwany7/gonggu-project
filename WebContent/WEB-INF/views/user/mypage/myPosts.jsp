@@ -3,19 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<div class="max-width-1500 div-center">
+			<c:if test="${postListDto[0].post_id eq null }">
 				<div class="container-fluid">
 					<!-- 내역이 없을경우 -->
-					<c:if test="${postListDto[0].post_id eq null }">
-						<div class="row">
-							<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
-								<div class="col-md-12">
-									<h4 class="font-DH mar-top-50 text-color-g2">결제 가능한 제품이 없습니다. 제품 신청을 해주세요!</h4>
-								</div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
+							<div class="col-md-12">
+								<h4 class="font-DH mar-top-50 text-color-g2">결제 가능한 제품이 없습니다. 제품 신청을 해주세요!</h4>
 							</div>
 						</div>
-					</c:if>		
+					</div>
 				</div>
-			
+			</c:if>		
+			<c:if test="${postListDto[0].post_id ne null }">
 				<!-- 리스트 박스 -->
 				<div class="container-fluid">
 					<c:forEach var="postListDto" items="${postListDto}">
@@ -55,7 +55,7 @@
 							<c:if test="${info.cnt gt 0}">
 								<div class="col-md-2 text-center">
 								<c:if test="${info.startPage gt info.pageBlock}"> 
-									<a onclick="getMyPosts('${info.startPage-info.pageBlock}', '${info.post_status}')">◀</a>
+									<a style="cursor:pointer" onclick="getMyPosts('${info.startPage-info.pageBlock}', '${info.post_status}')">◀</a>
 								</c:if>
 								</div>
 								<div class="col-md-8">
@@ -64,13 +64,13 @@
 										<span style="color: #5BC0DE;">[${i}]</span>
 									</c:if>
 									<c:if test="${i ne info.currentPage}">
-										<a onclick="getMyPosts('${i}', '${info.post_status}')">[${i}]</a>
+										<a style="cursor:pointer" onclick="getMyPosts('${i}', '${info.post_status}')">[${i}]</a>
 									</c:if>
 								</c:forEach>
 								</div>
 								<div class="col-md-2">
 								<c:if test="${info.pageCount gt info.endPage}">	
-									<a onclick="getMyPosts('${info.startPage+info.pageBlock}', '${info.post_status}')">▶</a>
+									<a style="cursor:pointer" onclick="getMyPosts('${info.startPage+info.pageBlock}', '${info.post_status}')">▶</a>
 								</c:if>
 								</div>
 							</c:if>
@@ -78,4 +78,5 @@
 						</div>
 					</div>
 				</div>
+			</c:if>
 		</div>

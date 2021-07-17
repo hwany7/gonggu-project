@@ -29,6 +29,7 @@
 		<mapper resource="mybatis/mappers/post.xml"/>
 		<mapper resource="mybatis/mappers/reply.xml"/>
 		<mapper resource="mybatis/mappers/review.xml"/>
+		<mapper resource="mybatis/mappers/payment.xml"/>
 	</mappers>
 	
 </configuration> 

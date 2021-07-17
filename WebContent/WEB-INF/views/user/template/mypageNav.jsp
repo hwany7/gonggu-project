@@ -20,11 +20,11 @@
 					<input type="hidden" class="navIndex" value="0">
 						<div class="col-md-12 com-xs-12">
 							<ul class="list-inline nav-myPage">		
-								<li id="payableMyPosts"><a onclick="getMyPosts('${info.pageNum}','P')" style="color: #5BC0DE"> 결제 가능</a></li> 					
-								<li id="notPayableMyPosts"><a onclick="getMyPosts('${info.pageNum}','A')">신청 제품</a></li>					
-								<li id="myReviews">내가 쓴 리뷰</li>				
-								<li id="myReplys">내가 쓴 댓글</li>				
-								<li id="myInfor">내정보</li>					
+								<li id="payableMyPosts"><a onclick="getMyPosts('${info.pageNum}','P')" style="color: #5BC0DE ; cursor:pointer;"> 결제 가능</a></li> 					
+								<li id="notPayableMyPosts"><a onclick="getMyPosts('${info.pageNum}','A')" style="cursor:pointer">신청 제품</a></li>					
+								<li id="myReviews" style="cursor:pointer"><a>내가 쓴 리뷰</a></li>				
+								<li id="myReplys" style="cursor:pointer"><a>내가 쓴 댓글</a></li>				
+								<li id="myInfor" style="cursor:pointer"><a>내정보</a></li>					
 							</ul>
 						</div>	
 					</div>	
