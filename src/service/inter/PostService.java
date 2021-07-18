@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.join.PostContentDto;
+import util.AppCancelReason;
 
 public interface PostService {
 	
@@ -12,6 +13,7 @@ public interface PostService {
 	public Map<String, Object> myPostListByStatus(String pageNum, int member_id, String post_status);
 	public Map<String, Object> getPost(int post_id);
 	public int addPostApply(int member_id, int post_id, int amount);
+	public int cancelApp(int application_id, AppCancelReason reason);
 	
 
 }

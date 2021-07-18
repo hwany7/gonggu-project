@@ -1,5 +1,11 @@
 package service;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +17,12 @@ import org.springframework.stereotype.Service;
 import dao.inter.ApplicationDao;
 import dao.inter.PostDao;
 import dao.inter.ReviewDao;
+import dto.ApplicationDto;
 import dto.ReviewDto;
 import dto.join.PostContentDto;
 import service.inter.PageService;
 import service.inter.PostService;
+import util.AppCancelReason;
 import util.PageInfo;
 
 @Service
@@ -160,6 +168,52 @@ public class PostServiceImpl implements PostService {
 		map.put("info", info);
 		
 		return map;
+	}
+	
+	//신청 취소하기
+	@Override
+	public int cancelApp(int application_id, AppCancelReason reason) {
+		
+		ApplicationDto applicationDto = applicationDao.getApplication(application_id);
+
+		int result = applicationDao.deleteApplication(application_id);
+		
+		if(result == 1) {
+			applicationDao.updateApplicationAndDecreaseComments(applicationDto);
+		}
+		
+		
+		//파일 패스 생성
+		File file = new File("C:\\ExpertJava/logs/canscelLog.log");
+		      
+		//현재 날짜 받기
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+		String date = sdf.format(Calendar.getInstance().getTime());
+			         
+		try {      
+			//버퍼 셋팅
+		    BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));    
+		     //파일이 쓰기 가능한 상태면
+		     if(file.isFile() && file.canWrite()) {        
+				bw.write(
+						"{ "
+					+ 		"\"date\":\"" 				+ date 							+ "\", "
+					+ 		"\"cancel_price\":\"" 		+ reason.getCancel_price()		+ "\", "
+					+ 		"\"cancel_function\":\"" 	+ reason.getCancel_function()	+ "\", "
+					+ 		"\"cancel_product\":\"" 	+ reason.getCancel_product()	+ "\", "
+					+ 		"\"cancel_site\":\"" 		+ reason.getCancel_site() 		+ "\", "	
+					+ 		"\"cancel_mind\":\"" 		+ reason.getCancel_mind() 		+ "\", "
+					+ 		"\"cancel_content\":\"" 	+ reason.getCancel_content()	+ "\", "
+					+ 	" },"	
+			);		        		        
+		        bw.newLine();
+		        bw.close();
+		     }   
+		}catch (IOException e) {
+		     e.printStackTrace();
+		}			
+
+		return result;
 	}
 	
 }

@@ -457,6 +457,7 @@ function paymentFormCheck(){
 	}
 }
 
+//결제하기
 function pay_post(total_price, application_id){
 	
 	$.ajax({
@@ -472,4 +473,23 @@ function pay_post(total_price, application_id){
 	
 }
 
+//결제취소 설문폼 체크
+function pollcheck() {
+	var priceValue = poll.cancel_price.value;
+
+	var functionValue = poll.cancel_function.value;
+	var productValue = poll.cancel_product.value;
+	var siteValue = poll.cancel_site.value;
+	var mindValue = poll.cancel_mind.value;
+	var contentValue = poll.cancel_content.value;
+
+	if(!priceValue || !functionValue || !productValue || !siteValue || !mindValue || !contentValue ){
+		alert( "신청취소한 이유를 선택주세요!" );
+		return false;
+	}
+}
+
+function closeModal(){
+	$('#modal').modal("hide");
+}
 

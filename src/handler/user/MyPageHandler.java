@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.PaymentDto;
 import service.inter.PaymentService;
 import service.inter.PostService;
+import util.AppCancelReason;
 
 
 @Controller
@@ -23,7 +24,7 @@ public class MyPageHandler {
 	
 	@Resource
 	PaymentService paymentService;
-
+	
 	
 	@RequestMapping("/myPage")
 	public ModelAndView myPage(String pageNum) {
@@ -73,6 +74,19 @@ public class MyPageHandler {
 		ModelAndView mav = new ModelAndView("user/pro/payPostPro");
 	
 		mav.addObject("result", paymentService.payment(payment));
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping("/cancelAppPro")
+	public ModelAndView cancelAppPro(int application_id, AppCancelReason reason) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		
+		mav.addObject("page","/WEB-INF/views/user/pro/cancelAppPro");
+		
+		mav.addObject("result", postService.cancelApp(application_id, reason));
 		
 		return mav;
 	}

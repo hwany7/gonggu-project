@@ -1,6 +1,8 @@
 package handler.user;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,13 +45,24 @@ public class SignUpHandler {
 	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
 	}
 	
-	//이메일 인증
+	//이메일 인증(방법1)
 	@RequestMapping("/mailConfirmForm")
 	public ModelAndView mailConfirmForm(String member_email) {
 		
 		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
 		
 		mav.addObject("codeMsg", signupService.SendMailGetCode(member_email));
+		
+		return mav;
+	}
+	
+	//이메일 인증(방법2)
+	@RequestMapping("/mailConfirmForm")
+	public ModelAndView mailConfirmForm(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
+		
+		mav.addObject("codeMsg", signupService.SendMailGetCode((String)request.getAttribute("member_email")));
 		
 		return mav;
 	}
