@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.PaymentDto;
 import service.inter.PaymentService;
 import service.inter.PostService;
+import service.inter.ReviewService;
 import util.AppCancelReason;
 
 
@@ -25,6 +26,8 @@ public class MyPageHandler {
 	@Resource
 	PaymentService paymentService;
 	
+	@Resource
+	ReviewService reviewService;
 	
 	@RequestMapping("/myPage")
 	public ModelAndView myPage(String pageNum) {
@@ -87,6 +90,21 @@ public class MyPageHandler {
 		mav.addObject("page","/WEB-INF/views/user/pro/cancelAppPro");
 		
 		mav.addObject("result", postService.cancelApp(application_id, reason));
+		
+		return mav;
+	}
+	
+	@RequestMapping("/myReviews")
+	public ModelAndView myReviews(String pageNum) {
+		
+		ModelAndView mav = new ModelAndView("user/mypage/myReviews");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+
+		Map<String, Object> map = reviewService.getMyReviewList(pageNum, member_id);
+		
+		mav.addObject("reviewContentDtos", map.get("reviewContentDtos"));
+		mav.addObject("info", map.get("info"));
 		
 		return mav;
 	}

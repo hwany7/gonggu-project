@@ -493,3 +493,29 @@ function closeModal(){
 	$('#modal').modal("hide");
 }
 
+function getMyReviews(){
+	
+	var li = $('.nav-myPage').children();
+	var navIndex = '';
+	
+	for(i=0; i<5; i++){
+		li.eq(i).children().css('color', '');
+	}
+	
+	navIndex = 3;
+	
+	var li = $('.nav-myPage').children();
+	li.eq(navIndex).children().css('color', '#5BC0DE');
+	
+	$.ajax({
+		url : "myReviews",
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });
+}
+

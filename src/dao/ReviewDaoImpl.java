@@ -116,6 +116,21 @@ public class ReviewDaoImpl implements ReviewDao{
 
 		return session.delete("review.deleteReview", review_num);
 	}
+	
+	//내 리뷰 리스트 가져오기
+	@Override
+	public List<ReviewContentDto> getMyReviewList(PageInfo info) {
+		
+		return session.selectList("review.getMyReviewList", info);
+	}
+	
+	//내리뷰 전체 개수 가져오기
+	@Override
+	public int getMyReviewCount(int member_id) {
+
+		return session.selectOne("review.getMyReviewCount", member_id);
+	}
+	
 }
 
 

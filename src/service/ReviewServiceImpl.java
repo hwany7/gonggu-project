@@ -100,5 +100,26 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 	
+	@Override
+	public Map<String, Object>  getMyReviewList(String pageNum, int member_id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int cnt = reviewDao.getMyReviewCount(member_id);
+		
+		PageInfo info = pageService.process(cnt, pageNum);
+		
+		if(info.getCnt()>0) {
+			
+			info.setMember_id(member_id);
+			
+			List<ReviewContentDto> reviewContentDtos = reviewDao.getMyReviewList(info);	
+								
+			map.put("reviewContentDtos", pageService.preprocessingFromReviewList(reviewContentDtos));
+		}
+		
+		map.put("info", info);
+		
+		return map;
+	}
 	
 }

@@ -123,7 +123,42 @@
 		values(#{review_num}, #{member_id}, #{payment_id}, #{title}, #{upload_date}, #{replycount}, #{readcount},#{likecount}, #{content})			
 	</insert>
 	
+
+	<!-- 내 리뷰 리스트 가져오기 -->
+ 	<select id="getMyReviewList" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
+		select  *
+		from (select nickname,
+				member_id,
+				review_num,
+				payment_id,
+				title,
+				upload_date,
+				replycount,
+				readcount,
+				likecount,
+				content,
+				rownum r
+			from (select nickname,
+					member_gg.member_id,
+					review_num,
+					payment_id,
+					title,
+					upload_date, 
+					replycount,
+					readcount, 
+					likecount, 
+					content
+        			from member_gg, review_gg
+        			where member_gg.member_id = review_gg.member_id and member_gg.member_id = #{member_id}
+                    order by review_num desc)
+		        )
+		where r &gt;= #{start} and r &lt;=#{end}
+	</select>	
 	
+	<!-- 내 리뷰 전체 개수 가져오기 -->
+	<select id="getMyReviewCount" parameterType="int" resultType="int">
+		select count(*) from review_gg where member_id = #{member_id}
+	</select>
 	
 </mapper>
 

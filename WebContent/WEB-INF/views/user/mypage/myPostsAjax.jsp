@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>				
-				<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				<c:if test="${postListDto[0].post_id eq null }">
 					<div class="container-fluid">
 					<!-- 내역이 없을경우 -->

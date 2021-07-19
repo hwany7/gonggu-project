@@ -27,6 +27,10 @@ public interface ReviewDao {
 	//리뷰 리스트
 	public int getReviewCount();
 	public int geReviewCountBySearch(String search);
-	List<ReviewContentDto> getReviewtFromReviewList(PageInfo info);
+	public List<ReviewContentDto> getReviewtFromReviewList(PageInfo info);
+	
+	//마이 페이지
+	public List<ReviewContentDto> getMyReviewList(PageInfo info);
+	public int getMyReviewCount(int member_id);
 
 }
