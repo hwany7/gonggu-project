@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import dao.inter.ApplicationDao;
+import dao.inter.PaymentDao;
 import dao.inter.PostDao;
 import dao.inter.ReviewDao;
 import dto.ApplicationDto;
@@ -151,7 +152,8 @@ public class PostServiceImpl implements PostService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", member_id);
 		map.put("post_status", post_status);
-		int cnt = postDao.getMyPostCountByStatus(map);
+
+		int cnt = (post_status == "S") ? postDao.getMyPostByPayment(member_id) : postDao.getMyPostCountByStatus(map);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -160,7 +162,7 @@ public class PostServiceImpl implements PostService {
 			info.setMember_id(member_id);
 			info.setPost_status(post_status);
 			
-			List<PostContentDto> postListDto = postDao.getMyPostListByStatus(info);
+			List<PostContentDto> postListDto = (post_status == "S") ? postDao.getMyPostListBypayement(info) : postDao.getMyPostListByStatus(info);
 			
 			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
 		}
@@ -181,7 +183,6 @@ public class PostServiceImpl implements PostService {
 		if(result == 1) {
 			applicationDao.updateApplicationAndDecreaseComments(applicationDto);
 		}
-		
 		
 		//파일 패스 생성
 		File file = new File("C:\\ExpertJava/logs/canscelLog.log");

@@ -36,6 +36,9 @@
 											<c:if test="${info.post_status eq 'P'}">
 												<input type="button" value="결제" class="btn btn-default" onclick="pay_post('${postListDto.total_price}', '${postListDto.application_id}')">					
 											</c:if>
+											<c:if test="${info.post_status eq 'S'}">
+												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="location='writeReview?payment_id=${postListDto.payment_id}'">
+											</c:if>
 											<c:if test="${info.post_status eq 'A'}">
 											<button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">신청취소</button>      
                        						<form method="get" action="cancelAppPro" name="poll" onsubmit="return pollcheck()" >

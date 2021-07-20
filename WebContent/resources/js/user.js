@@ -418,8 +418,10 @@ function getMyPosts(pageNum, post_status){
 	
 	if(post_status == "P"){
 		navIndex = 0;
-	}else{
+	}else if(post_status == "A"){
 		navIndex = 1;
+	}else{
+		navIndex = 2;
 	}
 	
 	var li = $('.nav-myPage').children();

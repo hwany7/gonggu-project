@@ -205,7 +205,7 @@
 	</select>
 	
 	<!-- 결제 가능한 상품 -->
- 	<select id="getMyPostListByStatus" parameterType="java.util.Map" resultType="dto.join.PostContentDto">
+ 	<select id="getMyPostListByStatus" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
  		select * 
  		from (select thumbnail, 
  					post_title, 
@@ -224,7 +224,36 @@
         			and application_id not in (select application_id from payment_gg))
         where r &gt;= #{start} and r &lt;= #{end}
  	</select>
-	
+ 	
+ 	<!-- 마이페이지에서 구매내역 페이지 나누기 위한 구매count -->
+ 	<select id="getMyPostByPayment" parameterType="int" resultType="int">
+ 		select count(*)
+		from payment_gg, application_gg
+		where payment_gg.application_id = application_gg.application_id and member_id=#{member_id}
+ 	</select>
+ 	
+  	<!-- 결제한 포스트 리스트(구매내역) -->
+ 	<select id="getMyPostListBypayement" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+ 		 select *
+			from (select thumbnail, 
+	                  payment_id, 
+	                  payment_gg.application_id, 
+	                  application_gg.post_id, 
+	                  post_title,
+					  product_name, 
+	                  fixed_price*amount as total_price, 
+	                  review_writable, 
+	                  paytime,
+					  content, 
+	                  current_amount, 
+	                  rownum r
+        		from post_gg, product_gg, application_gg, payment_gg
+        		where post_gg.post_id = application_gg.post_id
+		            and post_gg.product_id = product_gg.product_id
+		            and application_gg.application_id = payment_gg.application_id
+		            and member_id = #{member_id})
+		where r &gt;= #{start} and r &lt;= #{end}
+ 	</select>
 
 	
 

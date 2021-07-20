@@ -128,6 +128,20 @@ public class PostDaoImpl implements PostDao {
 
 		return session.selectList("post.getMyPostListByStatus", info);
 	}
+	
+	//내가 결제한 포스트 리스트 전체 개수 가져오기
+	@Override
+	public int getMyPostByPayment(int member_id) {
+		
+		return session.selectOne("post.getMyPostByPayment", member_id);
+	}
+	
+	//결제한 포스트 리스트(구매내역)
+	@Override
+	public List<PostContentDto> getMyPostListBypayement(PageInfo info) {
+
+		return session.selectList("post.getMyPostListBypayement", info);
+	}
 
 }
 
