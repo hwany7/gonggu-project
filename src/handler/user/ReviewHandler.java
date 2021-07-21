@@ -3,6 +3,7 @@ package handler.user;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,4 +76,15 @@ public class ReviewHandler {
 		
 		return mav;
 	}
+	
+	//리뷰 작성 폼 가기
+	@RequestMapping("/review/write")
+	public ModelAndView writeReview(int payment_id) {
+		
+		ModelAndView mav = new ModelAndView("user/review/writeReview");
+		
+		mav.addObject("payment_id", payment_id);
+
+		return mav;
+	}	
 }

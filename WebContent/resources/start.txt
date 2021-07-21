@@ -1,0 +1,961 @@
+
+/*
+-- grant
+grant resource to encore;
+alter user encore default role all;
+grant unlimited tablespace to encore;
+*/
+
+-- drop table
+drop table notification_gg;
+drop table reply_gg;
+drop table like_gg;
+drop table deleted_review_gg;
+drop table review_gg;
+drop table payment_gg;
+drop table application_gg;
+drop table post_gg;
+drop table manager_gg;
+drop table product_gg;
+drop table category_gg;
+drop table member_gg;
+
+drop sequence member_gg_sequence;
+drop sequence category_gg_sequence;
+drop sequence product_gg_sequence;
+drop sequence post_gg_sequence;
+drop sequence application_gg_sequence;
+drop sequence payment_gg_sequence;
+drop sequence review_gg_sequence;
+drop sequence reply_gg_sequence;
+drop sequence notification_gg_sequence;
+
+PURGE RECYCLEBIN;
+
+/* member */
+create table member_gg(
+    member_id number primary key,
+    member_email varchar2(50) unique not null,
+    password varchar2(20) not null,
+    nickname varchar2(30) unique not null,
+    zipcode varchar2(6) not null,
+    address1 varchar2(150) not null,
+    address2 varchar2(150) not null,
+    tel varchar2(20) not null,
+    member_status varchar2(10) default 'active',			-- active, suspended, dormant, inactive Ȱ��, Ȱ������, �޸�, Ż��
+    join_date date default sysdate,
+    gender varchar2(10),	
+    birth_date date,
+    visit_path varchar2(20)
+);
+-- auto_increment�ؼ� pk�� �����ϱ�
+create sequence member_gg_sequence start with 1 increment by 1;
+create or replace trigger member_gg_on_insert 
+    before insert on member_gg 
+    for each row
+begin 
+    select member_gg_sequence.nextval 
+    into :new.member_id 
+    from dual;
+end;
+/
+
+/* category */
+create table category_gg(
+	category_id number primary key,		        -- 1,2,3,4,5 (�߰� �����ϰ� �ϱ� ���� �ڵ����� ���� �߰�)
+    category_name varchar2(50) not null			-- �ڵ���, PC/��Ʈ��, ī�޶�, �����, �º�
+);
+create sequence category_gg_sequence 
+    start with 1 
+    increment by 1
+    maxvalue 999
+    nocache;
+create or replace trigger category_gg_on_insert 
+    before insert on category_gg 
+    referencing new as new for each row
+begin 
+    select category_gg_sequence.nextval 
+    into :new.category_id 
+    from dual;
+end;
+/
+
+/* product */
+create table product_gg(
+	product_id number primary key,
+    product_name varchar2(100) not null,			-- ��ǰ�̸�
+    product_model varchar2(50) not null,			-- �𵨸�
+    category_id number not null,
+    thumbnail varchar2(1000) not null,				-- ����� �ּ�
+    image varchar2(1000) not null,					-- �̹��� ���� �ּ�
+    product_status varchar2(20),					-- Ȥ�� ���� ���� �÷�
+    constraint fk_products foreign key (category_id) references category_gg(category_id)
+);
+create sequence product_gg_sequence start with 1 increment by 1;
+create or replace trigger product_gg_on_insert 
+    before insert on product_gg
+    referencing new as new for each row
+begin 
+    select product_gg_sequence.nextval 
+    into :new.product_id
+    from dual;
+end;
+/
+
+/* manager */
+create table manager_gg(
+	manager_id varchar2(30) primary key,
+    manager_name varchar2(30) not null,
+    password varchar2(20) not null
+);
+
+/* post */
+create table post_gg(
+	post_id number primary key,		
+    post_title varchar2(100) not null,
+    product_id number not null,
+    default_price number not null,			    -- ���ͳ� ������
+    fixed_price number default 0,			    -- Ȯ���� ����
+    minimum_amount number not null,			    -- ���� ���� �ּҼ���
+    current_amount	number default 0 ,	        -- �ǽð� ��û ���� (select sum(amount) from applicataion where post.post_id = payment.post_id)
+    payment_amount number default 0,		    -- ���� ���� ����	(select sum(amount) from payment where post.post_id = payment.post_id)
+    post_status varchar2(5) default 'A',	    -- A : Apply ���� ���� , C : Complete ���� �Ϸ�, N : Negotiation ���� ����, P : Pay ���� ���, S : StandBy ������
+    content clob not null,						-- ������ Ȱ��
+    post_time date default sysdate,
+    constraint fk_post_id foreign key (product_id) references product_gg(product_id)
+);
+create sequence post_gg_sequence start with 1 increment by 1;
+create or replace trigger post_gg_on_insert 
+    before insert on post_gg
+    referencing new as new for each row
+begin 
+    select post_gg_sequence.nextval 
+    into :new.post_id
+    from dual;
+end;
+/
+
+/* application */
+create table application_gg(
+	application_id number primary key,
+    member_id number not null,
+    post_id number not null,
+    applytime date default sysdate,
+    amount number not null,
+    constraint fk_app_mem foreign key (member_id) references member_gg(member_id),
+    constraint fk_app_post foreign key (post_id) references post_gg(post_id)
+);
+create sequence application_gg_sequence start with 1 increment by 1;
+create or replace trigger application_gg_on_insert 
+    before insert on application_gg
+    referencing new as new for each row
+begin 
+    select application_gg_sequence.nextval 
+    into :new.application_id
+    from dual;
+end;
+/
+
+/* payment */
+create table payment_gg(
+	payment_id number primary key,
+    application_id number not null,
+    receiver_name varchar2(30) not null,		-- ��۹޴� ��� �̸�
+    review_writable number default 0 not null,  -- 0�̸� �ۼ�����, review �ۼ��� update 1
+    paytime date default sysdate,
+    zipcode varchar2(6) not null,				-- �ּ��� default ���� ȸ�������� �ּ�
+    address1 varchar2(50) not null,
+    address2 varchar2(50) not null,
+    total_price number not null,					
+    -- select (post.fixed_price * application.amount) as tot from post, application where post.post.id = application.post_id
+    method varchar2(30) not null,
+    request varchar2(20),						-- ��۽� ��û����
+    constraint fk_payment foreign key (application_id) references application_gg(application_id)
+);
+create sequence payment_gg_sequence start with 1 increment by 1;
+create or replace trigger payment_gg_on_insert 
+    before insert on payment_gg 
+    referencing new as new for each row
+begin 
+    select payment_gg_sequence.nextval 
+    into :new.payment_id 
+    from dual;
+end;
+/
+
+/* review */
+create table review_gg(
+	review_num number primary key,
+    member_id number not null,
+    payment_id number not null,
+    title varchar2(90) not null,
+    upload_date date default sysdate,
+    replycount number default 0 not null,
+    readcount number default 0 not null,
+    likecount number default 0 not null,
+    content clob not null,
+    constraint fk_review_mem foreign key (member_id) references member_gg(member_id),
+    constraint fk_review_pay foreign key (payment_id) references payment_gg(payment_id)
+);
+create sequence review_gg_sequence start with 1 increment by 1;
+create or replace trigger review_gg_on_insert 
+    before insert on review_gg 
+    referencing new as new for each row
+begin 
+    select review_gg_sequence.nextval 
+    into :new.review_num
+    from dual;
+end;
+/
+
+/* deleted_review */
+-- insert into deleted_review select * from review;
+-- delete from review where review_num = ?;
+create table deleted_review_gg as select * from review_gg;
+
+/* like */
+create table like_gg(
+    review_num number not null,
+    member_id number not null,
+    constraint fk_like_re foreign key (review_num) references review_gg(review_num) on delete cascade,
+    constraint fk_like_mem foreign key (member_id) references member_gg(member_id) on delete cascade
+);
+
+/* reply */
+create table reply_gg(
+	reply_num number primary key,
+    review_num number not null,
+    member_id number not null,
+    upload_date date default sysdate,
+    content varchar2(150) not null,
+    constraint fk_reply_re foreign key (review_num) references review_gg(review_num) on delete cascade,
+    constraint fk_reply_mem foreign key (member_id) references member_gg(member_id) on delete cascade
+);
+create sequence reply_gg_sequence start with 1 increment by 1;
+create or replace trigger reply_gg_on_insert 
+    before insert on reply_gg 
+    referencing new as new for each row
+begin 
+    select reply_gg_sequence.nextval 
+    into :new.reply_num
+    from dual;
+end;
+/
+
+/* notification */
+create table notification_gg(
+	notify_id number not null primary key,
+    manager_id varchar2(30) not null,
+    member_id number not null,
+    post_id number,
+    notify_time date default sysdate,
+    read_status number default 0,       -- 0�̸� ���� ����, 1�̸� ����
+    content varchar2(100) not null,
+    constraint fk_noti_mem foreign key (member_id) references member_gg(member_id),
+    constraint fk_noti_manager foreign key (manager_id) references manager_gg(manager_id),
+    constraint fk_noti_post foreign key (post_id) references post_gg(post_id)
+);
+create sequence notification_gg_sequence start with 1 increment by 1;
+create or replace trigger notification_gg_on_insert 
+    before insert on notification_gg
+    referencing new as new for each row
+begin 
+    select notification_gg_sequence.nextval 
+    into :new.notify_id
+    from dual;
+end;
+/
+
+-- member ���� ������ ����
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('ironman@naver.com', 'aaa1111!', '���̾��', '12345', '���󳲵�', '����', '010-1111-1111');
+
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, gender, birth_date, visit_path)
+values ('hulk@naver.com', 'aaa1111!', '��ũ', '12345', '��󳲵�', '����', '010-2222-2222', '����', '95/01/01', '1');
+update member_gg set member_status = 'dormant' where member_id = 2;
+
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('spiderman@naver.com', 'aaa1111!', '�����̴���', '12345', '��⵵', '����', '010-3333-3333');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('blackwidow@naver.com', 'aaa1111!', '��������', '12345', '������', '��õ', '010-4444-4444');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, gender, visit_path)
+values ('scarletwitch@naver.com', 'aaa1111!', '��Į����ġ', '12345', '��û�ϵ�', '����', '010-5555-5555', '����', '2');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('starload@naver.com', 'aaa1111!', '��Ÿ�ε�', '12345', '���ϵ�', '����', '010-6666-6666');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('captainamerica@naver.com', 'aaa1111!', 'ĸƾ�Ƹ޸�ī','12345', '����', '���ʱ�', '010-7777-7777');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, gender)
+values ('thor@naver.com', 'aaa1111!', '�丣', '12345', '��õ', '����', '010-8888-8888', '����');
+insert into member_gg(member_email, password, nickname,zipcode, address1, address2, tel, birth_date)
+values ('blackpanther@naver.com', 'aaa1111!', '���Ҽ�', '12345', '����', '������', '010-9999-9999', '93/08/18');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, gender, birth_date)
+values ('thanos@naver.com', 'aaa1111!', 'Ÿ�뽺', '12345', '����', '���걸', '010-9999-1234', '����', '88/05/25');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, gender, visit_path)
+values ('captainmarvel@naver.com', 'aaa1111!', 'ĸƾ����', '12345', '�λ�', '�ؿ�뱸', '010-1234-1234', '����', '3');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('groot@naver.com', 'aaa1111!', '�׷�Ʈ', '12345', '�뱸', '������', '010-2345-2345');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('hawkeye@naver.com', 'aaa1111!', 'ȣũ����', '12345', '��⵵', '����', '010-3456-3456');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel, birth_date)
+values ('doctorstrange@naver.com', 'aaa1111!', '���ͽ�Ʈ������', '12345', '����ϵ�', '����', '010-4567-4567', '91/09/09');
+insert into member_gg(member_email, password, nickname, zipcode, address1, address2, tel)
+values ('wintersolider@naver.com', 'aaa1111!', '���ͼ���', '12345', '������', '����', '010-5678-5678');
+
+select * from review_gg;
+-- category ���� ������ ����
+insert into category_gg(category_id, category_name) values (1, '�ڵ���');
+insert into category_gg(category_id, category_name) values (2, 'PC/��Ʈ��');
+insert into category_gg(category_id, category_name) values (3, 'ī�޶�');
+insert into category_gg(category_id, category_name) values (4, '�����');
+insert into category_gg(category_id, category_name) values (5, '�º�');
+
+select * from product_gg;
+-- products ���� ������ ����
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������Z�ø� 256G', 'SM-F700_256G', 1, 
+'http://58.142.109.63:8080/MyProject/imageBase/image/a1.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a1.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������s20��Ʈ�� 256G', 'SM-G988N_256G', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a2.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a2.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�����ó�Ʈ10 256GB', 'SM-N971N_256G', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a3.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a3.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���������� 512G', 'SM-F907NK_512G', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a4.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a4.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������A51 128G', 'SM-A516N_128G', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a5.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a5.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������11���� 256G', 'AIP11P-256', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a6.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a6.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������11���θƽ� 256G', 'AIP11PM-256', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a7.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a7.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������XR 256G', 'AIPXR-256', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a8.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a8.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������XS�ƽ� 256G', 'AIPXSM-256', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a9.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a9.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('LG����', 'LM-G900N', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a10.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a10.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('LG Q61', 'LM-Q630N', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a11.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a11.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������11 256G', 'AIP11_256G', 1,
+'http://58.142.109.63:8080/MyProject/imageBase/image/a12.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_a12.jpg');
+
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�Ｚ���� �����ú� �÷��� ����', 'NT750QCR-A38A', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b1.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b1.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('LG���� 2020 �׷�15', '15ZD90N-VX50K', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b2.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b2.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('LG���� 2020 ��Ʈ��PC', '15U50N-GR56K', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b3.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b3.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('APPLE 2019 �ƺ�����16', 'MVVK2KH/A', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b4.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b4.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('ASUS �񺸺� S15', 'M533IA-BQ163', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b5.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b5.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�Ｚ���� �����ú� �̿�', 'NT950XCJ-X716A', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b6.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b6.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('����� ���̵���е� ���̹�', '3i-15IMH i5', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b7.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b7.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�Ѽ���ǻ�� ���������', 'TFX4450H', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b8.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b8.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�Ѽ���ǻ�� �õ��̷�', 'TFX5470H', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b9.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b9.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('LG���� 2020 �׷�17', '17ZD90N-VX5BK', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b10.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b10.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('HP �ĺ����� x360', '14-dh1150tu', 2,
+'http://58.142.109.63:8080/MyProject/imageBase/image/b11.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_b11.jpg');
+
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('ĳ�� EOS 200D 2', '200d 2', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c1.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c1.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('ĳ�� EOS 6D Mark 2', '6d mark2', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c2.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c2.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���� D5600', 'd5600', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c3.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c3.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('ĳ�� EOS 5D Mark 4', '5d mark4', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c4.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c4.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���� D850', 'd850', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c5.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c5.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('ĳ�� EOS 80D', '80d', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c6.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c6.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���� D750', 'd750', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c7.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c7.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('SONY ���� A99 2', 'a99 2', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c8.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c8.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('��Ź�� K-1 Mark 2', 'k-1 mark2', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c9.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c9.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('SONY ���� A6400', 'a6400', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c10.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c10.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�ĳ��Ҵ� ��ͽ� DC-S1', 'DC-S1', 3,
+'http://58.142.109.63:8080/MyProject/imageBase/image/c11.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_c11.jpg');
+
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������ ��ο� �ֶ� ����Ʈ��ġ', 'LS05', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d1.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d1.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������ ��ġ ��Ƽ��2 44mm �����θ���', 'SM-R820', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d2.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d2.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���ÿ�ġ �ø���5 40mm �ǹ�,�˷�̴�,���������', 'MWV62KH/A', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d3.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d3.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������ ȭ�� ��������� GTR 47mm', 'gtr 47mm', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d4.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d4.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('������ ��ο� ����Ʈ��ġ', 'LS01', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d5.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d5.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('���ÿ�ġ �ø���5 44mm �����̽��׷���, �˷�̴�, ����Ű���, ���귯','MX3T2KH/A', 4,
+'http://58.142.109.63:8080/MyProject/imageBase/image/d6.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_d6.jpg');
+
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�����е� ����4���� 12.9 WiFi 128G', 'A2229_128G', 5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e1.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e1.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('�����е� ����3���� WiFi 64G', 'A2152_64G', 5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e2.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e2.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('��������A 10.1 2019 WiFi 32G', 'SM-T510_32G', 5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e3.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e3.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('��������S6 ����Ʈ WiFi 64G', 'SM-P610_64G',5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e4.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e4.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('����� �� E10 WiFi 16G', 'tab e10_16G', 5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e5.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e5.jpg');
+insert into product_gg(product_name, product_model, category_id, thumbnail, image)
+values('��Ŭ��Ʈ P10HD 32G', 'p10hd_32G', 5,
+'http://58.142.109.63:8080/MyProject/imageBase/image/e6.jpg',
+'http://58.142.109.63:8080/MyProject/imageBase/thumbnail/th_e6.jpg');
+
+select * from product_gg;
+
+-- managers ���� ������ ����
+insert into manager_gg(manager_id, password, manager_name) values ('whiteheim', '1234', 'ȭ��Ʈ����');
+insert into manager_gg(manager_id, password, manager_name) values ('chocoheim', '1234', '��������');
+
+select * from post_gg;
+
+
+
+-- �������� html�±׸� insert �ϱ����� ��ĵ �ɼ��� ���ָ�, html�� ���ڿ��� ��
+-- scan �ɼ� ���¸� ������
+show scan;
+
+-- scan �ɼ��� ��
+set scan off;
+
+show scan;
+
+
+commit;
+
+-- post ���� ������ ����
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('Ʈ������ ������ ���� ��Ư�� ��������', 1, 1053300, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_1.png" style="height:5874px; width:650px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('100�� �� ī�޶��� ������ Ư��', 2, 778400, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_2.png" style="height:7692px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�����ó�Ʈ10 ��������ȹ��', 3, 914000, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_3.png" style="height:8069px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('Ʈ������ ������ ���÷��� ��Ư�� ��������', 4, 1423700, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_4.png" style="height:4644px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�� �ڵ����� Ÿ�̾�� �δ� �������� ������Ư�� ��������', 5, 548320, 60, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_5.png" style="height:9236px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('ī�޶� �ΰ����? ������11 ��Ư�� ��������', 6, 1584000, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_12.png" style="height:10282px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('ī�޶� 3�����! ������ ũ��ũ�� ������11���θƽ� Ư�� ����', 7, 1738000, 100, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_7.png" style="height:12010px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('LG �����úμ��� �ݼ��ض�! LG���� ������ ��������', 10, 620500, 70, '<p style="text-align:center"><strong><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_10.png" style="height:13632px; width:1000px" /></strong></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('���л� ��Ʈ�� ��õ! ��Ư�� ��������', 13, 1368000, 100, '<p style="text-align:center"><strong><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_13.png" style="height:6668px; width:1000px" /></strong></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�� ������ ų�α׷�����? ��Ʈ���� gram���� ���л� ��Ʈ�� ��ȹ��', 14, 1374450, 100, '<p style="text-align:center"><strong><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_16.png" style="height:8858px; width:1000px" /></strong></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�ڵ��� ���� ������ �ϴ�? �ȶ��� �ð�� �� �ذ��ϴµ� �����ÿ�ġ ������', 36, 304300, 60, '<p style="text-align:center"><strong><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_36.png" style="height:6705px; width:1000px" /></strong></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('������ ��! �̸��� ��Ʈ�� �����ϴ� �Ѽ���ǻ�� ��������� ����', 20, 739000, 70, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_20.png" style="height:12534px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('å & ���� �� ���̰� ��� �ٴϴ�? iPad Pro ���� �ֵ�', 41, 1345890, 100, '<div style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_41.png" style="height:13505px; width:1000px" /></div>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�Ϻ� �Ҹ� �ؾ������� ĳ�� �������� ��Ư�� ����', 29, 666500, 50, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_29.png" style="height:16005px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('������� �ٸ� ����� ������ ASUS �񺸺� S�ø��� �ֵ�', 17, 990000, 80, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_17.png" style="height:5705px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('���̹� ��Ʈ�ϸ� ������ ���� ����Ŀ! ����� ������ ��Ư�� ����', 19, 895000, 60, '<div style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_19.png" style="height:4046px; width:1000px" /></div>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�Ϻ� �Ҹ� ���� �̰� �ø��� �Ⱦ�� ���� D850 �������� Ư��', 28, 2780140, 60, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_28.png" style="height:8009px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�����̳��� ��� ���� MacBook Pro 16 ���� �ֵ�', 16, 3136250, 70, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_16.png" style="height:11551px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�����۸��� �ô뿡 �ռ����� ������ �� �������� Ư��', 44, 428450, 60, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_44.png" style="height:6108px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�ո� �ȶ��� �ð� �ϳ� ������ �󸶳� ���ϰԿ�? ���ÿ�ġ �������� �ֵ�', 40, 539000, 60, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_40.png" style="height:8391px; width:1000px" /></p>');
+
+insert into post_gg(post_title, product_id, default_price, minimum_amount, content)
+values('�Ϻ� �Ҹ��սô� but ��¿ �� ���� �ø��ϴ� ĳ�� EOS 5D Mark 4 ���� ����', 27, 2114790, 60, '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/ed_27.png" style="height:22570px; width:1000px" /></p>');
+
+
+select * from payment_gg;
+-- application ���� ������ ����
+insert into application_gg(member_id, post_id, amount)
+values (1, 1, 50);
+update post_gg set current_amount = 50 where post_id = 1;
+update post_gg set post_status='S' where post_id = 1;
+update post_gg set fixed_price=800000 where post_id = 1;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 2, 49);
+update post_gg set current_amount = 49 where post_id = 2;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 8, 70);
+update post_gg set current_amount = 49 where post_id = 8;
+
+insert into application_gg(member_id, post_id, amount)
+values (2, 3, 10);
+update post_gg set current_amount = 10 where post_id = 3;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 4, 50);
+update post_gg set current_amount = 50 where post_id = 4;
+update post_gg set post_status='S' where post_id = 4;
+update post_gg set fixed_price=700000 where post_id = 4;
+
+insert into application_gg(member_id, post_id, amount)
+values (2, 5, 50);
+update post_gg set current_amount = 10 where post_id = 5;
+update post_gg set post_status='S' where post_id = 5;
+update post_gg set fixed_price=700000 where post_id = 5;
+
+insert into application_gg(member_id, post_id, amount)
+values (3, 6, 10);
+update post_gg set current_amount = 10 where post_id = 6;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 7, 10);
+update post_gg set current_amount = 10 where post_id = 7;
+
+insert into application_gg(member_id, post_id, amount)
+values (3, 8, 10);
+update post_gg set current_amount = 10 where post_id = 8;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 9, 10);
+update post_gg set current_amount = 10 where post_id = 9;
+
+insert into application_gg(member_id, post_id, amount)
+values (4, 10, 10);
+update post_gg set current_amount = 10 where post_id = 10;
+
+insert into application_gg(member_id, post_id, amount)
+values (4, 11, 49);
+update post_gg set current_amount = 49 where post_id = 11;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 12, 50);
+update post_gg set current_amount = 50 where post_id = 12;
+update post_gg set post_status='S' where post_id = 12;
+update post_gg set fixed_price=600000 where post_id = 12;
+
+insert into application_gg(member_id, post_id, amount)
+values (5, 13, 10);
+update post_gg set current_amount = 10 where post_id = 13;
+
+insert into application_gg(member_id, post_id, amount)
+values (6, 14, 10);
+update post_gg set current_amount = 10 where post_id = 14;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 15, 10);
+update post_gg set current_amount = 10 where post_id = 15;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 16, 10);
+update post_gg set current_amount = 10 where post_id = 16;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 17, 50);
+update post_gg set current_amount = 50 where post_id = 17;
+update post_gg set post_status='S' where post_id = 17;
+update post_gg set fixed_price=900000 where post_id = 17;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 18, 10);
+update post_gg set current_amount = 10 where post_id = 18;
+
+insert into application_gg(member_id, post_id, amount)
+values (7, 19, 10);
+update post_gg set current_amount = 10 where post_id = 19;
+
+insert into application_gg(member_id, post_id, amount)
+values (8, 20, 10);
+update post_gg set current_amount = 10 where post_id = 20;
+
+insert into application_gg(member_id, post_id, amount)
+values (8, 21, 50);
+update post_gg set current_amount = 50 where post_id = 21;
+update post_gg set post_status='S' where post_id = 21;
+update post_gg set fixed_price=800000 where post_id = 21;
+
+insert into application_gg(member_id, post_id, amount)
+values (1, 5, 10);
+update post_gg set current_amount = 50 where post_id = 5;
+update post_gg set post_status='P' where post_id = 5;
+update post_gg set fixed_price=539990 where post_id = 5;
+
+insert into application_gg(member_id, post_id, amount)
+values (12, 20, 10);
+update post_gg set current_amount = 10 where post_id = 20;
+
+insert into application_gg(member_id, post_id, amount)
+values (13, 20, 10);
+update post_gg set current_amount = 20 where post_id = 20;
+
+insert into application_gg(member_id, post_id, amount)
+values (14, 20, 10);
+update post_gg set current_amount = 30 where post_id = 20;
+
+insert into application_gg(member_id, post_id, amount)
+values (15, 20, 10);
+update post_gg set current_amount = 40 where post_id = 20;
+update post_gg set post_status='P' where post_id = 20;
+update post_gg set fixed_price=539990 where post_id = 20;
+
+
+--select * from post_gg where post_status = 'PW';
+
+--select * from application_gg;
+
+--select * from post_gg where post_status = 'P';
+
+-- payment ���� ������ ����
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (1, '���̾��', '12345', '���󳲵�', '����', 40000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (3, '��ũ', '12345', '��󳲵�', '����', 35000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (4, '���̾��', '12345', '���󳲵�', '����', 35000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (12, '���̾��', '12345', '���󳲵�', '����', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (17, '���̾��', '12345', '���󳲵�', '����', 45000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (21, '�丣', '12345', '��õ', '����', 40000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (6, '�����̴���', '12345', '��⵵', '����', 40000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (14, '��Ÿ�ε�', '12345', '���ϵ�', '����', 35000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (10, '��������', '12345', '������', '��õ', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (13, '��Į����ġ', '12345', '��û�ϵ�', '����', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (24, '�׷�Ʈ', '12345', '�뱸', '������', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (25, 'ȣũ����', '12345', '��⵵', '����', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (26, '���ͽ�Ʈ������', '12345', '����ϵ�', '����', 30000000, 'ī�����');
+insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method)
+values (27, '���ͼ���', '12345', '������', '����', 30000000, 'ī�����');
+
+
+select * from post_gg where post_id=20;
+-- review ���� ������ ����
+insert into review_gg(member_id, payment_id, title, content)
+values(3, 7, '������11 ���� �ϰ� ��� ��������Ʈ!', '<p>������ 11�� ������ ������ XR���ٵ� �ξ� �����Ǿ���. �׸��� ������ ��������� ���� ������ ������ �� ��ټ� ����ڿ��Դ� �ְ��� �������� �� �� �ִ� ��ǰ�̴�.</p><p><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/r3.jpg" style="height:267px; width:400px" /></p><p>������ 11 �ĸ� ī�޶��� �������� ���� ���� ���ٴ� ���̴�. ������ XR������ �� ���� ������������. ������ 11�� �ִ� 5x�� ������ �ܸ� �ִ�. ��쿡 ����, Ư�� 2x ������ ���� �ʰ��ؾ� �ϴ� ��쿡�� �̹��� ����� ���� ��� �þ ���� ���� ������ �ȴٴ� ���� �����̴�.</p>');
+update payment_gg set review_writable = 1 where payment_id = 1;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(4, 9, '�׷� �ʹ� ��������~ ����� ������ �׷� 2020', '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/r4.jpg" style="height:261px; width:400px" /></p><p>LG �׷��� ��Ī�� �˸´� ������ ���Է� �������� ��ǰ�Դϴ�.</p><p>�ش� ���� ��쿡�� 1100g ������ Ű�μ��δ� 1.1kg ������ ������ �����Դϴ�. 15.6��ġ ��ǰ�ӿ��� �ұ��ϰ� ����� ������ ������. ���� ���� 980g ��� ���� �� ���ſ����� ������ �̿� �ɸ´� ���� ��°� ���͸� ��ȭ�� ���� ��ȭ�� �־����ϴ�. ����� 1.3kg������ ��Ʈ�����μ��� ����� ������ �����Դϴ�. 1.5kg���ʹ� ���� ���� ���԰��� ����� ��������.</p><p>���� ��Ʈ���� �ʿ��Ѱ� �ƴ϶�� ������ 1.5kg �̸����� ��Ʈ���� ���ô°� ��õ�����.</p><p>�̾߱Ⱑ ��� �ٸ� ��� �����׿�. LG�׷� Ư���� ������� �ٵ� �������� ���� �ö�ƽ ������ �ƴұ�? �ϴ� �ǽɵ��� ���� �ֽ��ϴ�. �Ƚ��ϼ���. LG �׷��� �ٵ�� ���׳׽� �ձ� �ٵ� �Դϴ�. �ϴ� �ݼ��� �ݼ��̿���. ��������&hellip; ������ ���� �������ϴ�. �Ҿ��ϱ⵵ �ϱ���.</p><p>��� �׸�ŭ ������ ���� �����̱� �ϰڳ׿�. �ϴ� 100������ �Ѵ� ��Ʈ���̴ϱ� �ٵ� ������ ����սô�.</p><hr /><h4 style="text-align:center"><strong>����</strong></h4><p>�ϴ� �������ϴ�. �ű⿡ ��ǰ ������ �Ǹ��ϰ� �κ� �κп��� ���������� ���� ���� �͵��� ���� �����ϴ�. �������� ��� ���� �̽����� �ʰ� �����մϴ�. ��â�� �𵨵� �������� ������. �޸𸮿� ����������� Ȯ���� �����մϴ�. ���÷��̵� �پ����. ��ü������ �����ϴ�.</p><hr /><h4 style="text-align:center"><strong>����</strong></h4><p>���Ը� ���� ���׳׽� �ձ� �ٵ� ä���Ѱ� �����̱⵵ ������ �����̱⵵ �մϴ�. �������� ���� ����������. ���� ���� �� ž�ϴ�. �����ϰ� ����Ϸ��� ���̽��� �ʿ��ؿ�. �ű⿡ ������ ���� ���� �����ϴ�. ���� �ո����� �����̶��� �����մϴ�.</p>');
+update payment_gg set review_writable = 1 where payment_id = 2;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(5, 10, '�ʹ� �ű��ؿ� ��������', '<p>�ϴ� ��Ʈ���� ���ٴϱ�δ㽺���� �ڵ����� ȭ���� �ʹ��۾Ҵµ� �����е� ũ�� �ǿ뼺�鿡�� �����Ͱ��ƿ�!</p><p>��������Ʈ�� ���� �ΰ� �� ���� �� �����ϴ�!</p>');
+update payment_gg set review_writable = 1 where payment_id = 3;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(6, 8, '��� �����ϰ�;��� ĳ���� �Ծ��! �����ı�', '<p style="text-align:center"><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/r5.jpg" style="height:263px; width:400px" /></p><p style="text-align:center">ĳ���� ���ο� �߱� DSLR EOS 80D�� ��õǾ����ϴ�. �� 2,420�� ȭ���� APS-C �԰� ��� �ȼ� CMOS, 45 ����Ʈ �� ũ�ν� AF, 100% �þ����� ���ڸ���Ʈ �����δ�, �ִ� 7fps ����, �̷� ����� ������ �̷� ���� �ý���, ������ ���� �Կ�, ���� ��ȭ�� ������ ���� AF�� �ӵ� ��Ʈ�� ����, Full-HD 60p ���� �� �淮 IPB ���, Ÿ�ӷ��� ������, Wi-Fi / NFC, ȸ���� ��ġ LCD, ���� ���� ������� ���� �����������ϴ�.</p><p style="text-align:center">--���� ����--</p><p style="text-align:center"><strong>����: ���̰� ���ǰ� ũ��</strong></p><p style="text-align:center"><strong>����: �پ��� ������, �̷��������� �������� ���͸�</strong></p><p style="text-align:center">�����, �ι��� ī�޶�� ĳ�� EOS 80D ��õ�մϴ�!</p><p>&nbsp;</p>');
+update payment_gg set review_writable = 1 where payment_id = 4;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(8, 6, '�ϰ��� ī�޶� ĳ��', '<p>���� ���׿�</p><p>ī�޶�� ���� ĳ��</p><p>������ �Ϻ���ǰ�̶� �ƽ��׿�</p><p>�Ҹ��ؾ��ϴµ�</p><p>��������Ʈ ���п� �ΰ� �� ����ϴ�</p>');
+update payment_gg set review_writable = 1 where payment_id = 5;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(1, 1, '���� D850 ����ı� �ʹ� ���ƿ�', '<p><img alt="" src="http://58.142.109.63:8080/MyProject/imageBase/editor/r1.jpg" style="height:268px; width:400px" /></p><p>4575�� ȭ�ҿ��� ��밨���� ISO 64���� 2��5600�� �������״�. ���⿡ �̸������� ������ ����ߴ�. �̸������������� ������ �����ϴ� �÷����Ϳ� ������̿��� ������ ���� �輱���� ������̿��� ������ �Ű� ���� ���� ȿ���� ���� ������ ���� ISO ������ ������(���� ������ �ø��鼭 ��Ÿ���� ȭ�� ���� ����) �������� ����. ISO Ȯ�尨���� 32���� 10��2400������ Ŀ���Ѵ�.</p><p>�ٸ� �ֱ� DSLR ī�޶� ���� �Կ����� ���� ���� �ٴ� ���� �����ϸ�&nbsp;�ƽ����� �ִ�. �켱�� 4K �Կ��� ���̺��� �� �� ���� �ȳ��� ���ִ� ��ŷ ����� �־����� �ʾҴ�. ���� �Կ��θ�ŭ �ʿ����� �ʴٰ� �� ����ڵ鵵 ������ ��� �־��ٰ� ���� �Կ������� �� �� �ְ� �������ٸ� ������ �� ����.</p>');
+update payment_gg set review_writable = 1 where payment_id = 6;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(1, 3, '�ʹ� �ű��ؿ� ��������', '<p>�ڵ����� �����°� �ʹ� �ű��ϳ׿�</p><p>ģ������ �η����ؿ�~</p><p>������ ���� �ʹ� ���׿�.</p><p>��������Ʈ ���п� �ΰ� �� �����߽��ϴ�.</p><p>��â�ϼ���!</p>');
+update payment_gg set review_writable = 1 where payment_id = 9;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(12, 11, 'ó�� �Ẹ�� ���ÿ�ġ �ı�', '<p>ó�� �Ẹ�µ� �ż���׿�</p><p>����Ʈ ��ġ �ϳ��� ���� ���� �̷��Գ� �޶����ٴ�</p><p></p><p>��������Ʈ ���п� �ΰ� �� ����ϴ�</p>');
+update payment_gg set review_writable = 1 where payment_id = 5;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(13, 12, '����Ʈ��ġ ���׿�', '<p>�ڵ����� ���� �Ȳ����� �ǳ׿�</p><p>�ð�� �� �ذ� ����!</p>');
+update payment_gg set review_writable = 1 where payment_id = 5;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(14, 13, '���� ���� ����', '<p>���ϸ鼭�� ���õ� ������</p><p>���ÿ�ġ ���� ��� ���߽��ϴ�.</p><p>������ ������ �ʹ� �����ϳ׿�.</p>');
+update payment_gg set review_writable = 1 where payment_id = 5;
+
+insert into review_gg(member_id, payment_id, title, content)
+values(15, 14, '������� ���� �缼��!', '<p>���� ���׿�</p><p>�������Ż���Ʈ ���� �Դϴ�!</p>');
+update payment_gg set review_writable = 1 where payment_id = 5;
+
+
+
+
+-- likes ���� ������ ����
+insert into like_gg(review_num, member_id) values(2, 1);
+insert into like_gg(review_num, member_id) values(2, 3);
+insert into like_gg(review_num, member_id) values(2, 4);
+insert into like_gg(review_num, member_id) values(2, 5);
+insert into like_gg(review_num, member_id) values(2, 6);
+insert into like_gg(review_num, member_id) values(2, 7);
+insert into like_gg(review_num, member_id) values(2, 8);
+insert into like_gg(review_num, member_id) values(2, 9);
+insert into like_gg(review_num, member_id) values(2, 10);
+insert into like_gg(review_num, member_id) values(2, 11);
+insert into like_gg(review_num, member_id) values(2, 12);
+insert into like_gg(review_num, member_id) values(2, 13);
+insert into like_gg(review_num, member_id) values(2, 14);
+insert into like_gg(review_num, member_id) values(2, 15);
+update review_gg set likecount = 14 where review_num = 2;
+
+
+insert into like_gg(review_num, member_id) values(3, 1);
+insert into like_gg(review_num, member_id) values(3, 2);
+insert into like_gg(review_num, member_id) values(3, 4);
+insert into like_gg(review_num, member_id) values(3, 5);
+insert into like_gg(review_num, member_id) values(3, 6);
+update review_gg set likecount = 5 where review_num = 3;
+
+insert into like_gg(review_num, member_id) values(4, 15);
+insert into like_gg(review_num, member_id) values(4, 14);
+insert into like_gg(review_num, member_id) values(4, 13);
+insert into like_gg(review_num, member_id) values(4, 12);
+insert into like_gg(review_num, member_id) values(4, 11);
+insert into like_gg(review_num, member_id) values(4, 10);
+update review_gg set likecount = 6 where review_num = 4;
+
+insert into like_gg(review_num, member_id) values(5, 1);
+insert into like_gg(review_num, member_id) values(5, 2);
+update review_gg set likecount = 2 where review_num = 5;
+
+insert into like_gg(review_num, member_id) values(6, 7);
+insert into like_gg(review_num, member_id) values(6, 8);
+insert into like_gg(review_num, member_id) values(6, 9);
+insert into like_gg(review_num, member_id) values(6, 10);
+insert into like_gg(review_num, member_id) values(6, 11);
+insert into like_gg(review_num, member_id) values(6, 12);
+update review_gg set likecount = 6 where review_num = 6;
+
+insert into like_gg(review_num, member_id) values(8, 1);
+update review_gg set likecount = 1 where review_num = 8;
+
+
+insert into like_gg(review_num, member_id) values(9, 3);
+insert into like_gg(review_num, member_id) values(9, 4);
+insert into like_gg(review_num, member_id) values(9, 5);
+insert into like_gg(review_num, member_id) values(9, 6);
+insert into like_gg(review_num, member_id) values(9, 7);
+update review_gg set likecount = 5 where review_num = 9;
+
+insert into like_gg(review_num, member_id) values(10, 8);
+insert into like_gg(review_num, member_id) values(10, 4);
+insert into like_gg(review_num, member_id) values(10, 5);
+update review_gg set likecount = 3 where review_num = 10;
+
+insert into like_gg(review_num, member_id) values(11, 11);
+insert into like_gg(review_num, member_id) values(11, 10);
+insert into like_gg(review_num, member_id) values(11, 7);
+insert into like_gg(review_num, member_id) values(11, 8);
+update review_gg set likecount = 4 where review_num = 11;
+
+
+
+--select * from like_gg;
+
+--select * from review_gg;
+--select * from reply_gg;
+
+
+-- reply ���� ������ ����
+insert into reply_gg(review_num, member_id, content)
+values(5, 9, '�׷� ȭ��Ʈ �ʹ� �̻� �� ���ƿ�! ���� �����ϰ� �ͳ׿�');
+insert into reply_gg(review_num, member_id, content)
+values(5, 5, 'tb3 �������� egpu ��������� �󸶳� ���� �ñ��ϳ׿� ���� ���䵵 ���˴ϴ� ����');
+insert into reply_gg(review_num, member_id, content)
+values(5, 8, '�� �ǹ� �ʹ� �̻ڳ׿�. �׷� ���;��.');
+update review_gg set replycount = 3 where review_num = 5;
+
+insert into reply_gg(review_num, member_id, content)
+values(4, 5, '�����̴��� ���� ���� ���� �ƾ��! ���� ���ͳ׿�.');
+insert into reply_gg(review_num, member_id, content)
+values(4, 3, '�����մϴ� ��Į����ġ�� ������11 ��õ�մϴ�!');
+update review_gg set replycount = 2 where review_num = 4;
+
+insert into reply_gg(review_num, member_id, content)
+values(1, 11, '��� ī�޶� �ʹ� ���ֳ׿�!');
+insert into reply_gg(review_num, member_id, content)
+values(1, 8, '���� ���� �����մϴ�. ���� ������ �ƾ��!');
+update review_gg set replycount = 2 where review_num = 1;
+
+insert into reply_gg(review_num, member_id, content)
+values(6, 5, '�е�־ �ٴ� �Ŀ�ġ�ϳ� �����Ͻô°͵� ����');
+insert into reply_gg(review_num, member_id, content)
+values(6, 9, '���� ���� �����մϴ�. ���� ���ͳ׿�!');
+update review_gg set replycount = 1 where review_num = 2;
+
+
+
+--select * from reply_gg;
+
+
+-- notification ���� ������ ����
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 1, '���� ������ ��ǰ�� �����մϴ�. �������������� �������ּ���');
+
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 2, '�˸�����2');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 3, '�˸�����3');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 4, '�˸�����4');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 5, '�˸�����5');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 6, '�˸�����6');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 7, '�˸�����7');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 8, '�˸�����8');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 9, '�˸�����9');
+insert into notification_gg(manager_id, member_id, content) 
+values ('whiteheim', 10, '�˸�����10');
+insert into notification_gg(manager_id, member_id, content) 
+values ('chocoheim', 11, '�˸�����11');
+insert into notification_gg(manager_id, member_id, content) 
+values ('chocoheim', 12, '�˸�����12');
+insert into notification_gg(manager_id, member_id, content) 
+values ('chocoheim', 13, '�˸�����13');
+insert into notification_gg(manager_id, member_id, content) 
+values ('chocoheim', 14, '�˸�����14');
+insert into notification_gg(manager_id, member_id, content) 
+values ('chocoheim', 15, '�˸�����15');
+
+commit;

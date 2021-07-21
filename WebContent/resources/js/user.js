@@ -521,3 +521,18 @@ function getMyReviews(){
     });
 }
 
+function write_review(payment_id){
+	
+	$.ajax({
+		url : "review/write?payment_id=" + payment_id,
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });
+	
+}
+
