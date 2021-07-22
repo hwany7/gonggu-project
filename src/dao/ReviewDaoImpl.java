@@ -131,6 +131,13 @@ public class ReviewDaoImpl implements ReviewDao{
 		return session.selectOne("review.getMyReviewCount", member_id);
 	}
 	
+	//리뷰 등록하기
+	@Override
+	public int insertReview(ReviewDto reviewDto) {
+
+		return session.insert("review.insertReview", reviewDto);
+	}
+	
 }
 
 

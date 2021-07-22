@@ -495,6 +495,7 @@ function closeModal(){
 	$('#modal').modal("hide");
 }
 
+//내리뷰 보기
 function getMyReviews(){
 	
 	var li = $('.nav-myPage').children();
@@ -521,6 +522,7 @@ function getMyReviews(){
     });
 }
 
+//리뷰작성하기
 function write_review(payment_id){
 	
 	$.ajax({
@@ -534,5 +536,21 @@ function write_review(payment_id){
         }  
     });
 	
+}
+
+//리뷰쓰기 폼 체크
+function reviewFormCheck(){
+	
+	var title = writeReviewForm.title.value;
+	var content = writeReviewForm.content.value;
+
+	if(!title){
+		alert("제목을 입력해 주세요");
+		return false;
+	}else if(!content){
+		alert("내용을 입력해 주세요");
+		return false;
+	} 
+
 }
 

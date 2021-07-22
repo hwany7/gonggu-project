@@ -11,6 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.PaymentDto;
+import dto.join.PostContentDto;
 import service.inter.PaymentService;
 import service.inter.PostService;
 import service.inter.ReviewService;

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import dao.inter.PaymentDao;
 import dao.inter.ReplyDao;
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
@@ -24,6 +25,9 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Resource
 	ReplyDao replyDao;
+	
+	@Resource
+	PaymentDao paymentDao;
 	
 	@Resource
 	PageService pageService;
@@ -100,6 +104,7 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 	
+	//내리뷰 리스트 얻기
 	@Override
 	public Map<String, Object>  getMyReviewList(String pageNum, int member_id) {
 		
@@ -120,6 +125,20 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("info", info);
 		
 		return map;
+	}
+	
+	
+	//리뷰 추가하기
+	@Override
+	public int addReview(ReviewDto reviewDto) {
+		
+		int result = reviewDao.insertReview(reviewDto);
+		
+		if(result == 1) {
+			result = paymentDao.updateWritableFromReview(reviewDto.getPayment_id());
+		}
+
+		return result;
 	}
 	
 }

@@ -36,7 +36,7 @@
 											<c:if test="${info.post_status eq 'P'}">
 												<input type="button" value="결제" class="btn btn-default" onclick="pay_post('${postListDto.total_price}', '${postListDto.application_id}')">					
 											</c:if>
-											<c:if test="${info.post_status eq 'S'}">
+											<c:if test="${postListDto.review_writable eq 0}">
 												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="write_review('${postListDto.payment_id}')">
 											</c:if>
 											<c:if test="${info.post_status eq 'A'}">

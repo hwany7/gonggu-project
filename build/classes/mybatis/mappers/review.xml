@@ -160,5 +160,11 @@
 		select count(*) from review_gg where member_id = #{member_id}
 	</select>
 	
+	 <!-- 리뷰 작성 -->
+ 	<insert id="insertReview" parameterType="dto.ReviewDto">
+ 		insert into review_gg (member_id, payment_id, title, content )
+		values( #{member_id}, #{payment_id}, #{title}, #{content} )
+ 	</insert>
+	
 </mapper>
 

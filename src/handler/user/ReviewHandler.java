@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.ReviewDto;
 import service.inter.ReviewService;
 
 @Controller
@@ -87,4 +88,19 @@ public class ReviewHandler {
 
 		return mav;
 	}	
+	
+	//리뷰 작성하기
+	@RequestMapping("/review/write/pro")
+	public ModelAndView writeReviewPro(ReviewDto reviewDto) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/writeReviewPro");
+			
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		reviewDto.setMember_id(member_id);
+			
+		mav.addObject("result", reviewService.addReview(reviewDto));
+
+		return mav;
+	}
+			
 }

@@ -21,5 +21,12 @@ public class PaymentDaoImpl implements PaymentDao {
 		return session.insert("payment.insertPayment", payment);
 	}
 	
+	//리뷰등록 상태 업로드 
+	@Override
+	public int updateWritableFromReview(int payment_id){
+		
+		return session.update("payment.updateWritableFromReview", payment_id);
+	}	
+	
 
 }

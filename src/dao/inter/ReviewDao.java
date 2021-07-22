@@ -32,5 +32,6 @@ public interface ReviewDao {
 	//마이 페이지
 	public List<ReviewContentDto> getMyReviewList(PageInfo info);
 	public int getMyReviewCount(int member_id);
+	public int insertReview(ReviewDto reviewDto);
 
 }
