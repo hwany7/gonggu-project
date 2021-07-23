@@ -3,7 +3,7 @@
 		<script type="text/javascript">
 			$(function(){
 				CKEDITOR.replace( 'editor', {
-					filebrowserUploadUrl: 'fileupload.do',
+					filebrowserUploadUrl: 'review/image/upload',
 					height : 300,
 					language: 'ko'
 				});

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="payment">
+
+ 	<!-- 등록하기  -->
+ 	<insert id="insertPayment" parameterType="dto.PaymentDto">
+ 		insert into payment_gg(application_id, receiver_name, zipcode, address1, address2, total_price, method, request)						
+		values (#{application_id}, #{receiver_name}, #{zipcode}, #{address1}, #{address2}, #{total_price}, #{method}, #{request, jdbcType=VARCHAR})	
+ 	</insert>
+ 	
+ 	 <!-- writable 상태 업데이트 -->
+ 	<update id="updateWritableFromReview" parameterType="int">
+ 		update payment_gg set review_writable = 1 where payment_id=#{payment_id}
+ 	</update>
+
+</mapper>
