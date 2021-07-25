@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-			<!-- 1. 리뷰삭제 2. 리뷰 수정 구현예정 -->
-			<!-- review.jsp -->
 			<!-- 상단 이미지 -->
 			<div class="row">
 				<div class="cropping" style="height: 100px;">
@@ -41,7 +39,7 @@
 						</div>
 						<div class="text-right">
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}"> 
-								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기">			
+								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기" onclick="modifyReview('${reviewContentDto.review_num}')">			
 							</c:if>
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}"> 
 								<input class="deleteReview btn btn-danger" type="button" value="삭제하기" onclick="deleteReview(${reviewContentDto.review_num})">

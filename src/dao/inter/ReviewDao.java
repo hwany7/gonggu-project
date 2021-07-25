@@ -23,6 +23,7 @@ public interface ReviewDao {
 	public ReviewDto getReview(int review_num);
 	public int insetReviewToDeletedReview(ReviewDto reviewDto);
 	public int deleteReview(int review_num);
+	public int updateReview(ReviewDto reviewDto);
 	
 	//리뷰 리스트
 	public int getReviewCount();

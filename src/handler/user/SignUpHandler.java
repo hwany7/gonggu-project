@@ -55,18 +55,7 @@ public class SignUpHandler {
 		
 		return mav;
 	}
-	
-	//이메일 인증(방법2)
-	@RequestMapping("/mailConfirmForm")
-	public ModelAndView mailConfirmForm(HttpServletRequest request, HttpServletResponse response) {
-		
-		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
-		
-		mav.addObject("codeMsg", signupService.SendMailGetCode((String)request.getAttribute("member_email")));
-		
-		return mav;
-	}
-	
+
 	//회원 가입
 	@RequestMapping("/signUpPro")
 	public ModelAndView signUpPro(MemberDto member) {

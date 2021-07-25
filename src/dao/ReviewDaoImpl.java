@@ -138,6 +138,12 @@ public class ReviewDaoImpl implements ReviewDao{
 		return session.insert("review.insertReview", reviewDto);
 	}
 	
+	@Override
+	public int updateReview(ReviewDto reviewDto) {
+		
+		return session.update("review.updateReview", reviewDto);
+	}
+	
 }
 
 

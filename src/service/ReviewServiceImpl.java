@@ -92,11 +92,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int deleteReview(int review_num) {
 		
-		//삭제하기 전 리뷰 따로 저장
 		ReviewDto reviewDto = reviewDao.getReview(review_num);
 		int result = reviewDao.insetReviewToDeletedReview(reviewDto);
 		
-		//리뷰 삭제
 		if(result == 1) {
 			result = reviewDao.deleteReview(review_num);
 		}
@@ -133,12 +131,19 @@ public class ReviewServiceImpl implements ReviewService {
 	public int addReview(ReviewDto reviewDto) {
 		
 		int result = reviewDao.insertReview(reviewDto);
-		
+			
 		if(result == 1) {
 			result = paymentDao.updateWritableFromReview(reviewDto.getPayment_id());
 		}
 
 		return result;
+	}
+	
+	//리뷰 수정하기
+	@Override
+	public int modifyReview(ReviewDto reviewDto) {
+		
+		return reviewDao.updateReview(reviewDto);
 	}
 	
 }

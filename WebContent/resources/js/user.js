@@ -554,3 +554,7 @@ function reviewFormCheck(){
 
 }
 
+function modifyReview(review_num){
+	
+	window.document.location="review/modify?review_num=" + review_num;
+}

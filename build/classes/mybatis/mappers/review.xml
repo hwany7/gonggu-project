@@ -165,6 +165,13 @@
  		insert into review_gg (member_id, payment_id, title, content )
 		values( #{member_id}, #{payment_id}, #{title}, #{content} )
  	</insert>
+ 	
+ 	 <!-- 리뷰 수정 -->
+  	<update id="updateReview" parameterType="dto.ReviewDto">
+ 		update review_gg
+		set title = #{title}, content = #{content}
+		where review_num = #{review_num}
+ 	</update>
 	
 </mapper>
 

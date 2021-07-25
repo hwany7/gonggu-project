@@ -102,5 +102,29 @@ public class ReviewHandler {
 
 		return mav;
 	}
+	
+	@RequestMapping("/review/modify")
+	public ModelAndView modifyReview(int review_num) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
+		
+		mav.addObject("page", "/WEB-INF/views/user/review/modifyReview");
+
+		mav.addObject("reviewDto", reviewService.getReview(review_num).put("reviewContentDto", mav));
+
+		return mav;
+	}
+	
+	//리뷰 작성하기
+	@RequestMapping("/review/modify/pro")
+	public ModelAndView modifyReviewPro(ReviewDto reviewDto) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/modifyReviewPro");
+	
+		mav.addObject("result", reviewService.modifyReview(reviewDto));
+		mav.addObject("review_num", reviewDto.getReview_num());
+
+		return mav;
+	}
 			
 }
