@@ -21,6 +21,11 @@
   	<delete id="deleteReplyFromReview" parameterType="int">
  		delete from reply_gg where reply_num=#{reply_num}
  	</delete>	
+ 	
+ 	<!-- 내가 쓴 댓글 -->
+ 	<select id="getMyReply" parameterType="int" resultType="dto.ReplyDto">
+ 		select * from reply_gg where member_id=#{member_id}
+ 	</select>
 
 </mapper>
 

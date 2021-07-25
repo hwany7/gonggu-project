@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -43,5 +45,11 @@ public class ReplyServiceImpl implements ReplyService {
 		}
 
 		return result;
+	}
+	
+	@Override
+	public List<ReplyDto> getMyReply(int member_id) {
+
+		return replyDao.getMyReply(member_id);
 	}
 }

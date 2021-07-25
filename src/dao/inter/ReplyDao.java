@@ -12,4 +12,7 @@ public interface ReplyDao {
 	public int uploadReplyFromReview(ReplyDto replyDto);
 	public int deleteReplyFromReview(int reply_num);
 	
+	//마이페이지
+	public List<ReplyDto> getMyReply(int member_id);
+
 }

@@ -14,6 +14,7 @@ import dto.PaymentDto;
 import dto.join.PostContentDto;
 import service.inter.PaymentService;
 import service.inter.PostService;
+import service.inter.ReplyService;
 import service.inter.ReviewService;
 import util.AppCancelReason;
 
@@ -29,6 +30,9 @@ public class MyPageHandler {
 	
 	@Resource
 	ReviewService reviewService;
+	
+	@Resource
+	ReplyService replyService;
 	
 	@RequestMapping("/myPage")
 	public ModelAndView myPage(String pageNum) {
@@ -107,6 +111,19 @@ public class MyPageHandler {
 		mav.addObject("reviewContentDtos", map.get("reviewContentDtos"));
 		mav.addObject("info", map.get("info"));
 		
+		return mav;
+	}
+	
+	//내가 쓴 댓글 보기
+	@RequestMapping("/myReply")
+	public ModelAndView myReplyList() {
+
+		ModelAndView mav = new ModelAndView("user/mypage/myReply");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+
+		mav.addObject("replyDto", replyService.getMyReply(member_id));
+
 		return mav;
 	}
 	

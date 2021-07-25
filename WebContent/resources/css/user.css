@@ -131,3 +131,7 @@ body{
 .nav-myPage li{
 	margin-right: 10px;
 }
+.replyListBox{
+	height: 80px;
+	border-bottom: 1px solid #e2e2e2;	
+}

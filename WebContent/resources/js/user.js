@@ -554,7 +554,35 @@ function reviewFormCheck(){
 
 }
 
+//리뷰 수정
 function modifyReview(review_num){
 	
 	window.document.location="review/modify?review_num=" + review_num;
+}
+
+function getMyReply(){
+	
+	var li = $('.nav-myPage').children();
+	var navIndex = '';
+	
+	for(i=0; i<5; i++){
+		li.eq(i).children().css('color', '');
+	}
+	
+	navIndex = 4;
+	
+	var li = $('.nav-myPage').children();
+	li.eq(navIndex).children().css('color', '#5BC0DE');
+	
+	$.ajax({
+		url : "myReply",
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });
+	
 }

@@ -37,4 +37,11 @@ public class ReplyDaoImpl implements ReplyDao {
 		
 		return session.delete("reply.deleteReplyFromReview", reply_num);
 	}
+	
+	//내가쓴 리플 가져오기
+	@Override
+	public List<ReplyDto> getMyReply(int member_id) {
+
+		return session.selectList("reply.getMyReply", member_id);
+	}
 }

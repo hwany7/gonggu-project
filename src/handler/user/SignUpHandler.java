@@ -45,7 +45,7 @@ public class SignUpHandler {
 	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
 	}
 	
-	//이메일 인증(방법1)
+	//이메일 인증
 	@RequestMapping("/mailConfirmForm")
 	public ModelAndView mailConfirmForm(String member_email) {
 		
