@@ -412,7 +412,7 @@ function getMyPosts(pageNum, post_status){
 	var li = $('.nav-myPage').children();
 	var navIndex = '';
 	
-	for(i=0; i<5; i++){
+	for(i=0; i<6; i++){
 		li.eq(i).children().css('color', '');
 	}
 	
@@ -501,7 +501,7 @@ function getMyReviews(){
 	var li = $('.nav-myPage').children();
 	var navIndex = '';
 	
-	for(i=0; i<5; i++){
+	for(i=0; i<6; i++){
 		li.eq(i).children().css('color', '');
 	}
 	
@@ -551,7 +551,6 @@ function reviewFormCheck(){
 		alert("내용을 입력해 주세요");
 		return false;
 	} 
-
 }
 
 //리뷰 수정
@@ -565,7 +564,7 @@ function getMyReply(){
 	var li = $('.nav-myPage').children();
 	var navIndex = '';
 	
-	for(i=0; i<5; i++){
+	for(i=0; i<6; i++){
 		li.eq(i).children().css('color', '');
 	}
 	
@@ -584,5 +583,32 @@ function getMyReply(){
         error : function(e){
         }  
     });
-	
 }
+
+function getMyInfo() {
+	
+	var li = $('.nav-myPage').children();
+	var navIndex = '';
+	
+	for(i=0; i<6; i++){
+		li.eq(i).children().css('color', '');
+	}
+	
+	navIndex = 5;
+	
+	var li = $('.nav-myPage').children();
+	li.eq(navIndex).children().css('color', '#5BC0DE');
+	
+	$.ajax({
+		url : "myInfo",
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });	
+}
+
+

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.PaymentDto;
 import dto.join.PostContentDto;
+import service.inter.MemberService;
 import service.inter.PaymentService;
 import service.inter.PostService;
 import service.inter.ReplyService;
@@ -33,6 +34,9 @@ public class MyPageHandler {
 	
 	@Resource
 	ReplyService replyService;
+	
+	@Resource
+	MemberService memberService;
 	
 	@RequestMapping("/myPage")
 	public ModelAndView myPage(String pageNum) {
@@ -124,6 +128,19 @@ public class MyPageHandler {
 
 		mav.addObject("replyDto", replyService.getMyReply(member_id));
 
+		return mav;
+	}
+	
+	//내 정보 간략 보기
+	@RequestMapping("/myInfo")
+	public ModelAndView myInfor() {
+		
+		ModelAndView mav = new ModelAndView("user/mypage/myInfo");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		
+		mav.addObject("memberDto", memberService.getMember(member_id));
+		
 		return mav;
 	}
 	

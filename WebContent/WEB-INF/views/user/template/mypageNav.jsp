@@ -25,7 +25,7 @@
 								<li id="payedMyPosts"><a onclick="getMyPosts('${info.pageNum}','S')" style="cursor:pointer">구매 내역</a></li>					
 								<li id="myReviews" style="cursor:pointer"><a onclick="getMyReviews()">내가 쓴 리뷰</a></li>				
 								<li id="myReplys" style="cursor:pointer"><a onclick="getMyReply()">내가 쓴 댓글</a></li>				
-								<li id="myInfor" style="cursor:pointer"><a>내정보</a></li>					
+								<li id="myInfor" style="cursor:pointer"><a onclick="getMyInfo()">내정보</a></li>					
 							</ul>
 						</div>	
 					</div>	
