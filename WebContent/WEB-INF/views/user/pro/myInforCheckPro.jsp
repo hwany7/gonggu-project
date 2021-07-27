@@ -10,13 +10,12 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-		<c:if test="${result eq 0}">	 
-			alert("신청 취소에 실패했습니다");
-			history.back();
+		<c:if test="${result eq 0}">
+			alert("비밀번호가 올바르지 않습니다");
+			location.href="/gonggu/myPage";
 		</c:if>
 		<c:if test="${result eq 1}">
-			alert("신청 취소 완료");
-			getMyPosts('${info.pageNum}','A');
+			location.href="/gonggu/myPage";
 		</c:if>
 		</script>
 	</body>

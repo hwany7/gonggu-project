@@ -54,7 +54,7 @@
 							</c:if>
 
 							<div class="mar-top-20">
-								<input type="button" class="btn btn-default" value="수정" onclick="location='member/check'">
+								<input type="button" class="btn btn-default" value="수정" onclick="myInfoCheck()">
 								<hr>
 							</div>
 						</div>

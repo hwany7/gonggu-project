@@ -611,4 +611,26 @@ function getMyInfo() {
     });	
 }
 
+function myInfoCheck(){
+	
+	$.ajax({
+		url : "myInfo/check",
+        type : 'get',
+        dataType : "text",
+        success : function(data){
+     	   $("#mypage_content").html(data);
+        },
+        error : function(e){
+        }  
+    });
+	
+}
+
+function passwordcheck() {
+	if( ! passwordform.password.value ) {
+		alert( "비밀번호를 입력해주세요" );
+		passwordform.password.focus();
+		return false;
+	}
+}
 

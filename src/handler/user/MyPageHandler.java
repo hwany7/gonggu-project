@@ -133,7 +133,7 @@ public class MyPageHandler {
 	
 	//내 정보 간략 보기
 	@RequestMapping("/myInfo")
-	public ModelAndView myInfor() {
+	public ModelAndView myInfo() {
 		
 		ModelAndView mav = new ModelAndView("user/mypage/myInfo");
 		
@@ -143,6 +143,33 @@ public class MyPageHandler {
 		
 		return mav;
 	}
+	
+	
+	//정보 수정 비밀번호 입력폼
+	@RequestMapping("/myInfo/check")
+	public ModelAndView myInforCheck() {
+	
+		ModelAndView mav = new ModelAndView("user/mypage/myInfoCheck");
+		
+		return mav;
+	}
+	
+	//정보 수정 비밀번호 입력폼
+	@RequestMapping("/myInfo/checkPro")
+	public ModelAndView myInforCheckPro(String password) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+			
+		mav.addObject("page","/WEB-INF/views/user/pro/myInforCheckPro");
+		
+		mav.addObject("result", memberService.checkMember(member_id, password));
+		
+		return mav;
+	}
+	
+	
 	
 	
 	
