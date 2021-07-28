@@ -526,7 +526,7 @@ function getMyReviews(){
 function write_review(payment_id){
 	
 	$.ajax({
-		url : "review/write?payment_id=" + payment_id,
+		url : "writeReview?payment_id=" + payment_id,
         type : 'get',
         dataType : "text",
         success : function(data){
@@ -556,7 +556,7 @@ function reviewFormCheck(){
 //리뷰 수정
 function modifyReview(review_num){
 	
-	window.document.location="review/modify?review_num=" + review_num;
+	window.document.location="reviewModify?review_num=" + review_num;
 }
 
 function getMyReply(){
@@ -614,7 +614,7 @@ function getMyInfo() {
 function myInfoCheck(){
 	
 	$.ajax({
-		url : "myInfo/check",
+		url : "myInfoCheck",
         type : 'get',
         dataType : "text",
         success : function(data){
@@ -626,11 +626,23 @@ function myInfoCheck(){
 	
 }
 
-function passwordcheck() {
-	if( ! passwordform.password.value ) {
+function myInfoCheckCheckPassword(){
+	
+	var password = passwordform.password.value;
+	
+	if(!password){
 		alert( "비밀번호를 입력해주세요" );
-		passwordform.password.focus();
-		return false;
+	}else{
+		$.ajax({
+			url : "myInfoCheckPro?password=" + password,
+	        type : 'get',
+	        dataType : "text",
+	        success : function(data){
+	     	   $("#mypage_content").html(data);
+	        },
+	        error : function(e){
+	        }  
+	    });
 	}
 }
 

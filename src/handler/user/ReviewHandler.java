@@ -79,7 +79,7 @@ public class ReviewHandler {
 	}
 	
 	//리뷰 작성 폼 가기
-	@RequestMapping("/review/write")
+	@RequestMapping("/writeReview")
 	public ModelAndView writeReview(int payment_id) {
 		
 		ModelAndView mav = new ModelAndView("user/review/writeReview");
@@ -90,7 +90,7 @@ public class ReviewHandler {
 	}	
 	
 	//리뷰 작성하기
-	@RequestMapping("/review/write/pro")
+	@RequestMapping("/writeReviewPro")
 	public ModelAndView writeReviewPro(ReviewDto reviewDto) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/writeReviewPro");
@@ -103,7 +103,7 @@ public class ReviewHandler {
 		return mav;
 	}
 	
-	@RequestMapping("/review/modify")
+	@RequestMapping("/reviewModify")
 	public ModelAndView modifyReview(int review_num) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -115,8 +115,8 @@ public class ReviewHandler {
 		return mav;
 	}
 	
-	//리뷰 작성하기
-	@RequestMapping("/review/modify/pro")
+	//리뷰 수정하기
+	@RequestMapping("/reviewModifyPro")
 	public ModelAndView modifyReviewPro(ReviewDto reviewDto) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/modifyReviewPro");

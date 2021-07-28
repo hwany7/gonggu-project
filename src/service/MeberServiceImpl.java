@@ -26,9 +26,9 @@ public class MeberServiceImpl implements MemberService{
 	public int checkMember(int member_id, String password) {
 		
 		MemberDto memberDto = memberDao.getMember(member_id);
-		
-		int result = (memberDto.getPassword().equals(password)) ? 1 : 0;
 
+		int result = (memberDto.getPassword().equals(password)) ? 1 : 0;
+		
 		return result;
 	}
 

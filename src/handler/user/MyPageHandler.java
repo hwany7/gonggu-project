@@ -146,7 +146,7 @@ public class MyPageHandler {
 	
 	
 	//정보 수정 비밀번호 입력폼
-	@RequestMapping("/myInfo/check")
+	@RequestMapping("/myInfoCheck")
 	public ModelAndView myInforCheck() {
 	
 		ModelAndView mav = new ModelAndView("user/mypage/myInfoCheck");
@@ -155,8 +155,21 @@ public class MyPageHandler {
 	}
 	
 	//정보 수정 비밀번호 입력폼
-	@RequestMapping("/myInfo/checkPro")
+	@RequestMapping("/myInfoCheckPro")
 	public ModelAndView myInforCheckPro(String password) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/myInforCheckPro");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+			
+		mav.addObject("result", memberService.checkMember(member_id, password));
+		
+		return mav;
+	}
+	
+	//정보 수정 비밀번호 입력폼
+	@RequestMapping("/myInfoModify")
+	public ModelAndView myInforModify(String password) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
 		
@@ -167,7 +180,7 @@ public class MyPageHandler {
 		mav.addObject("result", memberService.checkMember(member_id, password));
 		
 		return mav;
-	}
+	}	
 	
 	
 	

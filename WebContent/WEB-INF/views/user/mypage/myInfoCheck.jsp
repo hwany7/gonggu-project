@@ -13,7 +13,7 @@
 				<!-- 리스트 박스 -->
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-						<form method="post" action="myInfo/checkPro" name="passwordform" onsubmit="return passwordcheck()">
+						<form method="post" name="passwordform" onsubmit="myInfoCheckCheckPassword()">
 							<div class="col-md-12 col-xs-12">								
 								<div class="mar-top-20">
 									<h6 class="text-color-g2">비밀번호 입력</h6>
