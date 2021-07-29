@@ -10,6 +10,7 @@
 		           		<form method="post" name="signUpForm" role="form" action="signUpPro" onsubmit="return checkConditionSignUpFrom()">
 		           			<input type="hidden" id="checkEmail" value="0">
 		           			<input type="hidden" id="checkNickname" value="0">
+		           			<input type="hidden" id="checkPassword" value="0">
 		           			<input type="hidden" id="emailConfirm" value="0">
 		           			<input type="hidden" id="checkTel" value="0">
 		           			

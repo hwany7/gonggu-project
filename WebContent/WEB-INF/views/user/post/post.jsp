@@ -5,7 +5,7 @@
 			<!-- 상단 이미지 -->
 			<div class="row">
 				<div class="cropping" style="height:100px;">
-					<img src="resources/img/tamplate2.jpg">
+					<img src="/gonggu/resources/img/tamplate2.jpg">
 				</div>
 			</div>
 			<!-- 콘텐트 테스트 -->
@@ -102,7 +102,7 @@
 								<c:forEach var="postContentReview" items="${postContentReview}">
 								<div class="reivewListBox">
 									<h4 class="mar-top-20 hf">
-										<a href="review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
+										<a href="/gonggu/review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
 									</h4>
 									
 									<h5 class="etcOneLine text-color-g2">

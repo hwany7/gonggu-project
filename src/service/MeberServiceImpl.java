@@ -1,8 +1,11 @@
 package service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import dao.inter.MemberDao;
 import dto.MemberDto;
@@ -29,6 +32,20 @@ public class MeberServiceImpl implements MemberService{
 
 		int result = (memberDto.getPassword().equals(password)) ? 1 : 0;
 		
+		return result;
+	}
+	
+	//멤버 수정하기
+	@Override
+	public int modifyMember(MemberDto member) {
+
+		//수정하기	
+		int result = memberDao.updateMember(member);
+		
+		if(result == 1) {
+			((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().setAttribute("nickname", member.getNickname());
+		}
+
 		return result;
 	}
 

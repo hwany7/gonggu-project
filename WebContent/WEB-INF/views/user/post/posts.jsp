@@ -5,7 +5,7 @@
 		<!-- 상단 이미지 -->
 		<div class="row">
 			<div class="cropping" style="height:100px;">
-				<img src="resources/img/tamplate2.jpg">
+				<img src="/gonggu/resources/img/tamplate2.jpg">
 			</div>
 		</div>
 		
@@ -26,11 +26,11 @@
 						<div class="postListBox">
 							<div class="col-md-4 col-xs-4">
 								<div class="div-center">
-									<a href="post?post_id=${postListDto.post_id}">
+									<a href="/gonggu/post?post_id=${postListDto.post_id}">
 										<img class="postListImage" src="${postListDto.thumbnail}">
 									</a>
 								</div>
-								<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='post?post_id=${postListDto.post_id}'">
+								<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/post?post_id=${postListDto.post_id}'">
 							</div>
 							<div class="col-md-8 col-xs-8">
 								<div class="postListInfo">
@@ -73,7 +73,7 @@
 						<c:if test="${info.cnt gt 0}">
 							<div class="col-md-2 text-center">
 							<c:if test="${info.startPage gt info.pageBlock}">
-								<a href="posts?pageNum=${info.startPage-info.pageBlock}&category_id=${info.category_id}&search=${info.search}">◀</a>
+								<a href="/gonggu/posts?pageNum=${info.startPage-info.pageBlock}&category_id=${info.category_id}&search=${info.search}">◀</a>
 							</c:if>
 							</div>
 							<div class="col-md-8">
@@ -82,13 +82,13 @@
 									<span style="color: #5BC0DE;">[${i}]</span>
 								</c:if>
 								<c:if test="${i ne info.currentPage}">
-									<a href="posts?pageNum=${i}&category_id=${info.category_id}&search=${info.search}">[${i}]</a>
+									<a href="/gonggu/posts?pageNum=${i}&category_id=${info.category_id}&search=${info.search}">[${i}]</a>
 								</c:if>
 							</c:forEach>
 							</div>
 							<div class="col-md-2">
 							<c:if test="${info.pageCount gt info.endPage}">
-								<a href="posts?pageNum=${info.startPage+info.pageBlock}&category_id=${info.category_id}&search=${info.search}">▶</a>	
+								<a href="/gonggu/posts?pageNum=${info.startPage+info.pageBlock}&category_id=${info.category_id}&search=${info.search}">▶</a>	
 							</c:if>
 							</div>
 						</c:if>

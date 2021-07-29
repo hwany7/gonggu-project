@@ -10,6 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.MemberDto;
 import dto.PaymentDto;
 import dto.join.PostContentDto;
 import service.inter.MemberService;
@@ -38,11 +39,11 @@ public class MyPageHandler {
 	@Resource
 	MemberService memberService;
 	
-	@RequestMapping("/myPage")
-	public ModelAndView myPage(String pageNum) {
+	@RequestMapping("/mypage/posts/payable")
+	public ModelAndView payable(String pageNum) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
-		mav.addObject("page","/WEB-INF/views/user/mypage/myPosts");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myPayablePost");
 	
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 
@@ -53,24 +54,13 @@ public class MyPageHandler {
 		
 		return mav;
 	}
-	
-	@RequestMapping("/myPosts")
-	public ModelAndView myPosts(String pageNum, String post_status) {
 		
-		ModelAndView mav = new ModelAndView("user/mypage/myPostsAjax");
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, post_status);
-		
-		mav.addObject("postListDto", map.get("postListDto"));
-		mav.addObject("info", map.get("info"));
-		
-		return mav;
-	}
-	
-	@RequestMapping("/payPosts")
+	@RequestMapping("/mypage/posts/payable/pay")
 	public ModelAndView payPost(int total_price, int application_id) {
 		
-		ModelAndView mav = new ModelAndView("user/mypage/payPosts");
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/payPost");
+		
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 
 		mav.addObject("total_price", total_price);
@@ -80,7 +70,7 @@ public class MyPageHandler {
 		return mav;
 	}
 	
-	@RequestMapping("/payPostPro")
+	@RequestMapping("/mypage/posts/payable/paypro")
 	public ModelAndView payPostPro(PaymentDto payment) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/payPostPro");
@@ -90,8 +80,23 @@ public class MyPageHandler {
 		return mav;
 	}
 	
+	@RequestMapping("/mypage/posts/apply")
+	public ModelAndView apply(String pageNum) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myApplyPost");
 	
-	@RequestMapping("/cancelAppPro")
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+
+		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, "A");
+		
+		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("info", map.get("info"));
+		
+		return mav;
+	}
+	
+	@RequestMapping("/mypage/posts/apply/cancelpro")
 	public ModelAndView cancelAppPro(int application_id, AppCancelReason reason) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
@@ -103,11 +108,28 @@ public class MyPageHandler {
 		return mav;
 	}
 	
-	@RequestMapping("/myReviews")
+	@RequestMapping("/mypage/posts/payed")
+	public ModelAndView payed(String pageNum) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myPayedPost");
+	
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+
+		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, "S");
+		
+		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("info", map.get("info"));
+		
+		return mav;
+	}
+				
+	@RequestMapping("/mypage/reviews")
 	public ModelAndView myReviews(String pageNum) {
 		
-		ModelAndView mav = new ModelAndView("user/mypage/myReviews");
-		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myReviews");
+			
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 
 		Map<String, Object> map = reviewService.getMyReviewList(pageNum, member_id);
@@ -119,11 +141,12 @@ public class MyPageHandler {
 	}
 	
 	//내가 쓴 댓글 보기
-	@RequestMapping("/myReply")
+	@RequestMapping("/mypage/replys")
 	public ModelAndView myReplyList() {
-
-		ModelAndView mav = new ModelAndView("user/mypage/myReply");
 		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myReply");
+	
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 
 		mav.addObject("replyDto", replyService.getMyReply(member_id));
@@ -132,11 +155,12 @@ public class MyPageHandler {
 	}
 	
 	//내 정보 간략 보기
-	@RequestMapping("/myInfo")
+	@RequestMapping("/mypage/info")
 	public ModelAndView myInfo() {
 		
-		ModelAndView mav = new ModelAndView("user/mypage/myInfo");
-		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myInfo");
+
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		mav.addObject("memberDto", memberService.getMember(member_id));
@@ -144,45 +168,60 @@ public class MyPageHandler {
 		return mav;
 	}
 	
-	
 	//정보 수정 비밀번호 입력폼
-	@RequestMapping("/myInfoCheck")
+	@RequestMapping("/mypage/info/check")
 	public ModelAndView myInforCheck() {
-	
-		ModelAndView mav = new ModelAndView("user/mypage/myInfoCheck");
-		
-		return mav;
-	}
-	
-	//정보 수정 비밀번호 입력폼
-	@RequestMapping("/myInfoCheckPro")
-	public ModelAndView myInforCheckPro(String password) {
-		
-		ModelAndView mav = new ModelAndView("user/pro/myInforCheckPro");
-		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-			
-		mav.addObject("result", memberService.checkMember(member_id, password));
-		
-		return mav;
-	}
-	
-	//정보 수정 비밀번호 입력폼
-	@RequestMapping("/myInfoModify")
-	public ModelAndView myInforModify(String password) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myInfoCheck");
 		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-			
+		return mav;
+	}
+	
+	//정보 수정 비밀번호 입력폼
+	@RequestMapping("/mypage/info/checkpro")
+	public ModelAndView myInforCheckPro(String password) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
 		mav.addObject("page","/WEB-INF/views/user/pro/myInforCheckPro");
+			
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		mav.addObject("result", memberService.checkMember(member_id, password));
+		
+		return mav;
+	}
+	
+	//정보 수정 비밀번호 입력폼
+	@RequestMapping("/mypage/info/modify")
+	public ModelAndView myInforModify() {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/myInfoModify");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		
+		mav.addObject("memberDto", memberService.getMember(member_id));
 		
 		return mav;
 	}	
 	
+	//정부 수정하기
+	@RequestMapping("/mypage/info/modifypro")
+	public ModelAndView myInforModifyPro(MemberDto member) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/pro/myInforModifyPro");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		
+		member.setMember_id(member_id);
+		
+		mav.addObject("result", memberService.modifyMember(member));
+
+		return mav;
 	
+	}
 	
 	
 	

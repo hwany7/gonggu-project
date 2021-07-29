@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert("댓글 작성 완료");
-			location.href="review?review_num=${review_num}";
+			location.href="/gonggu/review?review_num=${review_num}";
 		</c:if>
 		</script>
 	</body>

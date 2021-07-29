@@ -36,7 +36,7 @@ function checkValidationEmail(){
 	  	
 		//이메일 중복 검사
 		$.ajax({
-			url : 'checkEmail',
+			url : '/gonggu/checkEmail',
 			type : 'get',
 			data : {'member_email' : email},
 			success : function(result) {
@@ -84,7 +84,7 @@ function checkValidationNickName() {
 		
 		//닉네임 중복 검사
 		$.ajax({
-			url : 'checkNickname',
+			url : '/gonggu/checkNickname',
 			type : 'get',
 			data : {'nickname' : nickname},
 			success : function(result) {
@@ -165,6 +165,7 @@ function checkValidationRePassword(){
 	
 	if(rePwd==pwd){
 	    $("#rePwdErr").hide();
+	    signUpForm.checkPassword.value = '1';
 	}else{
 	    $("#rePwdErr").show().css('color', 'red');
 	}
@@ -274,7 +275,7 @@ function openNotifycation(){
         if($('.notifyBox').hasClass("notifyBox-toggled")){
            $.ajax({
               type : 'get',
-               url : "getNotification",
+               url : "/gonggu/getNotification",
                dataType : "text",
                success : function(data){
             	   $('#notify2').removeClass('dispNotify');
@@ -294,7 +295,7 @@ function checkNotification(member_id){
 	if(member_id != ''){
 		
 		$.ajax({
-	           url : 'checkNotification',
+	           url : '/gonggu/checkNotification',
 	           type : 'get',
 	           dataType : 'text',
 	           success : function(result) {
@@ -315,7 +316,7 @@ function checkNotification(member_id){
 		
 		setInterval(function(){
 	        $.ajax({
-	           url : 'checkNotification',
+	           url : '/gonggu/checkNotification',
 	           type : 'get',
 	           dataType : 'text',
 	           success : function(result) {
@@ -340,7 +341,7 @@ function checkNotification(member_id){
 function deleteAllNotification(){
     $.ajax({
         type : 'get',
-         url : "deleteAllNotification",
+         url : "/gonggu/deleteAllNotification",
          dataType : "text",
          success : function(data){
         	 $(".notifyBox").html(data);
@@ -364,7 +365,7 @@ function addApply(member_id){
 	if(amount == ""|| amount == 0){
 		alert("신청 개수를 입력해 주세요");
 	}else{
-		window.document.location="applyPro?post_id=" + post_id + "&amount=" + amount;	
+		window.document.location="/gonggu/applyPro?post_id=" + post_id + "&amount=" + amount;	
 	}
 	
 }
@@ -384,7 +385,7 @@ function likeReview(member_id){
 		return false;
 	}
 	var review_num = $(".likeReviewPro").attr('id');
-	window.document.location="likeReviewPro?review_num=" + review_num;
+	window.document.location="/gonggu/likeReviewPro?review_num=" + review_num;
 	
 }
 
@@ -395,14 +396,14 @@ function deleteReply(){
 	if( reply == true ) {
 		var reply_num = $(".deleteReply").attr('id');
 		var review_num = $(".deleteReply").parent().attr('id');
-		window.document.location="deleteReplyPro?reply_num=" + reply_num +"&review_num=" + review_num;
+		window.document.location="/gonggu/deleteReplyPro?reply_num=" + reply_num +"&review_num=" + review_num;
 	}	
 }
 
 function deleteReview(review_num){
 
 	if(confirm("삭제하시겠습니까 ?")){
-		window.document.location="deleteReviewPro?review_num=" + review_num;
+		window.document.location="/gonggu/deleteReviewPro?review_num=" + review_num;
 	}
 
 }
@@ -428,7 +429,7 @@ function getMyPosts(pageNum, post_status){
 	li.eq(navIndex).children().css('color', '#5BC0DE');
 	
 	$.ajax({
-         url : "myPosts?pageNum="+ pageNum + "&post_status=" + post_status,
+         url : "/gonggu/myPosts?pageNum="+ pageNum + "&post_status=" + post_status,
          type : 'get',
          dataType : "text",
          success : function(data){
@@ -437,6 +438,7 @@ function getMyPosts(pageNum, post_status){
          error : function(e){}
             
      });
+
 }
 
 function paymentFormCheck(){
@@ -457,22 +459,6 @@ function paymentFormCheck(){
 		paymentForm.address2.focus();
 		return false;
 	}
-}
-
-//결제하기
-function pay_post(total_price, application_id){
-	
-	$.ajax({
-		url : "payPosts?total_price=" + total_price + "&application_id=" + application_id,
-        type : 'get',
-        dataType : "text",
-        success : function(data){
-     	   $("#mypage_content").html(data);
-        },
-        error : function(e){
-        }  
-    });
-	
 }
 
 //결제취소 설문폼 체크
@@ -511,7 +497,7 @@ function getMyReviews(){
 	li.eq(navIndex).children().css('color', '#5BC0DE');
 	
 	$.ajax({
-		url : "myReviews",
+		url : "/gonggu/myReviews",
         type : 'get',
         dataType : "text",
         success : function(data){
@@ -526,7 +512,7 @@ function getMyReviews(){
 function write_review(payment_id){
 	
 	$.ajax({
-		url : "writeReview?payment_id=" + payment_id,
+		url : "/gonggu/writeReview?payment_id=" + payment_id,
         type : 'get',
         dataType : "text",
         success : function(data){
@@ -556,65 +542,13 @@ function reviewFormCheck(){
 //리뷰 수정
 function modifyReview(review_num){
 	
-	window.document.location="reviewModify?review_num=" + review_num;
-}
-
-function getMyReply(){
-	
-	var li = $('.nav-myPage').children();
-	var navIndex = '';
-	
-	for(i=0; i<6; i++){
-		li.eq(i).children().css('color', '');
-	}
-	
-	navIndex = 4;
-	
-	var li = $('.nav-myPage').children();
-	li.eq(navIndex).children().css('color', '#5BC0DE');
-	
-	$.ajax({
-		url : "myReply",
-        type : 'get',
-        dataType : "text",
-        success : function(data){
-     	   $("#mypage_content").html(data);
-        },
-        error : function(e){
-        }  
-    });
-}
-
-function getMyInfo() {
-	
-	var li = $('.nav-myPage').children();
-	var navIndex = '';
-	
-	for(i=0; i<6; i++){
-		li.eq(i).children().css('color', '');
-	}
-	
-	navIndex = 5;
-	
-	var li = $('.nav-myPage').children();
-	li.eq(navIndex).children().css('color', '#5BC0DE');
-	
-	$.ajax({
-		url : "myInfo",
-        type : 'get',
-        dataType : "text",
-        success : function(data){
-     	   $("#mypage_content").html(data);
-        },
-        error : function(e){
-        }  
-    });	
+	window.document.location="/gonggu//review/modify?review_num=" + review_num;
 }
 
 function myInfoCheck(){
 	
 	$.ajax({
-		url : "myInfoCheck",
+		url : "/gonggu/myInfoCheck",
         type : 'get',
         dataType : "text",
         success : function(data){
@@ -632,17 +566,7 @@ function myInfoCheckCheckPassword(){
 	
 	if(!password){
 		alert( "비밀번호를 입력해주세요" );
-	}else{
-		$.ajax({
-			url : "myInfoCheckPro?password=" + password,
-	        type : 'get',
-	        dataType : "text",
-	        success : function(data){
-	     	   $("#mypage_content").html(data);
-	        },
-	        error : function(e){
-	        }  
-	    });
+		return false;
 	}
 }
 

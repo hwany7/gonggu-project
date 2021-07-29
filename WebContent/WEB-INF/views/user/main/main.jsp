@@ -4,7 +4,7 @@
 				<!-- 상단 이미지 -->
 				<div class="row">
 					<div class="cropping">
-						<img src="resources/img/tamplate1.jpg">
+						<img src="/gonggu/resources/img/tamplate1.jpg">
 					</div>
 				</div>
 				

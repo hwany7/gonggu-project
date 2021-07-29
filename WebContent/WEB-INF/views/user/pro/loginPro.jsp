@@ -15,14 +15,14 @@
 			history.back();				
 		</c:if>
 		<c:if test="${result eq '1'}">
-			location.href="main";
+			location.href="/gonggu/main";
 		</c:if>
 		<c:if test="${result eq '2'}">
 			alert("활동이 정지된 회원입니다");
 			history.back();
 		</c:if>
 		<c:if test="${result eq '3'}">
-			location.href="activateStatus";
+			location.href="/gonggu/activateStatus";
 		</c:if>
 		</script>
 	</body>

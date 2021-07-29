@@ -54,7 +54,7 @@
 							</c:if>
 
 							<div class="mar-top-20">
-								<input type="button" class="btn btn-default" value="수정" onclick="myInfoCheck()">
+								<input type="button" class="btn btn-default" value="수정" onclick="location='/gonggu/mypage/info/check'">
 								<hr>
 							</div>
 						</div>
@@ -62,4 +62,3 @@
 				</div>
 			</div>
 		</div>
-

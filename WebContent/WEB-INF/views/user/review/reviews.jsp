@@ -5,7 +5,7 @@
 		<!-- 상단 이미지 -->
 		<div class="row">
 			<div class="cropping" style="height:100px;">
-				<img src="resources/img/tamplate2.jpg">
+				<img src="/gonggu/resources/img/tamplate2.jpg">
 			</div>
 		</div>
 		
@@ -25,15 +25,15 @@
 					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 						<div class="col-md-12 col-xs-12">
 							<div id="${reviewContentDto.review_num}" class="reivewListBox reviewContent hf">
-								<h4 class="mar-top-20"><a href="review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
+								<h4 class="mar-top-20"><a href="/gonggu/review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
 								<h5 class="etcOneLine text-color-g2">${reviewContentDto.content}</h5>
 								<div class="col-md-6 h6-g2 pd-zero">
 									<span><fmt:formatDate value="${reviewContentDto.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>
 									<span>${reviewContentDto.nickname}</span>
 								</div>
 								<div class="col-md-6 text-right">
-									<img src="resources/img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
-									<img src="resources/img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
+									<img src="/gonggu/resources/img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
+									<img src="/gonggu/resources/img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
 								</div>
 							</div>
 						</div>	
@@ -69,7 +69,7 @@
 						<c:if test="${info.cnt gt 0}">
 							<div class="col-md-2 text-center">
 							<c:if test="${info.startPage gt info.pageBlock}">
-								<a href="reviews?pageNum=${info.startPage-info.pageBlock}&search=${info.search}">◀</a>
+								<a href="/gonggu/reviews?pageNum=${info.startPage-info.pageBlock}&search=${info.search}">◀</a>
 							</c:if>
 							</div>
 							<div class="col-md-8">
@@ -78,13 +78,13 @@
 									<span style="color: #5BC0DE;">[${i}]</span>
 								</c:if>
 								<c:if test="${i ne info.currentPage}">
-									<a href="reviews?pageNum=${i}&search=${info.search}">[${i}]</a>
+									<a href="/gonggu/reviews?pageNum=${i}&search=${info.search}">[${i}]</a>
 								</c:if>
 							</c:forEach>
 							</div>
 							<div class="col-md-2">
 							<c:if test="${info.pageCount gt info.endPage}">
-								<a href="reviews?pageNum=${info.startPage+info.pageBlock}&search=${info.search}">▶</a>	
+								<a href="/gonggu/reviews?pageNum=${info.startPage+info.pageBlock}&search=${info.search}">▶</a>	
 							</c:if>
 							</div>
 						</c:if>

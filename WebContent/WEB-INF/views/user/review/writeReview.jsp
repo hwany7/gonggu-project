@@ -3,7 +3,7 @@
 		<script type="text/javascript">
 			$(function(){
 				CKEDITOR.replace( 'editor', {
-					filebrowserUploadUrl: 'reviewImageUpload',
+					filebrowserUploadUrl: '/gonggu/upload/reviewImageUpload',
 					height : 300,
 					language: 'ko'
 				});
@@ -20,7 +20,7 @@
 			</div>
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">	
-					<form method="post" role="form" action="writeReviewPro" name="writeReviewForm" onsubmit="return reviewFormCheck()">
+					<form method="post" role="form" action="/gonggu/review/writePro" name="writeReviewForm" onsubmit="return reviewFormCheck()">
 						<input type="hidden" name="payment_id" value="${payment_id}"> 
 						<div class="form-group">
 							<label class="mar-top-20">글제목</label>

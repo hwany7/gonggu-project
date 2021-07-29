@@ -20,7 +20,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert('신청이 완료되었습니다');	
-			location.href="main";
+			location.href="/gonggu/main";
 		</c:if>
 		</script>
 	</body>

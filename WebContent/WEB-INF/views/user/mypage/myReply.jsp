@@ -17,7 +17,7 @@
 				<!-- 리스트 박스 -->
 				<c:forEach var="replyDto" items="${replyDto}">
 				<div class="row">
-					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" onclick="location='review?review_num=${replyDto.review_num}'" style="cursor:pointer">
+					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" onclick="location='/gonggu/review?review_num=${replyDto.review_num}'" style="cursor:pointer">
 						<div class="col-md-12 col-xs-12">
 							<div id="${replyDto.review_num}" class="replyListBox replyContent mar-top-10">
 							<h5 class="etcOneLine ">${replyDto.content}</h5>	

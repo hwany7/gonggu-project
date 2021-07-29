@@ -5,7 +5,7 @@
 			<!-- 상단 이미지 -->
 			<div class="row">
 				<div class="cropping" style="height: 100px;">
-					<img src="resources/img/tamplate3.jpg">
+					<img src="/gonggu/resources/img/tamplate3.jpg">
 				</div>
 			</div>
 
@@ -20,7 +20,7 @@
 						</div>
 						<div class="text-right">
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}">
-								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기" onclick="modifyReview('${reviewContentDto.review_num}')">
+								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기" onclick="location='/gonggu/review/modify?review_num=${reviewContentDto.review_num}'">
 							</c:if>
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}">
 								<input class="deleteReview btn btn-danger" type="button" value="삭제하기" onclick="deleteReview(${reviewContentDto.review_num})">
@@ -34,7 +34,7 @@
 				<div class="row max-width-1300 div-center ">
 					<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
 						<div class="cropping mar-top-100" style="height: 50px;">
-							<img src="resources/img/tamplate2.jpg">
+							<img src="/gonggu/resources/img/tamplate2.jpg">
 						</div>
 					</div>
 				</div>

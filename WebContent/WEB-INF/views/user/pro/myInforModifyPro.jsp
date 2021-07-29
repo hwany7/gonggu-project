@@ -4,19 +4,18 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>GongGu</title>
+<head>
+	<meta charset="UTF-8">
+	<title>GongGu</title>
 	</head>
 	<body>
 		<script type="text/javascript">
 		<c:if test="${result eq 0}">
-			alert("회원 가입에 실패했습니다.");
-			location.href="/gonggu/login";
+			alert("정보수정에 실패했습니다.");
+			history.back();
 		</c:if>
 		<c:if test="${result eq 1}">
-			alert("회원 가입에 성공했습니다.");
-			location.href="/gonggu/login";
+			location.href="/gonggu/mypage/info"
 		</c:if>
 		</script>
 	</body>

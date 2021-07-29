@@ -23,7 +23,7 @@
 			                	<h6 class="text-center">아직 계정이 없으시다면..</h6>
 			                </div>
 			                <div class="form-group">
-			                    <button type="button" class="btn btn-info width-100p height-40" onclick="location='signup'">회원가입</button>
+			                    <button type="button" class="btn btn-info width-100p height-40" onclick="location='/gonggu/signup'">회원가입</button>
 			                </div>
 			             </form>
 				    </div>

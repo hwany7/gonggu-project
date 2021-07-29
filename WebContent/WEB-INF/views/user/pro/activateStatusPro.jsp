@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert("상태가 변경되었습니다");
-			location.href="login";
+			location.href="/gonggu/login";
 		</c:if>
 		</script>
 	</body>

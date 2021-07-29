@@ -18,7 +18,7 @@ public class UploadHandler {
 	UploadService uploadService;
 	
 	//ckEdict4 이미지 서버 업로드
-	@RequestMapping("reviewImageUpload")
+	@RequestMapping("/upload/reviewImageUpload")
 	public void uploadEditImage(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		uploadService.fileupload(request, response);
 	}

@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert("신청 취소 완료");
-			getMyPosts('${info.pageNum}','A');
+			location.href="/gonggu/mypage/posts/apply";
 		</c:if>
 		</script>
 	</body>

@@ -16,7 +16,7 @@
 		</c:if>
 		<c:if test="${result eq 1}">
 			alert('리뷰가 삭제되었습니다');
-			location.href="reviews";
+			location.href="/gonggu/reviews";
 		</c:if>
 		</script>
 	</body>

@@ -44,5 +44,13 @@
  		select * from member_gg where member_id=#{member_id}
  	</select>
 
+ 	<!-- 내 정보 변경 -->
+ 	<update id="updateMember" parameterType="dto.MemberDto">
+ 		update member_gg
+		set nickname = #{nickname}, password = #{password}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}, tel = #{tel}
+		where member_id = #{member_id}
+ 	</update>
+ 	
+ 	
 </mapper>
 
