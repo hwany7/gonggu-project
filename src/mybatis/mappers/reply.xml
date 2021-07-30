@@ -26,6 +26,24 @@
  	<select id="getMyReply" parameterType="int" resultType="dto.ReplyDto">
  		select * from reply_gg where member_id=#{member_id}
  	</select>
-
+ 	
+ 	<!-- 내가 쓴 댓글 전체 개수 -->
+ 	<select id="getMyReplyCount" parameterType="int" resultType="int">
+ 		select count(*) from reply_gg where member_id=#{member_id}
+ 	</select>
+ 	
+ 	<!-- 내가 쓴 리플 전체 개수 -->
+ 	<select id="getMyReplyList" parameterType="util.PageInfo" resultType="dto.ReplyDto">
+ 		select *
+ 		from(select reply_num, 
+		 		review_num, 
+		 		member_id, 
+		 		upload_date, 
+		 		content, 
+	 			rownum r
+ 			from reply_gg
+ 			where member_id=#{member_id})
+ 		where r &gt;= #{start} and r &lt;=#{end}
+ 	</select>
+ 	
 </mapper>
-

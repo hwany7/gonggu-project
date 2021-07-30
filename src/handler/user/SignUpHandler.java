@@ -29,35 +29,8 @@ public class SignUpHandler {
 		return mav;
 	}
 	
-	//이메일 중복 검사
-	@ResponseBody
-	@RequestMapping("/checkEmail")
-	public String checkEmail(String member_email) {
-
-		return Integer.toString(signupService.CheckDuplicateForEmail(member_email));
-	}
-	
-	//닉네임 중복 체크
-	@ResponseBody
-	@RequestMapping("/checkNickname")
-	public String checkNickname(String nickname) {
-		
-	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
-	}
-	
-	//이메일 인증
-	@RequestMapping("/mailConfirmForm")
-	public ModelAndView mailConfirmForm(String member_email) {
-		
-		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
-		
-		mav.addObject("codeMsg", signupService.SendMailGetCode(member_email));
-		
-		return mav;
-	}
-
 	//회원 가입
-	@RequestMapping("/signUpPro")
+	@RequestMapping("/signuppro")
 	public ModelAndView signUpPro(MemberDto member) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/signUpPro");
@@ -66,5 +39,32 @@ public class SignUpHandler {
 		
 		return mav;
 	}	
+	
+	//이메일 중복 검사
+	@ResponseBody
+	@RequestMapping("/signup/emailcheck")
+	public String checkEmail(String member_email) {
+
+		return Integer.toString(signupService.CheckDuplicateForEmail(member_email));
+	}
+	
+	//닉네임 중복 체크
+	@ResponseBody
+	@RequestMapping("/signup/nicknamecheck")
+	public String checkNickname(String nickname) {
+		
+	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
+	}
+	
+	//이메일 인증
+	@RequestMapping("/signup/mailconfirm")
+	public ModelAndView mailConfirmForm(String member_email) {
+		
+		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
+		
+		mav.addObject("codeMsg", signupService.SendMailGetCode(member_email));
+		
+		return mav;
+	}
 	
 }

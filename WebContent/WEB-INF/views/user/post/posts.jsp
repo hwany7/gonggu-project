@@ -26,11 +26,11 @@
 						<div class="postListBox">
 							<div class="col-md-4 col-xs-4">
 								<div class="div-center">
-									<a href="/gonggu/post?post_id=${postListDto.post_id}">
+									<a href="/gonggu/posts/post?post_id=${postListDto.post_id}">
 										<img class="postListImage" src="${postListDto.thumbnail}">
 									</a>
 								</div>
-								<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/post?post_id=${postListDto.post_id}'">
+								<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${postListDto.post_id}'">
 							</div>
 							<div class="col-md-8 col-xs-8">
 								<div class="postListInfo">
@@ -48,7 +48,7 @@
 			<!-- 검색창 -->
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-20">
-					<form method="post" action="posts">
+					<form method="get" action="/gonggu/posts">
 						<input type="hidden" name="category_id" value="${info.category_id}">				
 						<div class="col-md-2 col-xs-2">
 							<select class="form-control" name="select" >

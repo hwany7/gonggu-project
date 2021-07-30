@@ -37,7 +37,7 @@ public class ReviewHandler {
 	}
 	
 	//리뷰 콘텐트 보기
-	@RequestMapping("/review")
+	@RequestMapping("/reviews/review")
 	public ModelAndView review(int review_num) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -53,7 +53,7 @@ public class ReviewHandler {
 	}
 	
 	//좋아요 누르기
-	@RequestMapping("/likeReviewPro")
+	@RequestMapping("/reviews/review/likepro")
 	public ModelAndView likeReviewPro(int review_num) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/likeReviewPro");
@@ -64,47 +64,10 @@ public class ReviewHandler {
 		mav.addObject("review_num", review_num);
 	
 		return mav;
-	}	
-	
-	//리뷰 삭제하기
-	@RequestMapping("/deleteReviewPro")
-	public ModelAndView deleteReviewPro(int review_num) {
-		
-		ModelAndView mav = new ModelAndView("user/pro/deleteReviewPro");
-		
-		mav.addObject("result", reviewService.deleteReview(review_num));
-		mav.addObject("review_num",review_num);
-		
-		return mav;
 	}
 	
-	//리뷰 작성 폼 가기
-	@RequestMapping("/review/write")
-	public ModelAndView writeReview(int payment_id) {
-		
-		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
-		mav.addObject("page","/WEB-INF/views/user/review/writeReview");
-		
-		mav.addObject("payment_id", payment_id);
-
-		return mav;
-	}	
-	
-	//리뷰 작성하기
-	@RequestMapping("/review/writePro")
-	public ModelAndView writeReviewPro(ReviewDto reviewDto) {
-		
-		ModelAndView mav = new ModelAndView("user/pro/writeReviewPro");
-			
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-		reviewDto.setMember_id(member_id);
-			
-		mav.addObject("result", reviewService.addReview(reviewDto));
-
-		return mav;
-	}
-	
-	@RequestMapping("/review/modify")
+	//리뷰 수정 폼으로 가기
+	@RequestMapping("/reviews/review/modify")
 	public ModelAndView modifyReview(int review_num) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -117,7 +80,7 @@ public class ReviewHandler {
 	}
 	
 	//리뷰 수정하기
-	@RequestMapping("/review/modifypro")
+	@RequestMapping("/reviews/review/modifypro")
 	public ModelAndView modifyReviewPro(ReviewDto reviewDto) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/modifyReviewPro");
@@ -127,5 +90,43 @@ public class ReviewHandler {
 
 		return mav;
 	}
+	
+	//리뷰 삭제하기
+	@RequestMapping("/reviews/review/deletepro")
+	public ModelAndView deleteReviewPro(int review_num) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/deleteReviewPro");
+		
+		mav.addObject("result", reviewService.deleteReview(review_num));
+		mav.addObject("review_num",review_num);
+		
+		return mav;
+	}
+	
+	//리뷰 작성 폼 가기
+	@RequestMapping("/reviews/review/write")
+	public ModelAndView writeReview(int payment_id) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/review/writeReview");
+		
+		mav.addObject("payment_id", payment_id);
+
+		return mav;
+	}	
+	
+	//리뷰 작성하기
+	@RequestMapping("/reviews/review/writePro")
+	public ModelAndView writeReviewPro(ReviewDto reviewDto) {
+		
+		ModelAndView mav = new ModelAndView("user/pro/writeReviewPro");
 			
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		reviewDto.setMember_id(member_id);
+			
+		mav.addObject("result", reviewService.addReview(reviewDto));
+
+		return mav;
+	}
+	
 }

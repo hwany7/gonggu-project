@@ -20,7 +20,7 @@
 						</div>
 						<div class="text-right">
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}">
-								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기" onclick="location='/gonggu/review/modify?review_num=${reviewContentDto.review_num}'">
+								<input class="modifyReview btn btn-default" id="${reviewContentDto.review_num}" type="button" value="수정하기" onclick="location='/gonggu/reviews/review/modify?review_num=${reviewContentDto.review_num}'">
 							</c:if>
 							<c:if test= "${sessionScope.member_id eq reviewContentDto.member_id}">
 								<input class="deleteReview btn btn-danger" type="button" value="삭제하기" onclick="deleteReview(${reviewContentDto.review_num})">
@@ -51,7 +51,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 mar-top-10">
-							<form method="post" action="writeReplyPro" name="replyForm" onsubmit="return replyCheck()">
+							<form method="post" action="/gonggu/reviews/review/reply/writepro" name="replyForm" onsubmit="return checkReply()">
 								<input type="hidden" name="review_num" value="${reviewContentDto.review_num}">
 								<div class="form-group">
 									<textarea class="review-textarea form-cotrol" name="content"></textarea>

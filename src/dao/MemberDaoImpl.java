@@ -79,7 +79,12 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updateMember", member);
 	}
 	
+	//멤버 상태 수정하기
+	@Override
+	public int modifyStatus(Map<String, Object> map) {
 
+		return session.update("member.modifyStatus", map);
+	}
 	
 	
 }

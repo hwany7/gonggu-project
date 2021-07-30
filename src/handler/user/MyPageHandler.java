@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDto;
 import dto.PaymentDto;
-import dto.join.PostContentDto;
 import service.inter.MemberService;
 import service.inter.PaymentService;
 import service.inter.PostService;
@@ -142,14 +141,16 @@ public class MyPageHandler {
 	
 	//내가 쓴 댓글 보기
 	@RequestMapping("/mypage/replys")
-	public ModelAndView myReplyList() {
+	public ModelAndView myReplyList(String pageNum) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
 		mav.addObject("page","/WEB-INF/views/user/mypage/myReply");
 	
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-
-		mav.addObject("replyDto", replyService.getMyReply(member_id));
+	
+		Map<String, Object> map  = replyService.getMyReply(pageNum, member_id);
+		mav.addObject("info", map.get("info"));
+		mav.addObject("replyDto", map.get("replyDto"));
 
 		return mav;
 	}
@@ -221,6 +222,31 @@ public class MyPageHandler {
 
 		return mav;
 	
+	}
+	
+	//회원 탈퇴 체크
+	@RequestMapping("/mypage/info/signoutcheck")
+	public ModelAndView signOutCheck() {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/mypage/signOutCheck");
+
+		return mav;
+	}
+	
+
+	//회원 탈퇴
+	@RequestMapping("/mypage/info/signoutpro")
+	public ModelAndView signOutPro(String password) {
+		
+		ModelAndView mav = new ModelAndView("user/template/mypageTemplate");
+		mav.addObject("page","/WEB-INF/views/user/pro/signOutPro");
+		
+		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		
+		mav.addObject("result", memberService.signout(member_id, password));
+
+		return mav;
 	}
 	
 	

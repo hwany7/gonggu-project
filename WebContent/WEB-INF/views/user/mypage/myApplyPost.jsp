@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+		<input type="hidden" class="navIndex" value="1">
 		<div class="max-width-1500 div-center">
 			<c:if test="${postListDto[0].post_id eq null }">
 				<div class="container-fluid">
@@ -23,11 +24,11 @@
 								<div class="postListBox">
 									<div class="col-md-4 col-xs-4">
 										<div class="div-center">
-											<a href="/gonggu/post?post_id=${postListDto.post_id}">
+											<a href="/gonggu/posts/post?post_id=${postListDto.post_id}">
 												<img class="postListImage" src="${postListDto.thumbnail}">
 											</a>
 										</div>
-										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/post?post_id=${postListDto.post_id}'">
+										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${postListDto.post_id}'">
 									</div>
 									<div class="col-md-8 col-xs-8">
 										<div class="postListInfo">
@@ -36,7 +37,7 @@
 											<div class="etc text-color-g2">${postListDto.content}</div>  
 											<c:if test="${info.post_status eq 'A'}">
 											<button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">신청취소</button>      
-                       						<form method="get" action="/gonggu/mypage/posts/apply/cancelpro" name="poll" onsubmit="return pollcheck()" >
+                       						<form method="get" action="/gonggu/mypage/posts/apply/cancelpro" name="poll" onsubmit="return checkPoll()" >
                         						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           							<div class="modal-dialog" role="document">
                             							<div class="modal-content">

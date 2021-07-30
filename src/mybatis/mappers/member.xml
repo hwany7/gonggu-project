@@ -51,6 +51,10 @@
 		where member_id = #{member_id}
  	</update>
  	
+ 	 <!-- 회원 탈퇴(inactive 상태) -->
+ 	<update id="modifyStatus" parameterType="java.util.Map">
+ 		update member_gg set member_status = #{member_status} where member_id = #{member_id}
+ 	</update>
  	
 </mapper>
 

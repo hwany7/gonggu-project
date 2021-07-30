@@ -102,16 +102,16 @@
 								<c:forEach var="postContentReview" items="${postContentReview}">
 								<div class="reivewListBox">
 									<h4 class="mar-top-20 hf">
-										<a href="/gonggu/review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
+										<a href="/gonggu/reviews/review?review_num=${postContentReview.review_num}">${postContentReview.title}</a>
 									</h4>
 									
 									<h5 class="etcOneLine text-color-g2">
 										${postContentReview.content}
 									</h5>
 									<div class="text-right">
-										<img src="resources/img/like.png" width="15px" height="15px">
+										<img src="/gonggu/resources/img/like.png" width="15px" height="15px">
 										<span>${postContentReview.likecount}</span>
-										<img src="resources/img/reply.png" width="15px" height="15px">
+										<img src="/gonggu/resources/img/reply.png" width="15px" height="15px">
 										<span>${postContentReview.replycount}</span>
 									</div>
 								</div>

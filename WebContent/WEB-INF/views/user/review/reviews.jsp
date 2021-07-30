@@ -25,7 +25,7 @@
 					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 						<div class="col-md-12 col-xs-12">
 							<div id="${reviewContentDto.review_num}" class="reivewListBox reviewContent hf">
-								<h4 class="mar-top-20"><a href="/gonggu/review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
+								<h4 class="mar-top-20"><a href="/gonggu/reviews/review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
 								<h5 class="etcOneLine text-color-g2">${reviewContentDto.content}</h5>
 								<div class="col-md-6 h6-g2 pd-zero">
 									<span><fmt:formatDate value="${reviewContentDto.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>

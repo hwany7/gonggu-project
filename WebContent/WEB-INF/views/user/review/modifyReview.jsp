@@ -29,7 +29,7 @@
 			</div>
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">	
-					<form method="post" role="form" action="/gonggu/review/modifypro" name="writeReviewForm" onclick="return reviewFormCheck()">
+					<form method="post" role="form" action="/gonggu/reviews/review/modifypro" name="writeReviewForm" onclick="return checkReview()">
 						<input type="hidden" name="review_num" value="${reviewDto.review_num}"> 
 						<div class="form-group">
 							<label class="mar-top-20">글제목</label>

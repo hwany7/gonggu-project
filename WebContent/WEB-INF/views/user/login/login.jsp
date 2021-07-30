@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8"%>
-				<!-- login.jsp -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 				<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4">
 					<div class="div-center max-width-400">
 						<div class="mar-top-150">
 				        	<h2>로그인</h2>
 				        </div>
-			            <form name="loginForm" role="form" action="loginPro" onsubmit="return checkNullLogin()">
+			            <form name="loginForm" role="form" action="/gonggu/loginpro" onsubmit="return checkLogin()">
 			            	<div class="form-group">
 			                	<input type="text" class="form-control height-40" name="member_email" placeholder="이메일 아이디를 입력하세요">
 			                </div>

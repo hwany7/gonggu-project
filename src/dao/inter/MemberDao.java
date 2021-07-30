@@ -22,5 +22,6 @@ public interface MemberDao {
 	//마이페이지
 	public MemberDto getMember(int member_id);
 	public int updateMember(MemberDto member);
+	public int modifyStatus(Map<String, Object> map);
 
 }

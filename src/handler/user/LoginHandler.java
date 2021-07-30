@@ -28,7 +28,7 @@ public class LoginHandler {
 	}
 	
 	//로그인 기능
-	@RequestMapping("/loginPro")
+	@RequestMapping("/loginpro")
 	public ModelAndView logInPro(String member_email, String password) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/loginPro");
@@ -39,7 +39,7 @@ public class LoginHandler {
 	}
 	
 	//휴면 계정 활성화 폼으로 이동
-	@RequestMapping("/activateStatus")
+	@RequestMapping("/login/activatestatus")
 	public ModelAndView activateStatus() {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
@@ -54,7 +54,7 @@ public class LoginHandler {
 	}
 	
 	//휴면 계정 활성화
-	@RequestMapping("/activateStatusPro")
+	@RequestMapping("/login/activatestatuspro")
 	public ModelAndView activateStatusPro(int member_id, String password) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/activateStatusPro");

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    	<input type="hidden" class="navIndex" value="0">
 		<!-- 컨테이너 -->
 		<div class="max-width-1500 div-center">
 			<div class="container-fluid">
@@ -14,7 +15,7 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4 border-under-a">
 						<!-- 로그인 폼 -->
-		           		<form method="post" name="paymentForm" action="/gonggu/mypage/posts/payable/paypro" onsubmit="return paymentFormCheck()">
+		           		<form method="post" name="paymentForm" action="/gonggu/mypage/posts/payable/paypro" onsubmit="return checkPayment()">
 							<input type="hidden" name="application_id" value="${application_id}">		     			
 		                    <div class="form-group">
 			                	<input type="text" class="form-control mar-top-30" name="receiver_name" placeholder="받는 사람 이름" >                    
@@ -36,7 +37,7 @@
 			                       		<input type="text" class="form-control" name="address2" id="address2" value="${memberDto.address2}" placeholder="상세주소">
 			                        </div>
 			                    	<div class="col-md-4 col-xs-4">
-			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="sample4_execDaumPostcode();">
+			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="openDaumPostcode();">
 			                        </div>
 		                        </div>
 		                    </div>                    

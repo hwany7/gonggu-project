@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import dao.inter.ReplyDao;
 import dto.ReplyDto;
 import dto.join.ReplyContentDto;
+import util.PageInfo;
 
 @Repository
 public class ReplyDaoImpl implements ReplyDao {
@@ -43,5 +44,18 @@ public class ReplyDaoImpl implements ReplyDao {
 	public List<ReplyDto> getMyReply(int member_id) {
 
 		return session.selectList("reply.getMyReply", member_id);
+	}
+	
+	//내가 쓴 리플 전체 개수 가져오기
+	@Override
+	public int getMyReplyCount(int member_id) {
+
+		return session.selectOne("reply.getMyReplyCount", member_id);
+	}
+	
+	@Override
+	public List<ReplyDto> getMyReplyList(PageInfo info) {
+
+		return session.selectList("reply.getMyReplyList", info);
 	}
 }

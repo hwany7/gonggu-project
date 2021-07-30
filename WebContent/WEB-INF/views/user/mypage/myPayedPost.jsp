@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		<input type="hidden" class="navIndex" value="2">
 		<div class="max-width-1500 div-center">
 			<c:if test="${postListDto[0].post_id eq null }">
 				<div class="container-fluid">
@@ -23,11 +24,11 @@
 								<div class="postListBox">
 									<div class="col-md-4 col-xs-4">
 										<div class="div-center">
-											<a href="/gonggu/post?post_id=${postListDto.post_id}">
+											<a href="/gonggu/posts/post?post_id=${postListDto.post_id}">
 												<img class="postListImage" src="${postListDto.thumbnail}">
 											</a>
 										</div>
-										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/post?post_id=${postListDto.post_id}'">
+										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${postListDto.post_id}'">
 									</div>
 									<div class="col-md-8 col-xs-8">
 										<div class="postListInfo">
@@ -35,7 +36,7 @@
 											<h4>${postListDto.post_title}</h4>			
 											<div class="etc text-color-g2">${postListDto.content}</div>  
 											<c:if test="${postListDto.review_writable eq 0 and info.post_status eq 'S'}">
-												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="location='/gonggu/review/write?payment_id=${postListDto.payment_id}'">
+												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="location='/gonggu/reviews/review/write?payment_id=${postListDto.payment_id}'">
 											</c:if>								
 										</div>							
 									</div>

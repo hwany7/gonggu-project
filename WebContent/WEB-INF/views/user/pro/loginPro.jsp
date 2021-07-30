@@ -22,7 +22,7 @@
 			history.back();
 		</c:if>
 		<c:if test="${result eq '3'}">
-			location.href="/gonggu/activateStatus";
+			location.href="/gonggu/login/activatestatus";
 		</c:if>
 		</script>
 	</body>

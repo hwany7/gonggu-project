@@ -18,7 +18,7 @@ public class NotificationHandler {
 	private NotificationService notificationService;
 	
 	//알림 얻기
-	@RequestMapping("/getNotification")
+	@RequestMapping("/notifications")
 	public ModelAndView getNotification() {
 		
 		//세션 받기
@@ -33,7 +33,7 @@ public class NotificationHandler {
 	
 	//안읽은 알림 얻기(상태가 0)
 	@ResponseBody
-	@RequestMapping("/checkNotification")
+	@RequestMapping("/notificationscheck")
 	public String checkNotification() {
 				
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
@@ -42,7 +42,7 @@ public class NotificationHandler {
 	}
 	
 	//알림 전부 삭제하기
-	@RequestMapping("/deleteAllNotification")
+	@RequestMapping("/notifications/deleteall")
 	public ModelAndView deleteAllNotification() {
 
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());

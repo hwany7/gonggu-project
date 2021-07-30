@@ -7,7 +7,7 @@
 			                <h2>회원가입</h2>
 			            </div>	
 		            	<!-- 회원가입 폼 -->
-		           		<form method="post" name="signUpForm" role="form" action="signUpPro" onsubmit="return checkConditionSignUpFrom()">
+		           		<form method="post" name="signUpForm" role="form" action="/gonggu/signuppro" onsubmit="return conditionCheckMemberForm()">
 		           			<input type="hidden" id="checkEmail" value="0">
 		           			<input type="hidden" id="checkNickname" value="0">
 		           			<input type="hidden" id="checkPassword" value="0">
@@ -17,7 +17,7 @@
 		                    <div class="form-group">
 		                    	<div class="row">
 			                    	<div class="col-md-8 col-xs-8">			                    		
-			                       		<input type="text" class="form-control" id ="memberEmail" name="member_email" placeholder="이메일 계정" onkeyup="checkValidationEmail()" >
+			                       		<input type="text" class="form-control" id ="memberEmail" name="member_email" placeholder="이메일 계정" onkeyup="validateEmail()" >
 			                        </div>
 			                    	<div class="col-md-4 col-xs-4">
 			                       		<input type="button" id="mailConfirmForm" class="btn btn-info width-100p" value="인증하기" disabled="disabled" onclick="openMailConfimForm()">
@@ -29,15 +29,15 @@
 		                    	<div id="email_check"></div>
 		                    </div>
 		                    <div class="form-group">
-		                        <input type="password" class="form-control" name="password" placeholder="비밀번호 입력" onkeyup="checkValidationPassword()">
+		                        <input type="password" class="form-control" name="password" placeholder="비밀번호 입력" onkeyup="validatePassword()">
 		                        <h6 id="pwdRegErr" class="help-block">8글자 이상, 특수문자를 조합하여 입력하세요.</h6>
 		                    </div>
 		                    <div class="form-group">
-		                        <input type="password" class="form-control" name="repassword" placeholder="비밀번호 확인" onkeyup="checkValidationRePassword()">
+		                        <input type="password" class="form-control" name="repassword" placeholder="비밀번호 확인" onkeyup="validateRepassword()">
 		                        <h6 id="rePwdErr" class="help-block">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</h6>
 		                    </div>
 		                    <div class="form-group">
-		                        <input type="text" class="form-control" name="nickname" placeholder="닉네임" onkeyup="checkValidationNickName()">
+		                        <input type="text" class="form-control" name="nickname" placeholder="닉네임" onkeyup="validateNickname()">
 		                        <h6 id="nicknameErr" class="help-block">올바른 닉네임 형식이 아닙니다. 다시 입력해 주세요.</h6>
 		                        <div id="nickname_check"></div>
 		                    </div>
@@ -57,12 +57,12 @@
 			                       		<input type="text" class="form-control" name="address2" id="address2" placeholder="상세주소">
 			                        </div>
 			                    	<div class="col-md-4 col-xs-4">
-			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="sample4_execDaumPostcode();">
+			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="openDaumPostcode();">
 			                        </div>
 		                        </div>
 		                    </div>	                 
 		                     <div class="form-group">
-		                    	<input type="text" class="form-control" name="tel" placeholder="전화번호" onkeyup="checkValidationTeleNum()">
+		                    	<input type="text" class="form-control" name="tel" placeholder="전화번호" onkeyup="validationTeleNum()">
 		                    	<h6 id="telErr" class="help-block">'-'를 포함해서 입력해주세요.</h6>
 		                    </div>
 		                    <div class="mar-top-30">

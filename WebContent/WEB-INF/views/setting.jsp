@@ -17,3 +17,4 @@
 <script src="${path}/asset/bootstrap/js/bootstrap.js"></script>
 <script src="${path}/asset/ckeditor/ckeditor.js"></script>
 <script src="${path}/js/user.js"></script>
+<script src="${path}/js/usercheck.js"></script>

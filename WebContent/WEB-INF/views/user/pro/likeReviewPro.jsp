@@ -16,7 +16,7 @@
 		<c:if test="${result eq 1}">
 			alert("좋아요 성공");
 		</c:if>
-			location.href="/gonggu/review?review_num=${review_num}";
+			location.href="/gonggu/reviews/review?review_num=${review_num}";
 		</script>
 	</body>
 </html>

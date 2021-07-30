@@ -24,7 +24,7 @@
 		                        <input type="text" class="inputCode form-control height-40" placeholder="인증 번호를 입력하세요">
 		                    </div>               
 		                    <div class="form-group">
-		                        <button type="button" id="${codeMsg}" name="confim_btn" class="confirmBtn btn btn-info width-100p height-40" onclick="clickMailConfimForm()">인증하기</button>
+		                        <button type="button" id="${codeMsg}" name="confim_btn" class="confirmBtn btn btn-info width-100p height-40" onclick="mailConfirm()">인증하기</button>
 		                    </div>
 		                </form>
 	                </div>

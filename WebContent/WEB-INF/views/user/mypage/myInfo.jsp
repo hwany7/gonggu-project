@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+		<input type="hidden" class="navIndex" value="5">
 		<div class="max-width-1500 div-center">
 			<div class="container-fluid font-DH">
 				<div class="row">

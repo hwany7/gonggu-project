@@ -3,12 +3,13 @@
 		<script type="text/javascript">
 			$(function(){
 				CKEDITOR.replace( 'editor', {
-					filebrowserUploadUrl: '/gonggu/upload/reviewImageUpload',
+					filebrowserUploadUrl: '/gonggu/upload/image/ckedit',
 					height : 300,
 					language: 'ko'
 				});
 			});
 		</script>
+		<input type="hidden" class="navIndex" value="2">
 		<div class="container-fluid font-DH">	
 			<!-- 게시글 -->
 			<div class="row max-width-1300 div-center">
@@ -20,7 +21,7 @@
 			</div>
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">	
-					<form method="post" role="form" action="/gonggu/review/writePro" name="writeReviewForm" onsubmit="return reviewFormCheck()">
+					<form method="post" role="form" action="/gonggu/reviews/review/writePro" name="writeReviewForm" onsubmit="return checkReview()">
 						<input type="hidden" name="payment_id" value="${payment_id}"> 
 						<div class="form-group">
 							<label class="mar-top-20">글제목</label>

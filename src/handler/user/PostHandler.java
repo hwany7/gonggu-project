@@ -33,7 +33,7 @@ public class PostHandler {
 	}
 
 	//게시글 콘텐트
-	@RequestMapping("/post")
+	@RequestMapping("/posts/post")
 	public ModelAndView post(int post_id) {
 		
 		ModelAndView mav = new ModelAndView("user/template/mainTemplate");
@@ -49,7 +49,7 @@ public class PostHandler {
 	}	
 	
 	//구매 신청하기
-	@RequestMapping("/applyPro")
+	@RequestMapping("/posts/post/applypro")
 	public ModelAndView applyPro(int post_id, int amount) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/applyPro");

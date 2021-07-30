@@ -32,7 +32,7 @@
 					
 			        <!-- 검색 -->
 					<div class="col-md-2 col-xs-2 main_search_bar">
-			          	<form name="searchForm" action="posts">
+			          	<form method="get" name="searchForm" action="/gonggu/posts">
 			          		<input type="hidden" name="category_id" value="0">
 			          		<input type="text" class=" form-control" name="search" autocomplete="off" placeholder="검색어를 입력해 주세요.">
 			          	</form>

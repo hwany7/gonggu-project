@@ -16,7 +16,8 @@ public class ReplyHandler {
 	@Resource
 	ReplyService replyService;
 
-	@RequestMapping("/writeReplyPro")
+	//댓글 작성하기
+	@RequestMapping("/reviews/review/reply/writepro")
 	public ModelAndView writeReplyPro(int review_num, String content){
 		
 		ModelAndView mav = new ModelAndView("user/pro/writeReplyPro");
@@ -30,7 +31,7 @@ public class ReplyHandler {
 	}
 	
 	//댓글 삭제하기
-	@RequestMapping("/deleteReplyPro")
+	@RequestMapping("/reviews/review/reply/deletepro")
 	public ModelAndView deleteReplyPro(int reply_num, int review_num) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/deleteReplyPro");
