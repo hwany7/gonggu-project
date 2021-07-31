@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
     	<script type="text/javascript">
 			$(function(){
 				CKEDITOR.replace( 'editor', {
@@ -9,7 +9,7 @@
 				});
 			});
 		</script>
-		<!-- 상단 이미지 -->
+		
 		<div class="container-fluid">
 			<div class="row">
 				<div class="cropping" style="height: 100px;">
@@ -19,7 +19,6 @@
 		</div>		
 	
 		<div class="container-fluid font-DH">	
-			<!-- 게시글 -->
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 border-under-a">	
 					<div class="col-md-12">
@@ -27,17 +26,21 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">	
 					<form method="post" role="form" action="/gonggu/reviews/review/modifypro" name="writeReviewForm" onclick="return checkReview()">
 						<input type="hidden" name="review_num" value="${reviewDto.review_num}"> 
+						
 						<div class="form-group">
 							<label class="mar-top-20">글제목</label>
 							<input class="form-control" name="title" value="${reviewDto.title}">
 						</div>
+						
 						<div class="form-group">
 							<textarea id="editor" name="content">${reviewDto.content}</textarea>
 						</div>
+						
 						<div class="form-group text-right">
 							<input type="submit" class="btn btn-info" value="수정하기">
 						</div>

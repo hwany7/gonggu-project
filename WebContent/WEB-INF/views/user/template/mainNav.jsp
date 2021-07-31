@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 			<script>document.addEventListener("DOMContentLoaded", checkNotification('${sessionScope.member_id}'));</script>		
-			<!-- 최상단 노티스 -->
+
 			<div class="row">
-			        <div class="col-md-12 col-xs-12 height-50 bg-black text-center text-white font-DH pd-top-15" >
-			          <span class="text-main-color">모두에게 드리는 혜택!</span>
-			           <span>지금 바로 신청 마감이 종료되는 제품을 찾아보세요</span>
-			        </div>
-			    </div>
-			    <!-- 상단 메뉴바-->
+			  	<div class="col-md-12 col-xs-12 height-50 bg-black text-center text-white font-DH pd-top-15" >
+			    	<span class="text-main-color">모두에게 드리는 혜택!</span>
+			    	<span>지금 바로 신청 마감이 종료되는 제품을 찾아보세요</span>
+				</div>
+			</div>
+
 			<div class="row max-width-1800 div-center">
 				<div class="nav-bar height-50 hf">
 					<div class="col-md-2 col-xs-2">
@@ -17,6 +17,7 @@
 			            	<li><a href="/gonggu/main">GongGu</a></li>
 			        	</ul>
 			     	</div>
+			     	
 					<div class="col-md-5 col-xs-5 pd-top-15 text-center">
 						<ul class="list-inline ">
 							<li><a href="/gonggu/posts?category_id=0">전체보기</a></li>
@@ -30,7 +31,6 @@
 						</ul>
 					</div>
 					
-			        <!-- 검색 -->
 					<div class="col-md-2 col-xs-2 main_search_bar">
 			          	<form method="get" name="searchForm" action="/gonggu/posts">
 			          		<input type="hidden" name="category_id" value="0">
@@ -44,6 +44,7 @@
 			                	<li><a href="/gonggu/login">로그인</a></li>
 			                	<li><a href="/gonggu/signup">회원가입</a></li>
 			             	</c:if>
+			             	
 			             	<c:if test="${sessionScope.member_id ne null}">
 				                <li>
 				                   <a class="notifycation"><img src="/gonggu/resources/img/notify1.png" id="notify1" class="dispNotify" onclick="openNotifycation()"></a>
@@ -56,7 +57,7 @@
 			    	</div>						
 				</div>
 			</div>
-	      	<!-- 알림박스 -->
+
 			<div class="container-fluid">
 	         	<div class="row">
 	           		<div class="col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8">

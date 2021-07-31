@@ -1,7 +1,3 @@
-/bean/
-/dao/
-/dto/
-/handler/
-/mybatis/
 /service/
-/util/
+/mybatis/
+/bean/

@@ -167,7 +167,7 @@ function addApply(member_id){
 	
 	if(!member_id){
 		alert("로그인을 해주세요");
-		return window.document.location="login";
+		return window.document.location="/gonggu/login";
 	}
 
 	var post_id = $('input[name=post_id]').val();

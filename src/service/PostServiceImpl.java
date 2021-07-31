@@ -119,7 +119,7 @@ public class PostServiceImpl implements PostService {
 	public int addPostApply(int member_id, int post_id, int amount) {
 
 		int result = 0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", member_id);
 		map.put("post_id", post_id);
 		map.put("amount", amount);

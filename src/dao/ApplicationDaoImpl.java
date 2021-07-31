@@ -18,14 +18,14 @@ public class ApplicationDaoImpl implements ApplicationDao {
 
 	//신청하기
 	@Override
-	public int registerAppFromPostContent(Map<String, Integer> map) {
+	public int registerAppFromPostContent(Map<String, Object> map) {
 		
 		return session.insert("application.registerAppFromPostContent", map);
 	}
 	
 	//신청수량 업데이트
 	@Override
-	public int updateAppFromPostPostContent(Map<String, Integer> map) {
+	public int updateAppFromPostPostContent(Map<String, Object> map) {
 		
 		return session.update("application.updateAppFromPostContent", map);
 	}

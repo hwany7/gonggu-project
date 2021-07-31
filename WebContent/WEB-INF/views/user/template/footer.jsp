@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
     			<div class="row">
+    		
 					<hr>
 					<div class="nav-bar height-50 pd-top-15 hf font-GD">			
 						<div class="col-md-12 col-xs-12 text-center">
@@ -16,7 +17,7 @@
 						</div>	
 					</div>
 					<br>
-					<!-- 하단 노티스 -->	
+					
 					<div class="footer" style="color: #BDBDBD; text-align: center; padding-top: 30px">
 						<h6>© Copyright 2020 Hwan. All rights reserved. Various trademarks held by their respective owners.</h6>
 					</div>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file= "/WEB-INF/views/setting.jsp" %>
 
 <!DOCTYPE html>
@@ -35,7 +34,6 @@
 	
 		<!-- 테스트용 아래여백 -->
 		<div class="height-300 mar-top-50"></div>
-		
 		
 		<!-- 푸터 페이지 -->
 		<div class="container-fluid">

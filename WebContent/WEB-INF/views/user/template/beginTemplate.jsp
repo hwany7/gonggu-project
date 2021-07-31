@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file= "/WEB-INF/views/setting.jsp" %>
 
 <!DOCTYPE html>
@@ -9,7 +8,6 @@
 		<title>GongGu</title>
 	</head>
 	<body>
-	
 		<!-- 네비게이션-->
 		<div class="container-fluid">	
 			<div class="row">

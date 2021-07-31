@@ -68,7 +68,7 @@
 - jstl.jar [2021-0616]
 - standard.jar [2021-0616]
 - mybatis-3.5.5.jar [2021-0617]
-- mybatis-spring-1.2.2.jar [2021-0619]
+- mybatis-spring-1.3.2.jar [2021-0619, 2021-0731] - 버전 수정
 - mail-1.4.7.jar [2021-0620]
 - cos.jar [2021-0723] - 파일 업로드용
 - json-simple-1.1.1 [2021-0723] - 제이슨 사용, 파일 업로드용

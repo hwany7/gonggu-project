@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="${path}/css/style.css">
 <link rel="stylesheet" type="text/css" href="${path}/css/user.css">
 
-
 <!-- 자바 스크립트 작성 -->
 <script src="${path}/asset/jquery/js/jquery-3.5.1.js"></script> 
 <script src="${path}/asset/bootstrap/js/bootstrap.js"></script>

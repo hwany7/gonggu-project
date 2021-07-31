@@ -1,18 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 			<div class="row div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 mar-top-50 font-GD ">
-					<!-- 고정 정보 -->
 					<div class="col-md-8 col-xs-8">
 						<h2>${sessionScope.nickname}님<span style="font-size: 20px;"> 마이페이지</span></h2>
 						<h6 class="text-color-g2 mar-left-5">개인 회원</h6>	
 					</div>
-					<!-- 이미지 -->
+
 					<div class="col-md-4 col-xs-4">
 						<img src="/gonggu/resources/img/profile.jpg" class="myPageProfile"><br>
 					</div>
 				</div>
 			</div>		
+			
 			<div class="row div-center">
 				<div class="nav-bar height-30 hf font-SP mar-top-40">			
 					<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
