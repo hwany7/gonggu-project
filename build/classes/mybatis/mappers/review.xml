@@ -3,89 +3,36 @@
   	
 <mapper namespace="review">
 
-	<!-- 리뷰 가져오기 -->
-	<select id="getReview" parameterType="int" resultType="dto.ReviewDto">
-		select * from review_gg where review_num=#{review_num}
-	</select>
-	
-	<!-- 리뷰 삭제하기 -->
-	<delete id="deleteReview" parameterType="int">
-		delete from review_gg where review_num=#{review_num}
-	</delete>
-
  	<!-- postContent에서 top3 리뷰 가져오기 -->
- 	<select id="getReviewFromContent" parameterType="int" resultType="dto.ReviewDto">
- 		select * from
-		    (select review_num, member_id, payment_id, title, upload_date, 
-		    		replycount, readcount, likecount, content, rownum r
+ 	<select id="getReviewsTopThree" parameterType="int" resultType="dto.join.ReviewContentDto">
+ 		select * 
+ 		from (select review_num, 
+ 					member_id, 
+ 					payment_id, 
+ 					title, 
+ 					upload_date, 
+		    		replycount, 
+		    		readcount, 
+		    		likecount, 
+		    		content, 
+		    		rownum r
 		    from review_gg
 		    where payment_id in 
-		            (select payment_id
+		            (select payment_id 
 		            from payment_gg
 		            where application_id in
-		                (select application_id
-		                from application_gg
-		                where post_id in
-		                    (select post_id
-		                    from post_gg
-		                    where product_id = #{product_id})))
+		                	(select application_id
+		                	from application_gg
+		                	where post_id in
+		                    	(select post_id
+		                    	from post_gg
+		                    	where product_id = #{product_id})))
 		    order by likecount desc)
 		where rownum &lt;=5
  	</select>
- 	
-  	<!-- 리뷰content 페이지에서 리뷰 데이터 -->
-	<select id="getReviewContent" parameterType="int" resultType="dto.join.ReviewContentDto">
-		select nickname, member_gg.member_id, review_num, payment_id, title, upload_date, 
-				replycount, readcount, likecount, content
-		from member_gg, review_gg
-		where member_gg.member_id = review_gg.member_id
-		and review_num = #{review_num}
-	</select>
-	
-	<!-- 조회수 올리기 -->
- 	<update id="addCountFromReview" parameterType="int">
- 		update review_gg set readcount = readcount+1 where review_num = #{review_num}
- 	</update>
- 	
- 	 <!-- 이미 좋아요 눌렀는지 체크 -->
-	<select id="checkLike" parameterType="java.util.Map" resultType="int">
- 		select count(*) from like_gg where member_id=#{member_id} and review_num=#{review_num}
- 	</select>
- 	
- 	<!-- 좋아요 하기-->
-	<insert id="insertLike" parameterType="dto.LikeDto">
-		insert into like_gg(review_num, member_id) values( #{review_num}, #{member_id} )	
-	</insert>
-	
-	<!-- like 증가 -->
-	<update id="addlike" parameterType="int">
-		update REVIEW_GG set likecount=likecount+1 where review_num=#{review_num}
-	</update>
-	
-	 <!-- 리뷰에 댓글 작성시 리뷰개수 변경  +1-->
- 	<update id="updateReplycountFromReview" parameterType="int">
- 		update review_gg set replycount = replycount + 1 where review_num = #{review_num}
- 	</update>
- 	
- 	 <!-- 리뷰에 댓글 삭제시 리뷰개수 변경  -1 -->
- 	<update id="deleteupdateReplycountFromReview" parameterType="int">
- 		update review_gg set replycount = replycount - 1 where review_num = #{review_num}
- 	</update>	
- 	
- 	<!-- 리뷰 전체 개수 -->
-	<select id="getReviewCount" resultType="int">
-		select count(*) from review_gg
-	</select>
-	
-	<!-- 검색된 리뷰 전체 개수 -->
-	<select id="geReviewCountBySearch" parameterType="String" resultType="int">
-		select count(*) from review_gg, member_gg 
-		where review_gg.member_id = member_gg.member_id and
-				(upper(review_gg.title) like upper('%'|| #{search} ||'%') or upper(member_gg.nickname) like upper('%'|| #{search} ||'%'))
-	</select>
-	
+
 	<!-- 리뷰리스트 -->
- 	<select id="getReviewtFromReviewList" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
+ 	<select id="getReviewsByInfo" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
 		select  *
 		from (select nickname,
 				member_id,
@@ -115,17 +62,10 @@
                     order by review_num desc)
 		        )
 		where r &gt;= #{start} and r &lt;=#{end}
-	</select>	
-	
-	<!-- 삭제된 리뷰 테이블에 리뷰 삽입 -->
-	<insert id="insetReviewToDeletedReview" parameterType="dto.ReviewDto">
-		insert into deleted_review_gg(review_num, member_id, payment_id, title, upload_date, replycount, readcount, likecount, content)
-		values(#{review_num}, #{member_id}, #{payment_id}, #{title}, #{upload_date}, #{replycount}, #{readcount},#{likecount}, #{content})			
-	</insert>
-	
-
+	</select> 	
+ 	
 	<!-- 내 리뷰 리스트 가져오기 -->
- 	<select id="getMyReviewList" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
+ 	<select id="getMyReviewsByInfo" parameterType="util.PageInfo" resultType="dto.join.ReviewContentDto">
 		select  *
 		from (select nickname,
 				member_id,
@@ -155,23 +95,86 @@
 		where r &gt;= #{start} and r &lt;=#{end}
 	</select>	
 	
-	<!-- 내 리뷰 전체 개수 가져오기 -->
+ 	<!-- 리뷰 가져오기 미사용-->
+	<select id="getReviewDto" parameterType="int" resultType="dto.ReviewDto">
+		select * from review_gg where review_num=#{review_num}
+	</select>
+ 	
+   	<!-- 리뷰content 페이지에서 리뷰 데이터 -->
+	<select id="getReview" parameterType="int" resultType="dto.join.ReviewContentDto">
+		select nickname, member_gg.member_id, review_num, payment_id, title, upload_date, replycount, readcount, likecount, content
+		from member_gg, review_gg
+		where member_gg.member_id = review_gg.member_id and review_num = #{review_num}
+	</select>	
+ 	
+ 	 <!-- 리뷰 전체 개수 -->
+	<select id="getReviewCount" resultType="int">
+		select count(*) from review_gg
+	</select>
+	<!-- 검색된 리뷰 전체 개수 -->
+	<select id="getReviewCountBySearch" parameterType="String" resultType="int">
+		select count(*) from review_gg, member_gg 
+		where review_gg.member_id = member_gg.member_id and (upper(review_gg.title) like upper('%'|| #{search} ||'%') or upper(member_gg.nickname) like upper('%'|| #{search} ||'%'))
+	</select>
+ 	
+ 	<!-- 내 리뷰 전체 개수 가져오기 -->
 	<select id="getMyReviewCount" parameterType="int" resultType="int">
 		select count(*) from review_gg where member_id = #{member_id}
-	</select>
-	
-	 <!-- 리뷰 작성 -->
- 	<insert id="insertReview" parameterType="dto.ReviewDto">
- 		insert into review_gg (member_id, payment_id, title, content )
-		values( #{member_id}, #{payment_id}, #{title}, #{content} )
- 	</insert>
+	</select>	
  	
- 	 <!-- 리뷰 수정 -->
+ 	 <!-- 이미 좋아요 눌렀는지 체크 -->
+	<select id="getCheckLike" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from like_gg where member_id=#{member_id} and review_num=#{review_num}
+ 	</select>
+ 	
+ 	<!-- 조회수 올리기 -->
+ 	<update id="addReadCount" parameterType="int">
+ 		update review_gg set readcount = readcount+1 where review_num = #{review_num}
+ 	</update>	
+ 
+ 	<!-- 좋아요수 올리기 -->
+	<update id="addLikeCount" parameterType="int">
+		update REVIEW_GG set likecount=likecount+1 where review_num=#{review_num}
+	</update>
+	
+	 <!-- 리플수 올리기-->
+ 	<update id="addReplyCount" parameterType="int">
+ 		update review_gg set replycount = replycount + 1 where review_num = #{review_num}
+ 	</update>
+ 	
+   	 <!-- 리뷰에 댓글 삭제시 리뷰개수 변경  -1 -->
+ 	<update id="subtractReplyCount" parameterType="int">
+ 		update review_gg set replycount = replycount - 1 where review_num = #{review_num}
+ 	</update>		
+ 	
+  	 <!-- 리뷰 수정 -->
   	<update id="updateReview" parameterType="dto.ReviewDto">
  		update review_gg
 		set title = #{title}, content = #{content}
 		where review_num = #{review_num}
  	</update>
+ 	
+ 	 <!-- 리뷰 작성 -->
+ 	<insert id="insertReview" parameterType="dto.ReviewDto">
+ 		insert into review_gg (member_id, payment_id, title, content )
+		values( #{member_id}, #{payment_id}, #{title}, #{content} )
+ 	</insert>
+ 	
+  	<!-- 좋아요 추가하기-->
+	<insert id="insertLike" parameterType="dto.LikeDto">
+		insert into like_gg(review_num, member_id) values( #{review_num}, #{member_id} )	
+	</insert>	
 	
+	<!-- 삭제된 리뷰 테이블에 리뷰 삽입 -->
+	<insert id="insertReviewToDeletedReview" parameterType="dto.ReviewDto">
+		insert into deleted_review_gg(review_num, member_id, payment_id, title, upload_date, replycount, readcount, likecount, content)
+		values(#{review_num}, #{member_id}, #{payment_id}, #{title}, #{upload_date}, #{replycount}, #{readcount},#{likecount}, #{content})			
+	</insert>
+ 
+ 	<!-- 리뷰 삭제하기 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from review_gg where review_num=#{review_num}
+	</delete>	
+
 </mapper>
 

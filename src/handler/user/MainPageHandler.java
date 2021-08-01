@@ -21,7 +21,7 @@ public class MainPageHandler {
 		
 		mav.addObject("page","/WEB-INF/views/user/main/main");
 		
-		mav.addObject("hitPostDto", postService.getMainPost());
+		mav.addObject("posts", postService.getMainPost());
 			
 		return mav;
 	}

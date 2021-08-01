@@ -4,7 +4,7 @@
 
 				<input type="hidden" class="navIndex" value="3">
 				
-				<c:if test="${reviewContentDtos[0].review_num eq null }">
+				<c:if test="${reviews[0].review_num eq null }">
 					<div class="container-fluid font-DH">	
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
@@ -16,23 +16,23 @@
 					</div>
 				</c:if>	
 				
-				<c:if test="${reviewContentDtos[0].review_num ne null }">
-					<c:forEach var="reviewContentDto" items="${reviewContentDtos}">
+				<c:if test="${reviews[0].review_num ne null }">
+					<c:forEach var="review" items="${reviews}">
 					<div class="row font-DH">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 							<div class="col-md-12 col-xs-12">
-								<div id="${reviewContentDto.review_num}" class="reivewListBox reviewContent hf">
-									<h4 class="mar-top-20"><a href="/gonggu/reviews/review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
-									<h5 class="etcOneLine text-color-g2">${reviewContentDto.content}</h5>
+								<div id="${review.review_num}" class="reivewListBox reviewContent hf">
+									<h4 class="mar-top-20"><a href="/gonggu/reviews/review?review_num=${review.review_num}" >${review.title}</a></h4>
+									<h5 class="etcOneLine text-color-g2">${review.content}</h5>
 									
 									<div class="col-md-6 h6-g2 pd-zero">
-										<span><fmt:formatDate value="${reviewContentDto.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>
-										<span>${reviewContentDto.nickname}</span>
+										<span><fmt:formatDate value="${review.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>
+										<span>${review.nickname}</span>
 									</div>
 									
 									<div class="col-md-6 text-right">
-										<img src="/gonggu/resources/img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
-										<img src="/gonggu/resources/img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
+										<img src="/gonggu/resources/img/like.png" width="15px" height="15px"> <span>${review.likecount}</span>
+										<img src="/gonggu/resources/img/reply.png" width="15px" height="15px"> <span>${review.replycount}</span>							
 									</div>
 								</div>
 							</div>	

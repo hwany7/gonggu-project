@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReviewDto;
+import dto.join.ReviewContentDto;
 import service.inter.ReviewService;
 
 @Controller
@@ -28,8 +29,7 @@ public class ReviewHandler {
 		mav.addObject("page", "/WEB-INF/views/user/review/reviews");
 		
 		Map<String, Object> map = reviewService.getReviewList(pageNum, search);
-
-		mav.addObject("reviewContentDtos", map.get("reviewContentDtos"));
+		mav.addObject("reviews", map.get("reviews"));
 		mav.addObject("info", map.get("info"));
 	
 		
@@ -44,10 +44,10 @@ public class ReviewHandler {
 		
 		mav.addObject("page", "/WEB-INF/views/user/review/review");
 
-		Map<String, Object> map = reviewService.getReview(review_num);
+		Map<String, Object> map = reviewService.getReviewAndReplys(review_num);
 
-		mav.addObject("reviewContentDto", map.get("reviewContentDto"));
-		mav.addObject("replyContentDtos", map.get("replyContentDtos"));
+		mav.addObject("review", map.get("review"));
+		mav.addObject("replys", map.get("replys"));
 	
 		return mav;
 	}
@@ -74,7 +74,8 @@ public class ReviewHandler {
 		
 		mav.addObject("page", "/WEB-INF/views/user/review/modifyReview");
 
-		mav.addObject("reviewDto", reviewService.getReview(review_num).put("reviewContentDto", mav));
+		ReviewContentDto review = reviewService.getReview(review_num);
+		mav.addObject("review", review);
 
 		return mav;
 	}

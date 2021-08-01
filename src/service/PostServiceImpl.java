@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.inter.ApplicationDao;
 import dao.inter.PostDao;
@@ -20,6 +21,7 @@ import dao.inter.ReviewDao;
 import dto.ApplicationDto;
 import dto.ReviewDto;
 import dto.join.PostContentDto;
+import dto.join.ReviewContentDto;
 import service.inter.PageService;
 import service.inter.PostService;
 import util.AppCancelReason;
@@ -44,7 +46,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<PostContentDto> getMainPost() {
 		
-		return postDao.getHitPostFromMain();
+		return postDao.getPostsTopFive();
 	}
 	
 	//포스트 페이지 - 포스트 정보 얻기
@@ -54,26 +56,17 @@ public class PostServiceImpl implements PostService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//Post
-		PostContentDto postContentDto = postDao.getPostContentFromContent(post_id);
-		map.put("postContentDto", postContentDto);
+		PostContentDto post = postDao.getPost(post_id);
+		map.put("post", post);
 		
-		//Review
-		String textByContent = null;
-		String reg = "<[^>]*>";
-		int product_id = postContentDto.getPost_id();
-		
-		List<ReviewDto> postContentReview = reviewDao.getReviewFromContent(product_id);
+		//Review	
+		List<ReviewContentDto> reviews = reviewDao.getReviewsTopThree(post.getPost_id());
 			
-		if(postContentReview != null) {		
-			for(int i=0; i<postContentReview.size(); i++) {
-
-				textByContent= postContentReview.get(i).getContent().replaceAll(reg, "");
-				textByContent = textByContent.trim().replaceAll("&nbsp;", "");
-				postContentReview.get(i).setContent(textByContent);
-			}
+		if(reviews != null) {		
+			reviews = pageService.preprocessingFromReviewList(reviews);
 		}
 		
-		map.put("postContentReview", postContentReview);
+		map.put("reviews", reviews);
 		
 		return map;
 	}
@@ -88,7 +81,7 @@ public class PostServiceImpl implements PostService {
 		if(category_id == 0) {
 			cnt = (search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(search);
 		}else if(category_id == -1) {
-			cnt = (search == null) ? postDao.getPostCountByfinished() : postDao.getPostCountByFinishedAndSearch(search);
+			cnt = (search == null) ? postDao.getPostCountAboutFinishedStatus() : postDao.getPostCountAboutFinishedStatusBySearch(search);
 		}else {
 			map.put("category_id", category_id);
 			map.put("search", search);
@@ -103,10 +96,10 @@ public class PostServiceImpl implements PostService {
 			info.setSearch(search);	
 			info.setCategory_id(category_id);
 								
-			List<PostContentDto> postListDto = (category_id == 0) ? postDao.getPostFromPostList(info) :
-														(category_id == -1) ? postDao.getPostFromPostListByFinished(info) : postDao.getPostFromPostListByCategory(info);			
+			List<PostContentDto> posts = (category_id == 0) ? postDao.getPostsByInfo(info) :
+														(category_id == -1) ? postDao.getPostsByInfoAboutFinishedStatus(info) : postDao.getPostsByInfoAboutCategory(info);			
 			
-			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
+			map.put("posts", pageService.preprocessingFromPostList(posts));
 		}
 		
 		map.put("info", info);
@@ -115,6 +108,7 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	//포스트 페이지 - 신청하기
+	@Transactional
 	@Override
 	public int addPostApply(int member_id, int post_id, int amount) {
 
@@ -125,19 +119,19 @@ public class PostServiceImpl implements PostService {
 		map.put("amount", amount);
 		
 		//게시글의 신청 정보를 가져온다
-		int curamount = postDao.getCurrentamountFromApply(post_id);
-		int minamount = postDao.getMinamountFromApply(post_id);
+		int curamount = postDao.getCurrentAmount(post_id);
+		int minamount = postDao.getMinAmount(post_id);
 		int amountCheck = minamount - curamount - amount;
 			
 		// 진행 수량 이상으로 신청시 신청 막는 방어코드
 		if(amountCheck < 0) {
-			// 진행 수량보다 초과되는 경우
+
 			result = -1;
 		} else {
-			result = applicationDao.registerAppFromPostContent(map);
+			result = applicationDao.insertApplication(map);
 			
 			if(result == 1) {
-				applicationDao.updateAppFromPostPostContent(map);
+				postDao.updateCurrentAmount(map);
 			}
 		}
 		
@@ -152,7 +146,7 @@ public class PostServiceImpl implements PostService {
 		map.put("member_id", member_id);
 		map.put("post_status", post_status);
 
-		int cnt = (post_status.equals("S")) ? postDao.getMyPostByPayment(member_id) : postDao.getMyPostCountByStatus(map);
+		int cnt = (post_status.equals("S")) ? postDao.getMyPostCountAboutPayment(member_id) : postDao.getMyPostCountByStatusAndMemberId(map);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -161,9 +155,9 @@ public class PostServiceImpl implements PostService {
 			info.setMember_id(member_id);
 			info.setPost_status(post_status);
 					
-			List<PostContentDto> postListDto = (post_status.equals("S")) ? postDao.getMyPostListBypayement(info) : postDao.getMyPostListByStatus(info);
+			List<PostContentDto> posts = (post_status.equals("S")) ? postDao.getMyPostsByInfoAboutpayement(info) : postDao.getMyPostsByInfoAboutStatus(info);
 	
-			map.put("postListDto", pageService.preprocessingFromPostList(postListDto));
+			map.put("posts", pageService.preprocessingFromPostList(posts));
 		}
 		
 		map.put("info", info);
@@ -172,6 +166,7 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	//신청 취소하기
+	@Transactional
 	@Override
 	public int cancelApp(int application_id, AppCancelReason reason) {
 		
@@ -180,7 +175,7 @@ public class PostServiceImpl implements PostService {
 		int result = applicationDao.deleteApplication(application_id);
 		
 		if(result == 1) {
-			applicationDao.updateApplicationAndDecreaseComments(applicationDto);
+			applicationDao.decreaseCurrentAmount(applicationDto);
 		}
 		
 		//파일 패스 생성

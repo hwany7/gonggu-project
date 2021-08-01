@@ -18,22 +18,22 @@
 					</div>
 				</div>
 				
-				<c:forEach var="reviewContentDto" items="${reviewContentDtos}">
+				<c:forEach var="reviews" items="${reviews}">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 						<div class="col-md-12 col-xs-12">
-							<div id="${reviewContentDto.review_num}" class="reivewListBox reviewContent hf">
-								<h4 class="mar-top-20"><a href="/gonggu/reviews/review?review_num=${reviewContentDto.review_num}" >${reviewContentDto.title}</a></h4>
-								<h5 class="etcOneLine text-color-g2">${reviewContentDto.content}</h5>
+							<div id="${reviews.review_num}" class="reivewListBox reviewContent hf">
+								<h4 class="mar-top-20"><a href="/gonggu/reviews/review?review_num=${reviews.review_num}" >${reviews.title}</a></h4>
+								<h5 class="etcOneLine text-color-g2">${reviews.content}</h5>
 								
 								<div class="col-md-6 h6-g2 pd-zero">
-									<span><fmt:formatDate value="${reviewContentDto.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>
-									<span>${reviewContentDto.nickname}</span>
+									<span><fmt:formatDate value="${reviews.upload_date}" type="both" pattern="MM-dd-hh:mm"/> </span>
+									<span>${reviews.nickname}</span>
 								</div>
 								
 								<div class="col-md-6 text-right">
-									<img src="/gonggu/resources/img/like.png" width="15px" height="15px"> <span>${reviewContentDto.likecount}</span>
-									<img src="/gonggu/resources/img/reply.png" width="15px" height="15px"> <span>${reviewContentDto.replycount}</span>							
+									<img src="/gonggu/resources/img/like.png" width="15px" height="15px"> <span>${reviews.likecount}</span>
+									<img src="/gonggu/resources/img/reply.png" width="15px" height="15px"> <span>${reviews.replycount}</span>							
 								</div>
 							</div>
 						</div>	

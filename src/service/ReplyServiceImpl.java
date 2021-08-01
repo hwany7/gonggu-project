@@ -7,11 +7,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.inter.ReplyDao;
 import dao.inter.ReviewDao;
 import dto.ReplyDto;
-import dto.join.ReviewContentDto;
+import dto.join.ReplyContentDto;
 import service.inter.PageService;
 import service.inter.ReplyService;
 import util.PageInfo;
@@ -20,45 +21,41 @@ import util.PageInfo;
 public class ReplyServiceImpl implements ReplyService {
 	
 	@Resource
-	ReplyDao replyDao;
+	private ReplyDao replyDao;
 	
 	@Resource
-	ReviewDao reviewDao; 
+	private ReviewDao reviewDao; 
 	
 	@Resource
-	PageService pageService;
+	private PageService pageService;
 	
+	@Transactional
 	@Override
 	public int writeReply(int member_id, int review_num, String content) {
 		
 		ReplyDto replyDto = new ReplyDto(member_id, review_num, content);
 		
-		int result = replyDao.uploadReplyFromReview(replyDto);
+		int result = replyDao.insertReply(replyDto);
 		
 		if(result == 1) {
-			reviewDao.updateReplycountFromReview(review_num);
+			reviewDao.addReplyCount(review_num);
 		}
 		
 		return result;
 	}
 	
+	@Transactional
 	@Override
 	public int deleteReply(int reply_num, int review_num) {
 		
-		int result = replyDao.deleteReplyFromReview(reply_num);;
+		int result = replyDao.deleteReply(reply_num);;
 
 		if(result == 1) {
-			reviewDao.deleteupdateReplycountFromReview(review_num);
+			reviewDao.subtractReplyCount(review_num);
 			
 		}
 
 		return result;
-	}
-	
-	@Override
-	public List<ReplyDto> getMyReply(int member_id) {
-
-		return replyDao.getMyReply(member_id);
 	}
 	
 	@Override
@@ -74,9 +71,9 @@ public class ReplyServiceImpl implements ReplyService {
 			
 			info.setMember_id(member_id);
 			
-			List<ReplyDto> replys = replyDao.getMyReplyList(info);	
+			List<ReplyContentDto> replys = replyDao.getMyReplysByInfo(info);	
 					
-			map.put("replyDto", replys);
+			map.put("replys", replys);
 		}
 		
 		map.put("info", info);

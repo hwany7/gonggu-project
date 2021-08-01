@@ -24,19 +24,19 @@ import util.AppCancelReason;
 public class MyPageHandler {
 	
 	@Resource
-	PostService postService;
-	
+	private PostService postService;
+
 	@Resource
-	PaymentService paymentService;
-	
+	private PaymentService paymentService;
+
 	@Resource
-	ReviewService reviewService;
-	
+	private ReviewService reviewService;
+
 	@Resource
-	ReplyService replyService;
-	
+	private ReplyService replyService;
+
 	@Resource
-	MemberService memberService;
+	private MemberService memberService;
 	
 	@RequestMapping("/mypage/posts/payable")
 	public ModelAndView payable(String pageNum) {
@@ -48,7 +48,7 @@ public class MyPageHandler {
 
 		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, "P");
 		
-		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("posts", map.get("posts"));
 		mav.addObject("info", map.get("info"));
 		
 		return mav;
@@ -64,7 +64,9 @@ public class MyPageHandler {
 
 		mav.addObject("total_price", total_price);
 		mav.addObject("application_id", application_id);
-		mav.addObject("memberDto", paymentService.getUserInfo(member_id));
+		
+		MemberDto member =  paymentService.getUserInfo(member_id);
+		mav.addObject("member", member);
 		
 		return mav;
 	}
@@ -89,7 +91,7 @@ public class MyPageHandler {
 
 		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, "A");
 		
-		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("posts", map.get("posts"));
 		mav.addObject("info", map.get("info"));
 		
 		return mav;
@@ -117,7 +119,7 @@ public class MyPageHandler {
 
 		Map<String, Object> map = postService.myPostListByStatus(pageNum, member_id, "S");
 		
-		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("posts", map.get("posts"));
 		mav.addObject("info", map.get("info"));
 		
 		return mav;
@@ -133,7 +135,7 @@ public class MyPageHandler {
 
 		Map<String, Object> map = reviewService.getMyReviewList(pageNum, member_id);
 		
-		mav.addObject("reviewContentDtos", map.get("reviewContentDtos"));
+		mav.addObject("reviews", map.get("reviews"));
 		mav.addObject("info", map.get("info"));
 		
 		return mav;
@@ -149,9 +151,10 @@ public class MyPageHandler {
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 	
 		Map<String, Object> map  = replyService.getMyReply(pageNum, member_id);
+		
+		mav.addObject("replys", map.get("replys"));
 		mav.addObject("info", map.get("info"));
-		mav.addObject("replyDto", map.get("replyDto"));
-
+		
 		return mav;
 	}
 	
@@ -164,7 +167,8 @@ public class MyPageHandler {
 
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
-		mav.addObject("memberDto", memberService.getMember(member_id));
+		MemberDto member = memberService.getMember(member_id);
+		mav.addObject("member", member);
 		
 		return mav;
 	}
@@ -202,7 +206,8 @@ public class MyPageHandler {
 		
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
-		mav.addObject("memberDto", memberService.getMember(member_id));
+		MemberDto member = memberService.getMember(member_id);
+		mav.addObject("member", member);
 		
 		return mav;
 	}	
@@ -248,7 +253,5 @@ public class MyPageHandler {
 
 		return mav;
 	}
-	
-	
 	
 }

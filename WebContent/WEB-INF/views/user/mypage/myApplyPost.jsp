@@ -4,7 +4,7 @@
 		<input type="hidden" class="navIndex" value="1">
 		
 		<div class="max-width-1500 div-center">
-			<c:if test="${postListDto[0].post_id eq null }">
+			<c:if test="${posts[0].post_id eq null }">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
@@ -16,26 +16,26 @@
 				</div>
 			</c:if>		
 			
-			<c:if test="${postListDto[0].post_id ne null }">
+			<c:if test="${posts[0].post_id ne null }">
 				<div class="container-fluid">
-					<c:forEach var="postListDto" items="${postListDto}">
+					<c:forEach var="post" items="${posts}">
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 								<div class="postListBox">
 									<div class="col-md-4 col-xs-4">
 										<div class="div-center">
-											<a href="/gonggu/posts/post?post_id=${postListDto.post_id}">
-												<img class="postListImage" src="${postListDto.thumbnail}">
+											<a href="/gonggu/posts/post?post_id=${post.post_id}">
+												<img class="postListImage" src="${post.thumbnail}">
 											</a>
 										</div>
-										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${postListDto.post_id}'">
+										<input class="postList-amount-absolute" type="button" value="${post.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${post.post_id}'">
 									</div>
 									
 									<div class="col-md-8 col-xs-8">
 										<div class="postListInfo">
-											<h6 class="text-main-color">[${postListDto.product_name}]</h6>
-											<h4>${postListDto.post_title}</h4>			
-											<div class="etc text-color-g2">${postListDto.content}</div> 
+											<h6 class="text-main-color">[${post.product_name}]</h6>
+											<h4>${post.post_title}</h4>			
+											<div class="etc text-color-g2">${post.content}</div> 
 											 
 											<c:if test="${info.post_status eq 'A'}">
 												<button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">신청취소</button>  
@@ -64,7 +64,7 @@
 		                             							 </div>
 		                             							 
 		                              							<div class="modal-footer">
-		                              	 							<input type="hidden" name="application_id" value="${postListDto.application_id}">
+		                              	 							<input type="hidden" name="application_id" value="${post.application_id}">
 		                                 							<button type="submit" class="btn btn-primary">확인</button>
 		                                 							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">취소</button>
 		                             							</div>                              

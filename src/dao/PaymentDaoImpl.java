@@ -12,7 +12,7 @@ import dto.PaymentDto;
 public class PaymentDaoImpl implements PaymentDao {
 	
 	@Resource
-	SqlSession session;
+	private SqlSession session;
 	
 	//페이먼트 등록
 	@Override
@@ -23,10 +23,9 @@ public class PaymentDaoImpl implements PaymentDao {
 	
 	//리뷰등록 상태 업로드 
 	@Override
-	public int updateWritableFromReview(int payment_id){
+	public int updateWritable(int payment_id){
 		
-		return session.update("payment.updateWritableFromReview", payment_id);
+		return session.update("payment.updateWritable", payment_id);
 	}	
 	
-
 }

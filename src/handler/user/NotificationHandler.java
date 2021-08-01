@@ -1,5 +1,7 @@
 package handler.user;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.NotificationDto;
 import service.inter.NotificationService;
 
 @Controller
@@ -25,8 +28,9 @@ public class NotificationHandler {
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		ModelAndView mav = new ModelAndView("user/notification/notificationList");
-			
-		mav.addObject("notifications", notificationService.getNotification(member_id)) ;
+		
+		List<NotificationDto> notifications = notificationService.getNotification(member_id);
+		mav.addObject("notifications", notifications) ;
 		
 		return mav;
 	}
@@ -38,7 +42,8 @@ public class NotificationHandler {
 				
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 						
-		return Integer.toString(notificationService.checkNotificationNotRead(member_id));
+		int result = notificationService.checkNotificationNotRead(member_id);
+		return Integer.toString(result);
 	}
 	
 	//알림 전부 삭제하기
@@ -48,8 +53,9 @@ public class NotificationHandler {
 		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
 		
 		ModelAndView mav = new ModelAndView("user/notification/notificationList");
-
-		mav.addObject("notifications", notificationService.deleteAllNotification(member_id));
+		
+		List<NotificationDto> notifications = notificationService.getNotification(member_id);
+		mav.addObject("notifications", notifications);
 		
 		return mav;
 	}

@@ -16,14 +16,56 @@ import util.PageInfo;
 public class PostDaoImpl implements PostDao {
 	
 	@Resource
-	SqlSession session;
+	private SqlSession session;
 	
 	//마감 임박 게시글 정보 가져오기
 	@Override
-	public List<PostContentDto> getHitPostFromMain(){
+	public List<PostContentDto> getPostsTopFive(){
 		
-		return session.selectList("post.getHitPostFromMain");
+		return session.selectList("post.getPostsTopFive");
 	}
+	
+	//포스트 리스트 뿌리기
+	@Override
+	public List<PostContentDto> getPostsByInfo(PageInfo info){
+		
+		return session.selectList("post.getPostsByInfo", info);
+	}
+	
+	//카테고리별 포스트 리스트 뿌리기
+	@Override
+	public List<PostContentDto> getPostsByInfoAboutCategory(PageInfo info) {
+		
+		return session.selectList("post.getPostsByInfoAboutCategory", info);
+	}
+	
+	//종료된 포스트 리스트 뿌리기
+	@Override
+	public List<PostContentDto> getPostsByInfoAboutFinishedStatus(PageInfo info) {
+		
+		return session.selectList("post.getPostsByInfoAboutFinishedStatus", info);
+	}	
+		
+	//결제한 포스트 리스트(구매내역)
+	@Override
+	public List<PostContentDto> getMyPostsByInfoAboutpayement(PageInfo info) {
+
+		return session.selectList("post.getMyPostsByInfoAboutpayement", info);
+	}	
+	
+	//상태에 따른 내 포스트 리스트 가져오기
+	@Override
+	public List<PostContentDto> getMyPostsByInfoAboutStatus(PageInfo info) {
+
+		return session.selectList("post.getMyPostsByInfoAboutStatus", info);
+	}
+	
+	// 게시글 콘텐트 보기
+	@Override
+	public PostContentDto getPost(int post_id){
+		
+		return session.selectOne("post.getPost", post_id);
+	}	
 	
 	//전체 포스트 개수
 	@Override
@@ -39,6 +81,20 @@ public class PostDaoImpl implements PostDao {
 		return session.selectOne("post.getPostCountBySearch", search);
 	}
 	
+	//종료된 전체 포스트 개수
+	@Override
+	public int getPostCountAboutFinishedStatus() {
+		
+		return session.selectOne("post.getPostCountAboutFinishedStatus");
+	}
+	
+	//검색, 종료된 전체 포스트 개수
+	@Override
+	public int getPostCountAboutFinishedStatusBySearch(String search) {
+
+		return session.selectOne("post.getPostCountAboutFinishedStatusBySearch", search);
+	}
+
 	//카테고리별 전체 포스트 개수
 	@Override
 	public int getPostCountByCategory(int category_id) {
@@ -52,96 +108,47 @@ public class PostDaoImpl implements PostDao {
 		return session.selectOne("post.getPostCountByCategoryAndSerarch", map);
 	}
 	
-	//종료된 전체 포스트 개수
+	//내가 결제한 포스트 리스트 전체 개수 가져오기
 	@Override
-	public int getPostCountByfinished() {
+	public int getMyPostCountAboutPayment(int member_id) {
 		
-		return session.selectOne("post.getPostCountByfinished");
+		return session.selectOne("post.getMyPostCountAboutPayment", member_id);
 	}
-	
-	//검색, 종료된 전체 포스트 개수
-	@Override
-	public int getPostCountByFinishedAndSearch(String search) {
-
-		return session.selectOne("post.getPostCountByFinishedAndSearch", search);
-	}
-	
-	//포스트 리스트 뿌리기
-	@Override
-	public List<PostContentDto> getPostFromPostList(PageInfo info){
-		
-		return session.selectList("post.getPostFromPostList", info);
-	}
-	
-	//카테고리별 포스트 리스트 뿌리기
-	@Override
-	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info) {
-		
-		return session.selectList("post.getPostFromPostListByCategory", info);
-	}
-	
-	//종료된 포스트 리스트 뿌리기
-	@Override
-	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info) {
-		
-		return session.selectList("post.getPostFromPostListByFinished", info);
-	}
-	
-	// 게시글 콘텐트 보기
-	@Override
-	public PostContentDto getPostContentFromContent(int post_id){
-		
-		return session.selectOne("post.getPostContentFromContent", post_id);
-	}	
-	
-	//현재 신청 수량	
-	@Override
-	public int getCurrentamountFromApply(int post_id) {
-		
-		return session.selectOne("post.getCurrentamountFromApply", post_id);
-	}
-	
-	//모집수량
-	@Override
-	public int getMinamountFromApply(int post_id) {
-		
-		return session.selectOne("post.getMinamountFromApply", post_id);
-	}
-	
-	//reviewContent 에서 post 정보
-	@Override
-	public PostContentDto getPayedPostFromReview(int payment_id) {
-		
-		return session.selectOne("post.getPayedPostFromReview", payment_id);
-	}	
 	
 	//상태에 따른 내 포스트 전체 개수 가져오기
 	@Override
-	public int getMyPostCountByStatus(Map<String, Object> map) {
+	public int getMyPostCountByStatusAndMemberId(Map<String, Object> map) {
 		
-		return session.selectOne("post.getMyPostCountByStatus", map);
+		return session.selectOne("post.getMyPostCountByStatusAndMemberId", map);
 	}
 	
-	//상태에 따른 내 포스트 리스트 가져오기
+	//현재 신청 수량	
 	@Override
-	public List<PostContentDto> getMyPostListByStatus(PageInfo info) {
-
-		return session.selectList("post.getMyPostListByStatus", info);
-	}
-	
-	//내가 결제한 포스트 리스트 전체 개수 가져오기
-	@Override
-	public int getMyPostByPayment(int member_id) {
+	public int getCurrentAmount(int post_id) {
 		
-		return session.selectOne("post.getMyPostByPayment", member_id);
+		return session.selectOne("post.getCurrentAmount", post_id);
+	}	
+	
+	//모집수량
+	@Override
+	public int getMinAmount(int post_id) {
+		
+		return session.selectOne("post.getMinAmount", post_id);
+	}
+
+	//신청수량 업데이트
+	@Override
+	public int updateCurrentAmount(Map<String, Object> map) {
+		
+		return session.update("post.updateCurrentAmount", map);
 	}
 	
-	//결제한 포스트 리스트(구매내역)
+	//reviewContent 에서 post 정보 (미사용 - 리팩토리후)
 	@Override
-	public List<PostContentDto> getMyPostListBypayement(PageInfo info) {
-
-		return session.selectList("post.getMyPostListBypayement", info);
-	}
+	public PostContentDto getPostByPayedStatus(int payment_id) {
+		
+		return session.selectOne("post.getPostByPayedStatus", payment_id);
+	}	
 
 }
 

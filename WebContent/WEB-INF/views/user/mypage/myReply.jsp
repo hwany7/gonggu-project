@@ -5,7 +5,7 @@
 		
 		<div class="max-width-1500 div-center">
 			<div class="container-fluid font-DH">	
-				<c:if test="${replyDto[0].review_num eq null}">
+				<c:if test="${replys[0].review_num eq null}">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
 							<div class="col-md-12">
@@ -15,14 +15,14 @@
 					</div>
 				</c:if>
 				
-				<c:if test="${replyDto[0].review_num ne null}">
-					<c:forEach var="replyDto" items="${replyDto}">
+				<c:if test="${replys[0].review_num ne null}">
+					<c:forEach var="reply" items="${replys}">
 					<div class="row">
-						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" onclick="location='/gonggu/reviews/review?review_num=${replyDto.review_num}'" style="cursor:pointer">
+						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" onclick="location='/gonggu/reviews/review?review_num=${reply.review_num}'" style="cursor:pointer">
 							<div class="col-md-12 col-xs-12">
-								<div id="${replyDto.review_num}" class="replyListBox replyContent mar-top-10">
-								<h5 class="etcOneLine ">${replyDto.content}</h5>	
-								<h5 class="etcOneLine text-color-g2">${replyDto.upload_date}</h5>
+								<div id="${reply.review_num}" class="replyListBox replyContent mar-top-10">
+								<h5 class="etcOneLine ">${reply.content}</h5>	
+								<h5 class="etcOneLine text-color-g2">${reply.upload_date}</h5>
 								</div>
 							</div>	
 						</div>

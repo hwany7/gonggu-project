@@ -8,13 +8,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import service.inter.LoginService;
+import service.inter.MemberService;
 
 @Controller
 public class LoginHandler {
 
 	@Resource
-	private LoginService loginService;
+	private MemberService memberService;
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/login")
@@ -33,7 +33,7 @@ public class LoginHandler {
 			
 		ModelAndView mav = new ModelAndView("user/pro/loginPro");
 
-		mav.addObject("result", loginService.directLogin(member_email, password));
+		mav.addObject("result", memberService.directLogin(member_email, password));
 		
 		return mav;
 	}
@@ -59,7 +59,7 @@ public class LoginHandler {
 		
 		ModelAndView mav = new ModelAndView("user/pro/activateStatusPro");
 		
-		mav.addObject("result", loginService.activateUser(member_id, password));
+		mav.addObject("result", memberService.activateUser(member_id, password));
 	
 		return mav;
 	}

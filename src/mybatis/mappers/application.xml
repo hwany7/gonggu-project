@@ -3,20 +3,15 @@
   	
 <mapper namespace="application">
 
- 	<!-- 공구 신청 -->
- 	<insert id="registerAppFromPostContent" parameterType="int">
- 		insert into application_gg(member_id, post_id, amount) values (#{member_id}, #{post_id}, #{amount}) 
- 	</insert>	
-
-  	<!-- 유저 공구 신청시 신청수량 변경 -->
- 	<update id="updateAppFromPostContent" parameterType="java.util.Map">
- 		update post_gg set current_amount = current_amount + #{amount} where post_id = #{post_id}
- 	</update>	
- 	
  	<!-- 어플리케이션 얻기 -->
  	 <select id="getApplication" parameterType="int" resultType="dto.ApplicationDto">
  		select * from application_gg where application_id=#{application_id}
  	</select>
+ 	
+ 	<!-- 공구 신청 -->
+ 	<insert id="insertApplication" parameterType="int">
+ 		insert into application_gg(member_id, post_id, amount) values (#{member_id}, #{post_id}, #{amount}) 
+ 	</insert>	
  	
  	<!-- 신청 취소 -->
  	<delete id="deleteApplication" parameterType="int">
@@ -24,9 +19,8 @@
  	</delete>
  	
  	 <!-- 공구 신청 취소시 수량 -1 -->
- 	<update id="updateApplicationForDecreaseComments" parameterType="dto.ApplicationDto">
+ 	<update id="decreaseCurrentAmount" parameterType="dto.ApplicationDto">
  		update post_gg set current_amount = current_amount - #{amount} where post_id = #{post_id}
  	</update>
 
 </mapper>
-

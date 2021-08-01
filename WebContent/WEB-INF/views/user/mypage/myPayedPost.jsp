@@ -4,7 +4,7 @@
 		<input type="hidden" class="navIndex" value="2">
 		
 		<div class="max-width-1500 div-center">
-			<c:if test="${postListDto[0].post_id eq null }">
+			<c:if test="${posts[0].post_id eq null }">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">	
@@ -16,29 +16,29 @@
 				</div>
 			</c:if>		
 			
-			<c:if test="${postListDto[0].post_id ne null }">
+			<c:if test="${posts[0].post_id ne null }">
 				<div class="container-fluid">
-					<c:forEach var="postListDto" items="${postListDto}">
+					<c:forEach var="post" items="${posts}">
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 								<div class="postListBox">
 									<div class="col-md-4 col-xs-4">
 										<div class="div-center">
-											<a href="/gonggu/posts/post?post_id=${postListDto.post_id}">
-												<img class="postListImage" src="${postListDto.thumbnail}">
+											<a href="/gonggu/posts/post?post_id=${post.post_id}">
+												<img class="postListImage" src="${post.thumbnail}">
 											</a>
 										</div>
-										<input class="postList-amount-absolute" type="button" value="${postListDto.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${postListDto.post_id}'">
+										<input class="postList-amount-absolute" type="button" value="${post.current_amount}명 신청" onclick="location='/gonggu/posts/post?post_id=${post.post_id}'">
 									</div>
 									
 									<div class="col-md-8 col-xs-8">
 										<div class="postListInfo">
-											<h6 class="text-main-color">[${postListDto.product_name}]</h6>
-											<h4>${postListDto.post_title}</h4>			
-											<div class="etc text-color-g2">${postListDto.content}</div>  
+											<h6 class="text-main-color">[${post.product_name}]</h6>
+											<h4>${post.post_title}</h4>			
+											<div class="etc text-color-g2">${post.content}</div>  
 											
-											<c:if test="${postListDto.review_writable eq 0 and info.post_status eq 'S'}">
-												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="location='/gonggu/reviews/review/write?payment_id=${postListDto.payment_id}'">
+											<c:if test="${post.review_writable eq 0 and info.post_status eq 'S'}">
+												<input type="button" value="리뷰쓰기" class="btn btn-default" onclick="location='/gonggu/reviews/review/write?payment_id=${post.payment_id}'">
 											</c:if>								
 										</div>							
 									</div>

@@ -17,35 +17,112 @@ import util.PageInfo;
 public class ReviewDaoImpl implements ReviewDao{
 	
 	@Resource
-	SqlSession session;
+	private SqlSession session;
 	
 	//post Content 에 들어갈 탑리뷰 3개
 	@Override
-	public List<ReviewDto> getReviewFromContent(int product_id) {
+	public List<ReviewContentDto> getReviewsTopThree(int product_id) {
 		
-		return session.selectList("review.getReviewFromContent", product_id);
+		return session.selectList("review.getReviewsTopThree", product_id);
+	}
+	
+	//리뷰 리스트 가져오기
+	@Override
+	public List<ReviewContentDto> getReviewsByInfo(PageInfo info) {
+		
+		return session.selectList("review.getReviewsByInfo", info);
+	}
+	
+	//내 리뷰 리스트 가져오기
+	@Override
+	public List<ReviewContentDto> getMyReviewsByInfo(PageInfo info) {
+		
+		return session.selectList("review.getMyReviewsByInfo", info);
+	}
+	
+	//리뷰 가져오기_테이블 그대로
+	@Override
+	public ReviewDto getReviewDto(int review_num) {
+		
+		return session.selectOne("review.getReviewDto", review_num);
 	}
 	
 	//리뷰 컨텐트
 	@Override
-	public ReviewContentDto getReviewContent(int review_num) {
+	public ReviewContentDto getReview(int review_num) {
 		
-		return session.selectOne("review.getReviewContent", review_num);
+		return session.selectOne("review.getReview", review_num);
+	}	
+	
+	//리뷰 전체 개수
+	@Override
+	public int getReviewCount() {
+		
+		return session.selectOne("review.getReviewCount");
+	}
+	
+	//검색된 전체 리뷰 개수
+	@Override
+	public int getReviewCountBySearch(String search) {
+		
+		return session.selectOne("review.geReviewCountBySearch", search);
+	}
+	
+	//내리뷰 전체 개수 가져오기
+	@Override
+	public int getMyReviewCount(int member_id) {
+
+		return session.selectOne("review.getMyReviewCount", member_id);
+	}	
+	
+	//like 중복체크
+	@Override
+	public int getCheckLike(Map<String, Integer> map) {
+
+		return session.selectOne("review.getCheckLike", map);
 	}	
 	
 	//조회수 올리기
 	@Override
-	public int addCountFromReview(int review_num) {
+	public int addReadCount(int review_num) {
 		
-		return session.update("review.addCountFromReview", review_num);
+		return session.update("review.addReadCount", review_num);
+	}	
+	
+	//좋아요 올리기
+	@Override
+	public int addLikeCount(int review_num) {
+		
+		return session.update("review.addLikeCount",review_num);
 	}
 	
-	//like 중복체크
+	//댓글 작성 시 replycount update +1
 	@Override
-	public int checkLike(Map<String, Integer> map) {
-
-		return session.selectOne("review.checkLike", map);
+	public int addReplyCount(int review_num) {
+		
+		return session.update("review.addReplyCount", review_num);
+	}	
+	
+	//리뷰 수정하기
+	@Override
+	public int updateReview(ReviewDto reviewDto) {
+		
+		return session.update("review.updateReview", reviewDto);
 	}
+	
+	// 댓글 삭제 시 replycount update -1
+	@Override
+	public int subtractReplyCount(int review_num) {
+		
+		return session.update("review.subtractReplyCount", review_num);
+	}
+
+	//리뷰 등록하기
+	@Override
+	public int insertReview(ReviewDto reviewDto) {
+
+		return session.insert("review.insertReview", reviewDto);
+	}	
 	
 	//like 추가하기
 	@Override
@@ -54,62 +131,13 @@ public class ReviewDaoImpl implements ReviewDao{
 		return session.insert("review.insertLike", map);
 	}
 	
-	//클릭시 like + 1
-	@Override
-	public int addlike(int review_num) {
-		
-		return session.update("review.addlike",review_num);
-	}
-	
-	//댓글 작성 시 replycount update +1
-	@Override
-	public int updateReplycountFromReview(int review_num) {
-		
-		return session.update("review.updateReplycountFromReview", review_num);
-	}	
-	
-	
-	// 댓글 삭제 시 replycount update -1
-	@Override
-	public int deleteupdateReplycountFromReview(int review_num) {
-		
-		return session.update("review.deleteupdateReplycountFromReview", review_num);
-	}
-	
-	//리뷰 전체 개수
-	@Override
-	public int getReviewCount() {
-		return session.selectOne("review.getReviewCount");
-	}
-	
-	//검색된 전체 리뷰 개수
-	@Override
-	public int geReviewCountBySearch(String search) {
-		
-		return session.selectOne("review.geReviewCountBySearch", search);
-	}
-	
-	//리뷰 리스트 가져오기
-	@Override
-	public List<ReviewContentDto> getReviewtFromReviewList(PageInfo info) {
-		
-		return session.selectList("review.getReviewtFromReviewList", info);
-	}
-	
-	//리뷰 가져오기_테이블 그대로
-	@Override
-	public ReviewDto getReview(int review_num) {
-		
-		return session.selectOne("review.getReview", review_num);
-	}
-	
 	//리뷰 삽입
 	@Override
-	public int insetReviewToDeletedReview(ReviewDto reviewDto) {
+	public int insertReviewToDeletedReview(ReviewDto reviewDto) {
 		
-		return session.insert("review.insetReviewToDeletedReview", reviewDto);
+		return session.insert("review.insertReviewToDeletedReview", reviewDto);
 	}
-	
+
 	//리뷰 삭제하기
 	@Override
 	public int deleteReview(int review_num) {
@@ -117,36 +145,4 @@ public class ReviewDaoImpl implements ReviewDao{
 		return session.delete("review.deleteReview", review_num);
 	}
 	
-	//내 리뷰 리스트 가져오기
-	@Override
-	public List<ReviewContentDto> getMyReviewList(PageInfo info) {
-		
-		return session.selectList("review.getMyReviewList", info);
-	}
-	
-	//내리뷰 전체 개수 가져오기
-	@Override
-	public int getMyReviewCount(int member_id) {
-
-		return session.selectOne("review.getMyReviewCount", member_id);
-	}
-	
-	//리뷰 등록하기
-	@Override
-	public int insertReview(ReviewDto reviewDto) {
-
-		return session.insert("review.insertReview", reviewDto);
-	}
-	
-	@Override
-	public int updateReview(ReviewDto reviewDto) {
-		
-		return session.update("review.updateReview", reviewDto);
-	}
-	
 }
-
-
-
-
-

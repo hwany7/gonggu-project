@@ -23,7 +23,7 @@ import util.UploadPath;
 public class UploadServiceImpl implements UploadService{
 	
 	@Resource
-	UploadPath uploadPath;
+	private UploadPath uploadPath;
 	
 	//ckEdit4 이미지 파일 서버로 업로드
 	@Override

@@ -4,7 +4,7 @@
 <mapper namespace="post">
 
 	<!-- 히트 상품 가져오기 -->
-	<select id="getHitPostFromMain" resultType="dto.join.PostContentDto">
+	<select id="getPostsTopFive" resultType="dto.join.PostContentDto">
 		select * from 
 			(select p.category_id,
        			c.category_name,
@@ -22,48 +22,8 @@
 	 		where ranking =1
  	</select>
  	
- 	<!-- postContent 페이지에 보여줄 content -->
- 	<select id="getPostContentFromContent" parameterType="int" resultType="dto.join.PostContentDto">
- 		select *
-		from (
-		    select post_id, post_gg.product_id, category_name, post_title, post_status, 
-		    		product_name, image, product_model, current_amount, default_price,content, payment_amount
-		    from post_gg, product_gg, category_gg
-		    where post_gg.product_id = product_gg.product_id 
-		    		and product_gg.category_id = category_gg.category_id)
-		where post_id=#{post_id}
- 	</select>
- 	
- 	<!-- 신청 수량 초과 방어하기 위해 현재 진행 수량 가져오기 -->
-	<select id="getCurrentamountFromApply" parameterType="int" resultType="int">
-		select current_amount from post_gg where post_id = #{post_id}
-	</select> 
-	
-	 <!-- 그리고 진행수량 -->
-	<select id="getMinamountFromApply" parameterType="int" resultType="int">
-		select minimum_amount from post_gg where post_id = #{post_id}
-	</select>
-	
- 	<!-- 리뷰content 페이지에서 어떤 상품인지 가져오기 -->
-  	<select id="getPayedPostFromReview" parameterType="int" resultType="dto.join.PostContentDto">
- 		select * 
-		from (select thumbnail, payment_id, payment_gg.application_id, application_gg.post_id, 
-					post_title, product_name, fixed_price*amount as total_price, 
-					review_writable, paytime
-        	from post_gg, product_gg, application_gg, payment_gg
-        	where post_gg.post_id = application_gg.post_id
-            	and post_gg.product_id = product_gg.product_id
-            	and application_gg.application_id = payment_gg.application_id
-            	and payment_id = #{payment_id})
- 	</select>
- 	
- 	<!-- 게시글 전체 개수 -->
-	<select id="getPostCount" resultType="int">
-		select count(*) from post_gg
-	</select>
-	
-	<!-- 전상품 다 나와있는 리스트(검색기능 포함) -->
- 	<select id="getPostFromPostList" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+ 	<!-- 전상품 다 나와있는 리스트(검색기능 포함) -->
+ 	<select id="getPostsByInfo" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
  		select * 
 		from (select category_id,
 		       category_name,
@@ -93,24 +53,10 @@
 		            order by post_status, post_id desc)
 		        )
 		where r &gt;= #{start} and r &lt;= #{end}
-	</select>
-	
-	<!-- 검색된 게시글 전체 개수 -->
-	<select id="getPostCountBySearch" parameterType="String" resultType="int">
-		select count(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
-														and (upper(post_title) like upper('%'|| #{search} ||'%') 
-														or upper(product_name) like upper('%'|| #{search} ||'%'))
-	</select>
-	
-	<!-- 카테고리별 list 만들기 위한 포스트 개수 -->
-	<select id="getPostCountByCategory" parameterType="int" resultType="int">
-		select count(*) 
-		from post_gg 
-		where product_id in (select product_id from product_gg where category_id=#{category_id})
-	</select>
-	
-	<!-- 전상품 다 나와있는 카테고리 리스트(검색기능 포함) -->
- 	<select id="getPostFromPostListByCategory" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+	</select>	
+ 	
+ 	<!-- 전상품 다 나와있는 카테고리 리스트(검색기능 포함) -->
+ 	<select id="getPostsByInfoAboutCategory" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
  		select * 
 		from (select category_id,
 		       category_name,
@@ -142,28 +88,8 @@
 		where r &gt;= #{start} and r &lt;= #{end}
 	</select>
 	
-	<!--검색, 카테고리별 list 만들기 위한 포스트 개수 -->
-	<select id="getPostCountByCategoryAndSerarch" parameterType="java.util.Map" resultType="int">
-		select count(*) from post_gg, product_gg where post_gg.product_id = product_gg.product_id 
-											and post_gg.product_id in (select product_id from product_gg where category_id=#{category_id})
-											and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%')) 
-	</select>
-	
-	<!-- 종료된 게시글 전체 개수 -->
-	<select id="getPostCountByfinished" resultType="int">
-		select count(*) from post_gg where post_status='S'
-	</select> 
-	
-	<!--종료, 검색된 게시글 전체 개수 -->
-	<select id="getPostCountByFinishedAndSearch" parameterType="String" resultType="int">
-		select count(*) from post_gg, product_gg 
-		where post_gg.product_id = product_gg.product_id 
-						and post_gg.post_status='S'
-						and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%'))
-	</select>
-	
 	<!-- 종료된 다 나와있는 카테고리 리스트(검색기능 포함) -->
- 	<select id="getPostFromPostListByFinished" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+ 	<select id="getPostsByInfoAboutFinishedStatus" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
  		select * 
 		from (select category_id,
 		       category_name,
@@ -189,23 +115,36 @@
 		            where p.product_id = pp.product_id 
 		            			and p.category_id = c.category_id 
 		            			and pp.post_status='S'
-		            			and (upper(pp.post_title) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%') or upper(p.product_name) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%'))
+		            			and (upper(pp.post_title) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%') 
+		            										or upper(p.product_name) like upper('%'|| trim(#{search, jdbcType=VARCHAR}) ||'%'))
 		            order by post_status, post_id desc)
 		        )
 		where r &gt;= #{start} and r &lt;= #{end}
-	</select>
+	</select>	
 	
-	<!-- A : Apply 공구 시작 , C : Complete 모집 완료, N : Negotiation 가격 협상, P : Pay 결제 대기, S : StandBy 대기상태 -->
-	<select id="getMyPostCountByStatus" parameterType="java.util.Map" resultType="int">
-		select count(*) from post_gg, application_gg 
-		where post_gg.post_id = application_gg.post_id 
-								and post_gg.post_status=#{post_status} 
-								and application_gg.member_id=#{member_id}
-								and application_id not in (select application_id from payment_gg)
-	</select>
-	
-	<!-- 결제 가능한 상품 -->
- 	<select id="getMyPostListByStatus" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+  	<!-- 결제한 포스트 리스트(구매내역) -->
+ 	<select id="getMyPostsByInfoAboutpayement" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
+ 		 select *
+			from (select thumbnail, 
+	                  payment_id, 
+	                  payment_gg.application_id, 
+	                  application_gg.post_id, 
+	                  post_title,
+					  product_name, 
+	                  fixed_price*amount as total_price, 
+	                  review_writable, 
+	                  paytime,
+					  content, 
+	                  current_amount, 
+	                  rownum r
+        		from post_gg, product_gg, application_gg, payment_gg
+        		where post_gg.post_id = application_gg.post_id and post_gg.product_id = product_gg.product_id
+		            and application_gg.application_id = payment_gg.application_id and member_id = #{member_id})
+		where r &gt;= #{start} and r &lt;= #{end}
+ 	</select>
+		
+ 	<!-- 결제 가능한 상품 -->
+ 	<select id="getMyPostsByInfoAboutStatus" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
  		select * 
  		from (select thumbnail, 
  					post_title, 
@@ -223,38 +162,108 @@
         			and member_id = #{member_id} and post_status = #{post_status}
         			and application_id not in (select application_id from payment_gg))
         where r &gt;= #{start} and r &lt;= #{end}
- 	</select>
+ 	</select>	
  	
+  	<!-- postContent 페이지에 보여줄 content -->
+ 	<select id="getPost" parameterType="int" resultType="dto.join.PostContentDto">
+ 		select *
+		from (select post_id, 
+					post_gg.product_id, 
+					category_name, 
+					post_title, 
+					post_status, 
+		    		product_name, 
+		    		image, 
+		    		product_model, 
+		    		current_amount, 
+		    		default_price,
+		    		content, 
+		    		payment_amount
+		    from post_gg, product_gg, category_gg
+		    where post_gg.product_id = product_gg.product_id and product_gg.category_id = category_gg.category_id)
+		where post_id=#{post_id}
+ 	</select>
+  	
+ 	<!-- 게시글 전체 개수 -->
+	<select id="getPostCount" resultType="int">
+		select count(*) from post_gg
+	</select>
+
+	<!-- 검색된 게시글 전체 개수 -->
+	<select id="getPostCountBySearch" parameterType="String" resultType="int">
+		select count(*) from post_gg, product_gg 
+		where post_gg.product_id = product_gg.product_id and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%'))
+	</select>
+	
+	<!-- 종료된 게시글 전체 개수 -->
+	<select id="getPostCountAboutFinishedStatus" resultType="int">
+		select count(*) from post_gg where post_status='S'
+	</select> 
+
+	<!--종료, 검색된 게시글 전체 개수 -->
+	<select id="getPostCountAboutFinishedStatusBySearch" parameterType="String" resultType="int">
+		select count(*) from post_gg, product_gg 
+		where post_gg.product_id = product_gg.product_id and post_gg.post_status='S'
+						                                 and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%'))
+	</select>
+	
+	<!-- 카테고리별 list 만들기 위한 포스트 개수 -->
+	<select id="getPostCountByCategory" parameterType="int" resultType="int">
+		select count(*) from post_gg 
+		where product_id in (select product_id from product_gg where category_id=#{category_id})
+	</select>
+
+	<!--검색, 카테고리별 list 만들기 위한 포스트 개수 -->
+	<select id="getPostCountByCategoryAndSerarch" parameterType="java.util.Map" resultType="int">
+		select count(*) from post_gg, product_gg 
+		where post_gg.product_id = product_gg.product_id and post_gg.product_id in (select product_id from product_gg where category_id=#{category_id})
+											             and (upper(post_title) like upper('%'|| #{search} ||'%') or upper(product_name) like upper('%'|| #{search} ||'%')) 
+	</select>
+	
  	<!-- 마이페이지에서 구매내역 페이지 나누기 위한 구매count -->
- 	<select id="getMyPostByPayment" parameterType="int" resultType="int">
+ 	<select id="getMyPostCountAboutPayment" parameterType="int" resultType="int">
  		select count(*)
 		from payment_gg, application_gg
 		where payment_gg.application_id = application_gg.application_id and member_id=#{member_id}
- 	</select>
- 	
-  	<!-- 결제한 포스트 리스트(구매내역) -->
- 	<select id="getMyPostListBypayement" parameterType="util.PageInfo" resultType="dto.join.PostContentDto">
- 		 select *
-			from (select thumbnail, 
-	                  payment_id, 
-	                  payment_gg.application_id, 
-	                  application_gg.post_id, 
-	                  post_title,
-					  product_name, 
-	                  fixed_price*amount as total_price, 
-	                  review_writable, 
-	                  paytime,
-					  content, 
-	                  current_amount, 
-	                  rownum r
-        		from post_gg, product_gg, application_gg, payment_gg
-        		where post_gg.post_id = application_gg.post_id
-		            and post_gg.product_id = product_gg.product_id
-		            and application_gg.application_id = payment_gg.application_id
-		            and member_id = #{member_id})
-		where r &gt;= #{start} and r &lt;= #{end}
- 	</select>
-
+ 	</select>		
 	
+	<!-- A : Apply 공구 시작 , C : Complete 모집 완료, N : Negotiation 가격 협상, P : Pay 결제 대기, S : StandBy 대기상태 -->
+	<select id="getMyPostCountByStatusAndMemberId" parameterType="java.util.Map" resultType="int">
+		select count(*) from post_gg, application_gg 
+		where post_gg.post_id = application_gg.post_id and post_gg.post_status=#{post_status} and application_gg.member_id=#{member_id}
+								                       and application_id not in (select application_id from payment_gg)
+	</select>	
+	
+	<!-- 신청 수량 초과 방어하기 위해 현재 진행 수량 가져오기 -->
+	<select id="getCurrentAmount" parameterType="int" resultType="int">
+		select current_amount from post_gg where post_id = #{post_id}
+	</select> 
+	
+	 <!--모집수량 -->
+	<select id="getMinAmount" parameterType="int" resultType="int">
+		select minimum_amount from post_gg where post_id = #{post_id}
+	</select>	
+	
+ 	<!-- 유저 공구 신청시 신청수량 변경 -->
+ 	<update id="updateCurrentAmount" parameterType="java.util.Map">
+ 		update post_gg set current_amount = current_amount + #{amount} where post_id = #{post_id}
+ 	</update>
+ 	
+  	<!-- 리뷰content 페이지에서 어떤 상품인지 가져오기 //미사용-->
+  	<select id="getPostByPayedStatus" parameterType="int" resultType="dto.join.PostContentDto">
+ 		select * 
+		from (select thumbnail, 
+					payment_id, 
+					payment_gg.application_id, 
+					application_gg.post_id, 
+					post_title, 
+					product_name, 
+					fixed_price*amount as total_price, 
+					review_writable, 
+					paytime
+        	from post_gg, product_gg, application_gg, payment_gg
+        	where post_gg.post_id = application_gg.post_id and post_gg.product_id = product_gg.product_id
+            	and application_gg.application_id = payment_gg.application_id and payment_id = #{payment_id})
+ 	</select>
 
 </mapper>

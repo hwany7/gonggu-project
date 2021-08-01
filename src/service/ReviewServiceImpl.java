@@ -7,11 +7,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.inter.PaymentDao;
 import dao.inter.ReplyDao;
 import dao.inter.ReviewDao;
 import dto.ReviewDto;
+import dto.join.ReplyContentDto;
 import dto.join.ReviewContentDto;
 import service.inter.PageService;
 import service.inter.ReviewService;
@@ -21,22 +23,22 @@ import util.PageInfo;
 public class ReviewServiceImpl implements ReviewService {
 
 	@Resource
-	ReviewDao reviewDao;
+	private ReviewDao reviewDao;
 	
 	@Resource
-	ReplyDao replyDao;
+	private ReplyDao replyDao;
 	
 	@Resource
-	PaymentDao paymentDao;
+	private PaymentDao paymentDao;
 	
 	@Resource
-	PageService pageService;
+	private PageService pageService;
 	
 	@Override
 	public Map<String, Object> getReviewList(String pageNum, String search) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		int cnt = (search == null) ? reviewDao.getReviewCount() : reviewDao.geReviewCountBySearch(search);
+		int cnt = (search == null) ? reviewDao.getReviewCount() : reviewDao.getReviewCountBySearch(search);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -44,9 +46,9 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			info.setSearch(search);	
 			
-			List<ReviewContentDto> reviewContentDtos = reviewDao.getReviewtFromReviewList(info);	
+			List<ReviewContentDto> reviews = reviewDao.getReviewsByInfo(info);	
 								
-			map.put("reviewContentDtos", pageService.preprocessingFromReviewList(reviewContentDtos));
+			map.put("reviews", pageService.preprocessingFromReviewList(reviews));
 		}
 		
 		map.put("info", info);
@@ -54,22 +56,34 @@ public class ReviewServiceImpl implements ReviewService {
 		return map;
 	}
 	
-	
-	//리뷰 가져오기
+	//리뷰랑 댓글리스트 가져오기
 	@Override
-	public Map<String, Object> getReview(int review_num) {
+	public Map<String, Object> getReviewAndReplys(int review_num) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("reviewContentDto", reviewDao.getReviewContent(review_num));	
-		reviewDao.addCountFromReview(review_num);
+		ReviewContentDto review = reviewDao.getReview(review_num);
+		map.put("review", review);	
 		
-		map.put("replyContentDtos", replyDao.getReplyContentFromReview(review_num));
+		reviewDao.addReadCount(review_num);
+		
+		List<ReplyContentDto> replys = replyDao.getReplys(review_num);
+		map.put("replyContentDtos", replys);
 	
 		return map;
 	}
 	
+	//리뷰 가져오기
+	@Override
+	public ReviewContentDto getReview(int review_num) {
+		
+		ReviewContentDto review = reviewDao.getReview(review_num);
+		
+		return review;
+	}
+	
 	//리뷰 좋아요 누르기
+	@Transactional
 	@Override
 	public int likeReview(int member_id, int review_num) {
 	
@@ -79,21 +93,22 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("member_id", member_id);
 		map.put("review_num", review_num);
 		
-		if( reviewDao.checkLike(map) == 0 ) {
+		if( reviewDao.getCheckLike(map) == 0 ) {
 			
 			reviewDao.insertLike(map);
-			result = reviewDao.addlike(review_num);
+			result = reviewDao.addLikeCount(review_num);
 		}
 	
 		return result;
 	}
 	
 	//리뷰 삭제
+	@Transactional
 	@Override
 	public int deleteReview(int review_num) {
 		
-		ReviewDto reviewDto = reviewDao.getReview(review_num);
-		int result = reviewDao.insetReviewToDeletedReview(reviewDto);
+		ReviewDto reviewDto = reviewDao.getReviewDto(review_num);
+		int result = reviewDao.insertReviewToDeletedReview(reviewDto);
 		
 		if(result == 1) {
 			result = reviewDao.deleteReview(review_num);
@@ -104,7 +119,7 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	//내리뷰 리스트 얻기
 	@Override
-	public Map<String, Object>  getMyReviewList(String pageNum, int member_id) {
+	public Map<String, Object> getMyReviewList(String pageNum, int member_id) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		int cnt = reviewDao.getMyReviewCount(member_id);
@@ -115,9 +130,9 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			info.setMember_id(member_id);
 			
-			List<ReviewContentDto> reviewContentDtos = reviewDao.getMyReviewList(info);	
+			List<ReviewContentDto> reviews = reviewDao.getMyReviewsByInfo(info);	
 								
-			map.put("reviewContentDtos", pageService.preprocessingFromReviewList(reviewContentDtos));
+			map.put("reviews", pageService.preprocessingFromReviewList(reviews));
 		}
 		
 		map.put("info", info);
@@ -125,15 +140,15 @@ public class ReviewServiceImpl implements ReviewService {
 		return map;
 	}
 	
-	
 	//리뷰 추가하기
+	@Transactional
 	@Override
 	public int addReview(ReviewDto reviewDto) {
 		
 		int result = reviewDao.insertReview(reviewDto);
 			
 		if(result == 1) {
-			result = paymentDao.updateWritableFromReview(reviewDto.getPayment_id());
+			result = paymentDao.updateWritable(reviewDto.getPayment_id());
 		}
 
 		return result;

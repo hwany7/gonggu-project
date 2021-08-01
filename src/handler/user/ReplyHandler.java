@@ -14,7 +14,7 @@ import service.inter.ReplyService;
 public class ReplyHandler {
 	
 	@Resource
-	ReplyService replyService;
+	private ReplyService replyService;
 
 	//댓글 작성하기
 	@RequestMapping("/reviews/review/reply/writepro")

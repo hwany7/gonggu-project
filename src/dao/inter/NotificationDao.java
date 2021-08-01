@@ -6,10 +6,10 @@ import dto.NotificationDto;
 
 public interface NotificationDao {
 	
-	//메인페이지
-	public List<NotificationDto> getNotificationById(int member_id);
-	public int updateReadStatus(int member_id);
-	public int checkNotificationNotRead(int member_id);
+	public List<NotificationDto> getNotifications(int member_id);
+	
 	public int deleteAllNotification(int member_id);
+	public int updateStatusToRead(int member_id);
+	public int checkStatusNotRead(int member_id);
 
 }

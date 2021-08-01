@@ -14,10 +14,10 @@ import service.inter.PaymentService;
 public class PaymentServiceImpl implements PaymentService {
 
 	@Resource
-	MemberDao memberDao;
+	private MemberDao memberDao;
 	
 	@Resource
-	PaymentDao paymentDao;
+	private PaymentDao paymentDao;
 	
 	
 	//결제폼에 사용할 회원 정보 가져오기(지금은 간단해서 멤버정보)

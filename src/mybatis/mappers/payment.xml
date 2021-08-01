@@ -10,7 +10,7 @@
  	</insert>
  	
  	 <!-- writable 상태 업데이트 -->
- 	<update id="updateWritableFromReview" parameterType="int">
+ 	<update id="updateWritable" parameterType="int">
  		update payment_gg set review_writable = 1 where payment_id=#{payment_id}
  	</update>
 

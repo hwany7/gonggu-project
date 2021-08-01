@@ -16,7 +16,7 @@ import service.inter.PostService;
 public class PostHandler {
 	
 	@Resource
-	PostService postService;
+	private PostService postService;
 	
 	@RequestMapping("/posts")
 	public ModelAndView posts(String pageNum, String search, int category_id) {
@@ -25,8 +25,7 @@ public class PostHandler {
 		mav.addObject("page", "/WEB-INF/views/user/post/posts");
 		
 		Map<String, Object> map = postService.getPostList(pageNum, search, category_id);
-
-		mav.addObject("postListDto", map.get("postListDto"));
+		mav.addObject("posts", map.get("posts"));
 		mav.addObject("info", map.get("info"));
 		
 		return mav;
@@ -41,9 +40,8 @@ public class PostHandler {
 		mav.addObject("page", "/WEB-INF/views/user/post/post");
 		
 		Map<String, Object> map = postService.getPost(post_id);
-		
-		mav.addObject("postContentDto", map.get("postContentDto"));
-		mav.addObject("postContentReview", map.get("postContentReview"));
+		mav.addObject("post", map.get("post"));
+		mav.addObject("reviews", map.get("reviews"));
 		
 		return mav;
 	}	

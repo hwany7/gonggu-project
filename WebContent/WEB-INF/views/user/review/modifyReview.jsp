@@ -10,13 +10,11 @@
 			});
 		</script>
 		
-		<div class="container-fluid">
-			<div class="row">
-				<div class="cropping" style="height: 100px;">
-					<img src="/gonggu/resources/img/tamplate3.jpg">
-				</div>
+		<div class="row">
+			<div class="cropping" style="height: 100px;">
+				<img src="/gonggu/resources/img/tamplate3.jpg">
 			</div>
-		</div>		
+		</div>	
 	
 		<div class="container-fluid font-DH">	
 			<div class="row max-width-1300 div-center">
@@ -30,15 +28,15 @@
 			<div class="row max-width-1300 div-center">
 				<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">	
 					<form method="post" role="form" action="/gonggu/reviews/review/modifypro" name="writeReviewForm" onclick="return checkReview()">
-						<input type="hidden" name="review_num" value="${reviewDto.review_num}"> 
+						<input type="hidden" name="review_num" value="${review.review_num}"> 
 						
 						<div class="form-group">
 							<label class="mar-top-20">글제목</label>
-							<input class="form-control" name="title" value="${reviewDto.title}">
+							<input class="form-control" name="title" value="${review.title}">
 						</div>
 						
 						<div class="form-group">
-							<textarea id="editor" name="content">${reviewDto.content}</textarea>
+							<textarea id="editor" name="content">${review.content}</textarea>
 						</div>
 						
 						<div class="form-group text-right">

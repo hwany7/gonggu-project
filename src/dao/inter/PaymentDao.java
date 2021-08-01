@@ -4,8 +4,7 @@ import dto.PaymentDto;
 
 public interface PaymentDao {
 	
-	//마이페이지
-	int insertPayment(PaymentDto paymentDto);
-	int updateWritableFromReview(int payment_id);
+	public int insertPayment(PaymentDto paymentDto);
+	public int updateWritable(int payment_id);
 	
 }

@@ -14,21 +14,7 @@ import dto.ApplicationDto;
 public class ApplicationDaoImpl implements ApplicationDao {
 	
 	@Resource
-	SqlSession session;
-
-	//신청하기
-	@Override
-	public int registerAppFromPostContent(Map<String, Object> map) {
-		
-		return session.insert("application.registerAppFromPostContent", map);
-	}
-	
-	//신청수량 업데이트
-	@Override
-	public int updateAppFromPostPostContent(Map<String, Object> map) {
-		
-		return session.update("application.updateAppFromPostContent", map);
-	}
+	private SqlSession session;
 	
 	//app id 찾기
 	@Override
@@ -36,7 +22,14 @@ public class ApplicationDaoImpl implements ApplicationDao {
 		
 		return session.selectOne("application.getApplication", application_id);
 	}
-	
+
+	//신청하기
+	@Override
+	public int insertApplication(Map<String, Object> map) {
+		
+		return session.insert("application.insertApplication", map);
+	}
+		
 	//신청 취소하기
 	@Override
 	public int deleteApplication(int application_id) {
@@ -46,11 +39,9 @@ public class ApplicationDaoImpl implements ApplicationDao {
 	
 	//신청 취소후 수량감소
 	@Override
-	public int updateApplicationAndDecreaseComments(ApplicationDto applicationDto) {
+	public int decreaseCurrentAmount(ApplicationDto applicationDto) {
 
-		return session.update("application.updateApplicationForDecreaseComments", applicationDto);
+		return session.update("application.decreaseCurrentAmount", applicationDto);
 	}
-	
-
 	
 }

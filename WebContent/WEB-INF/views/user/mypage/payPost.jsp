@@ -24,10 +24,10 @@
 		                    <div class="form-group mar-top-30">
 		                    	<div class="row">
 			                    	<div class="col-md-5 col-xs-5">
-			                       		<input type="text" class="form-control" name="zipcode" id="zipcode"  value="${memberDto.zipcode}" placeholder="우편번호" readonly="readonly">
+			                       		<input type="text" class="form-control" name="zipcode" id="zipcode"  value="${member.zipcode}" placeholder="우편번호" readonly="readonly">
 			                        </div>
 			                    	<div class="col-md-7 col-xs-7">
-			                       		<input type="text" class="form-control" name="address1" id="address1" value="${memberDto.address1}" placeholder="도로명주소" readonly="readonly">
+			                       		<input type="text" class="form-control" name="address1" id="address1" value="${member.address1}" placeholder="도로명주소" readonly="readonly">
 			                        </div>
 		                        </div>
 		                    </div>
@@ -35,7 +35,7 @@
 		                    <div class="form-group">
 		                    	<div class="row">
 			                    	<div class="col-md-8 col-xs-8">
-			                       		<input type="text" class="form-control" name="address2" id="address2" value="${memberDto.address2}" placeholder="상세주소">
+			                       		<input type="text" class="form-control" name="address2" id="address2" value="${member.address2}" placeholder="상세주소">
 			                        </div>
 			                    	<div class="col-md-4 col-xs-4">
 			                       		<input type="button" class="btn btn-info width-100p" value="찾기" onclick="openDaumPostcode();">

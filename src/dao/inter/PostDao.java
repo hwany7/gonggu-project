@@ -8,35 +8,30 @@ import util.PageInfo;
 
 public interface PostDao {
 	
-	//메인 페이지
-	public List<PostContentDto> getHitPostFromMain();
+	public List<PostContentDto> getPostsTopFive();
+	public List<PostContentDto> getPostsByInfo(PageInfo info);
+	public List<PostContentDto> getPostsByInfoAboutCategory(PageInfo info);
+	public List<PostContentDto> getPostsByInfoAboutFinishedStatus(PageInfo info);
+	public List<PostContentDto> getMyPostsByInfoAboutpayement(PageInfo info);
+	public List<PostContentDto> getMyPostsByInfoAboutStatus(PageInfo info);
 	
-	//포스트 리스트
+	public PostContentDto getPost(int post_id);
+	
 	public int getPostCount();
-	public int getPostCountByfinished();
-	public int getPostCountBySearch(String search);
+	public int getPostCountBySearch(String search);	
+	public int getPostCountAboutFinishedStatus();
+	public int getPostCountAboutFinishedStatusBySearch(String search);	
 	public int getPostCountByCategory(int category_id);
-	public int getPostCountByFinishedAndSearch(String search);
 	public int getPostCountByCategoryAndSerarch(Map<String,Object> map);
-	public List<PostContentDto> getPostFromPostList(PageInfo info);
-	public List<PostContentDto> getPostFromPostListByCategory(PageInfo info);
-	public List<PostContentDto> getPostFromPostListByFinished(PageInfo info);
 	
+	public int getMyPostCountAboutPayment(int member_id);
+	public int getMyPostCountByStatusAndMemberId(Map<String,Object> map);
 	
-	//포스트 페이지
-	public PostContentDto getPostContentFromContent(int post_id);
-	public int getCurrentamountFromApply(int post_id);
-	public int getMinamountFromApply(int post_id);
+	public int getCurrentAmount(int post_id);
+	public int getMinAmount(int post_id);
+
+	public int updateCurrentAmount(Map<String, Object> map);
 	
-	//리뷰 페이지
-	public PostContentDto getPayedPostFromReview(int payment_id);
-	
-	//마이 페이지
-	public int getMyPostCountByStatus(Map<String,Object> map);
-	public List<PostContentDto> getMyPostListByStatus(PageInfo info);
-	public int getMyPostByPayment(int member_id);
-	public List<PostContentDto> getMyPostListBypayement(PageInfo info);
-	
-	
-	
+	public PostContentDto getPostByPayedStatus(int payment_id); //미사용(리팩토리 후)
+
 }

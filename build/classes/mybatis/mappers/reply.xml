@@ -4,36 +4,20 @@
 <mapper namespace="reply">
 
  	<!-- 리뷰content 페이지에서 댓글 데이터 -->
- 	<select id="getReplyContentFromReview" parameterType="int" resultType="dto.join.ReplyContentDto">
-	 	select nickname, member_gg.member_id, reply_num, review_num, upload_date, content
+ 	<select id="getReplys" parameterType="int" resultType="dto.join.ReplyContentDto">
+	 	select nickname, 
+	 		member_gg.member_id, 
+	 		reply_num, 
+	 		review_num, 
+	 		upload_date,
+			content
 		from member_gg, reply_gg
-		where member_gg.member_id = reply_gg.member_id 
-			and review_num = #{review_num}
+		where member_gg.member_id = reply_gg.member_id and review_num = #{review_num}
 		order by reply_num DESC
  	</select>
  	
- 	<!-- 댓글 작성 -->
- 	<insert id="uploadReplyFromReview" parameterType="dto.ReplyDto">
- 		insert into reply_gg(review_num, member_id, content) values (#{review_num}, #{member_id}, #{content})
- 	</insert>
- 	
- 	<!-- 댓글 삭제 -->
-  	<delete id="deleteReplyFromReview" parameterType="int">
- 		delete from reply_gg where reply_num=#{reply_num}
- 	</delete>	
- 	
- 	<!-- 내가 쓴 댓글 -->
- 	<select id="getMyReply" parameterType="int" resultType="dto.ReplyDto">
- 		select * from reply_gg where member_id=#{member_id}
- 	</select>
- 	
- 	<!-- 내가 쓴 댓글 전체 개수 -->
- 	<select id="getMyReplyCount" parameterType="int" resultType="int">
- 		select count(*) from reply_gg where member_id=#{member_id}
- 	</select>
- 	
- 	<!-- 내가 쓴 리플 전체 개수 -->
- 	<select id="getMyReplyList" parameterType="util.PageInfo" resultType="dto.ReplyDto">
+  	<!-- 내가 쓴 리플 전체 개수 -->
+ 	<select id="getMyReplyList" parameterType="util.PageInfo" resultType="dto.join.ReplyContentDto">
  		select *
  		from(select reply_num, 
 		 		review_num, 
@@ -44,6 +28,26 @@
  			from reply_gg
  			where member_id=#{member_id})
  		where r &gt;= #{start} and r &lt;=#{end}
+ 	</select>
+ 	
+ 	<!-- 댓글 작성 -->
+ 	<insert id="insertReply" parameterType="dto.ReplyDto">
+ 		insert into reply_gg(review_num, member_id, content) values (#{review_num}, #{member_id}, #{content})
+ 	</insert>
+ 	
+ 	<!-- 댓글 삭제 -->
+  	<delete id="deleteReply" parameterType="int">
+ 		delete from reply_gg where reply_num=#{reply_num}
+ 	</delete>	
+ 	
+ 	<!-- 내가 쓴 댓글 전체 개수 -->
+ 	<select id="getMyReplyCount" parameterType="int" resultType="int">
+ 		select count(*) from reply_gg where member_id=#{member_id}
+ 	</select>
+ 	
+  	<!-- 내가 쓴 댓글 (미사용)-->
+ 	<select id="getMyReplys" parameterType="int" resultType="dto.join.ReplyContentDto">
+ 		select * from reply_gg where member_id=#{member_id}
  	</select>
  	
 </mapper>

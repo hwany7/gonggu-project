@@ -1,8 +1,6 @@
 package handler.user;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDto;
-import service.inter.SignupService;
+import service.inter.MemberService;
 
 @Controller
 public class SignUpHandler {
 	
 	@Resource
-	private SignupService signupService;
+	private MemberService memberService;
 	
 	//회원가입 폼으로 이동
 	@RequestMapping("/signup")
@@ -35,7 +33,7 @@ public class SignUpHandler {
 		
 		ModelAndView mav = new ModelAndView("user/pro/signUpPro");
 
-		mav.addObject("result", signupService.RegisteMember(member));
+		mav.addObject("result", memberService.registeMember(member));
 		
 		return mav;
 	}	
@@ -45,7 +43,7 @@ public class SignUpHandler {
 	@RequestMapping("/signup/emailcheck")
 	public String checkEmail(String member_email) {
 
-		return Integer.toString(signupService.CheckDuplicateForEmail(member_email));
+		return Integer.toString(memberService.checkDuplicateForEmail(member_email));
 	}
 	
 	//닉네임 중복 체크
@@ -53,7 +51,7 @@ public class SignUpHandler {
 	@RequestMapping("/signup/nicknamecheck")
 	public String checkNickname(String nickname) {
 		
-	    return Integer.toString(signupService.CheckDuplicateForNickname(nickname));
+	    return Integer.toString(memberService.checkDuplicateForNickname(nickname));
 	}
 	
 	//이메일 인증
@@ -62,7 +60,8 @@ public class SignUpHandler {
 		
 		ModelAndView mav = new ModelAndView("user/signup/mailConfirmForm");
 		
-		mav.addObject("codeMsg", signupService.SendMailGetCode(member_email));
+		String codeMsg = memberService.sendMailGetCode(member_email);
+		mav.addObject("codeMsg", codeMsg);
 		
 		return mav;
 	}

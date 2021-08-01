@@ -14,15 +14,15 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="/gonggu/posts/post?post_id=${hitPostDto[0].post_id}">		
-														<img src="${hitPostDto[0].image}" class="mainPostImag">	
+													<a href="/gonggu/posts/post?post_id=${posts[0].post_id}">		
+														<img src="${posts[0].image}" class="mainPostImag">	
 													</a>		
 												</div>	
 																
 												<div class="font-GD mar-top-5"> 
-													<span class="mainProdName">[${hitPostDto[0].product_name}]<br></span>
-													<span class="mainPostTitle">${hitPostDto[0].post_title}<br></span>
-													<span class="mainPostMount">${hitPostDto[0].current_amount}개 <span style="color: grey;">신청</span></span>
+													<span class="mainProdName">[${posts[0].product_name}]<br></span>
+													<span class="mainPostTitle">${posts[0].post_title}<br></span>
+													<span class="mainPostMount">${posts[0].current_amount}개 <span style="color: grey;">신청</span></span>
 												</div>
 											</div>			
 										</div>	
@@ -30,15 +30,15 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="/gonggu/posts/post?post_id=${hitPostDto[1].post_id}">		
-														<img src="${hitPostDto[1].image}" class="mainPostImag">		
+													<a href="/gonggu/posts/post?post_id=${posts[1].post_id}">		
+														<img src="${posts[1].image}" class="mainPostImag">		
 													</a>	
 												</div>	
 																
 												<div class="font-GD mar-top-5"> 
-													<span class="mainProdName ">[${hitPostDto[1].product_name}]<br></span>
-													<span class="mainPostTitle">${hitPostDto[1].post_title}<br></span>
-													<span class="mainPostMount">${hitPostDto[1].current_amount}명 <span style="color: grey;">신청</span></span>
+													<span class="mainProdName ">[${posts[1].product_name}]<br></span>
+													<span class="mainPostTitle">${posts[1].post_title}<br></span>
+													<span class="mainPostMount">${posts[1].current_amount}명 <span style="color: grey;">신청</span></span>
 												</div>	
 											</div>		
 										</div>
@@ -46,15 +46,15 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="/gonggu/posts/post?post_id=${hitPostDto[2].post_id}">		
-														<img src="${hitPostDto[2].image}" class="mainPostImag">
+													<a href="/gonggu/posts/post?post_id=${posts[2].post_id}">		
+														<img src="${posts[2].image}" class="mainPostImag">
 													</a>			
 												</div>	
 																
 												<div class="font-GD mar-top-5"> 
-													<span class="mainProdName ">[${hitPostDto[2].product_name}]<br></span>
-													<span class="mainPostTitle">${hitPostDto[2].post_title}<br></span>
-													<span class="mainPostMount">${hitPostDto[2].current_amount}명 <span style="color: grey;">신청</span></span>
+													<span class="mainProdName ">[${posts[2].product_name}]<br></span>
+													<span class="mainPostTitle">${posts[2].post_title}<br></span>
+													<span class="mainPostMount">${posts[2].current_amount}명 <span style="color: grey;">신청</span></span>
 												</div>
 											</div>		
 										</div>	
@@ -68,15 +68,15 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">	
-													<a href="/gonggu/posts/post?post_id=${hitPostDto[3].post_id}">		
-														<img src="${hitPostDto[3].image}" class="mainPostImag">		
+													<a href="/gonggu/posts/post?post_id=${posts[3].post_id}">		
+														<img src="${posts[3].image}" class="mainPostImag">		
 													</a>	
 												</div>	
 																
 												<div class="font-GD mar-top-5"> 
-													<span class="mainProdName ">[${hitPostDto[3].product_name}]<br></span>
-													<span class="mainPostTitle">${hitPostDto[3].post_title}<br></span>
-													<span class="mainPostMount">${hitPostDto[3].current_amount}명 <span style="color: grey;">신청</span></span>
+													<span class="mainProdName ">[${posts[3].product_name}]<br></span>
+													<span class="mainPostTitle">${posts[3].post_title}<br></span>
+													<span class="mainPostMount">${posts[3].current_amount}명 <span style="color: grey;">신청</span></span>
 												</div>			
 											</div>
 										</div>
@@ -84,15 +84,15 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">		
-													<a href="/gonggu/posts/post?post_id=${hitPostDto[4].post_id}">	
-														<img src="${hitPostDto[4].image}" class="mainPostImag">			
+													<a href="/gonggu/posts/post?post_id=${posts[4].post_id}">	
+														<img src="${posts[4].image}" class="mainPostImag">			
 													</a>
 												</div>	
 																
 												<div class="font-GD mar-top-5"> 
-													<span class="mainProdName ">[${hitPostDto[4].product_name}]<br></span>
-													<span class="mainPostTitle">${hitPostDto[4].post_title}<br></span>
-													<span class="mainPostMount">${hitPostDto[4].current_amount}명 <span style="color: grey;">신청</span></span>
+													<span class="mainProdName ">[${posts[4].product_name}]<br></span>
+													<span class="mainPostTitle">${posts[4].post_title}<br></span>
+													<span class="mainPostMount">${posts[4].current_amount}명 <span style="color: grey;">신청</span></span>
 												</div>			
 											</div>
 										</div>

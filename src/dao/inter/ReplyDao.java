@@ -8,14 +8,14 @@ import util.PageInfo;
 
 public interface ReplyDao {	
 
-	//리뷰 페이지
-	public List<ReplyContentDto> getReplyContentFromReview(int review_num);
-	public int uploadReplyFromReview(ReplyDto replyDto);
-	public int deleteReplyFromReview(int reply_num);
+	public List<ReplyContentDto> getReplys(int review_num);
+	public List<ReplyContentDto> getMyReplysByInfo(PageInfo info);
 	
-	//마이페이지
-	public List<ReplyDto> getMyReply(int member_id);
+	public int insertReply(ReplyDto replyDto);
+	public int deleteReply(int reply_num);
+	
 	public int getMyReplyCount(int member_id);
-	public List<ReplyDto> getMyReplyList(PageInfo info);	
-
+	
+	public List<ReplyContentDto> getMyReplys(int member_id);//미사용(리팩토링 후)
+		
 }

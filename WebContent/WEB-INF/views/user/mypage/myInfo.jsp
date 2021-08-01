@@ -19,25 +19,25 @@
 						<div class="col-md-12 col-xs-12">
 							<div class="mar-top-20">
 								<h6 class="text-color-g2">닉네임</h6>
-								<h4>${memberDto.nickname}</h4>
+								<h4>${member.nickname}</h4>
 								<hr>
 							</div>
 							
 							<div class="mar-top-20">
 								<h6 class="text-color-g2">이메일</h6>
-								<h4>${memberDto.member_email}</h4>
+								<h4>${member.member_email}</h4>
 								<hr>
 							</div>
 							
 							<div class="mar-top-20">
 								<h6 class="text-color-g2">전화번호</h6>
-								<h4>${memberDto.tel}</h4>
+								<h4>${member.tel}</h4>
 								<hr>
 							</div>
 							
 							<div class="mar-top-20">
 								<h6 class="text-color-g2">가입날짜</h6>
-								<h4><fmt:formatDate value="${memberDto.join_date}" pattern="yyyy-MM-dd"/></h4>
+								<h4><fmt:formatDate value="${member.join_date}" pattern="yyyy-MM-dd"/></h4>
 								<hr>
 							</div>
 							
@@ -49,10 +49,10 @@
 								</div>
 							</c:if>
 							
-							<c:if test="${memberDto.birth_date ne null}">
+							<c:if test="${member.birth_date ne null}">
 								<div class="mar-top-20">
 									<h6 class="text-color-g2">생년월일</h6>
-									<fmt:parseDate value="${memberDto.birth_date}" var="Date" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate value="${member.birth_date}" var="Date" pattern="yyyy-MM-dd"/>
 									<h4><fmt:formatDate value="${Date}" pattern="yyyy-MM-dd"/></h4>
 									<hr>
 								</div>
