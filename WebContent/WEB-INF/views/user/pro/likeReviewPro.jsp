@@ -11,6 +11,7 @@
 		<script type="text/javascript">
 			<c:if test="${result eq 0}">
 				alert("이미 추천한 리뷰입니다.");
+				location.href="/gonggu/reviews/review?review_num=${review_num}";
 			</c:if>
 			
 			<c:if test="${result eq 1}">

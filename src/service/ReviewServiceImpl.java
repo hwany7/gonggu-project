@@ -68,7 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDao.addReadCount(review_num);
 		
 		List<ReplyContentDto> replys = replyDao.getReplys(review_num);
-		map.put("replyContentDtos", replys);
+		map.put("replys", replys);
 	
 		return map;
 	}
