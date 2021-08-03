@@ -1,11 +1,16 @@
-# GongGu-Project
+# GongGu-Project(ver_2.... / 진행중~)
 
 1. 프로젝트 개요
-- Spring Web MVC을 활용한 공동구매 기능을 제공하는 웹사이트 제작
-- 메이븐을 활용하지 않고 직접 .jar 파일을 추가하면서 구현
-- 본 프로젝트는 능력내에서 빠르게 프로젝트를 완성하는 것에 중점을 둠
+- 공동구매 기능을 제공하는 웹사이트 제작
+- 스프링 레거시 프로젝트 + 직접 .jar 파일 추가 방식 사용 (원시적)
+- MyBatis, Oracle RDBS 사용
 
-2. 프로젝트 구현 기능
+2. 개발 버전
+- Java SE Development Kit 8 241
+- Apache Tomcat 9.0
+- Oracle Database 11g Express Edition
+
+3. 프로젝트 구현 기능
 - 로그인 기능 [2021-0617]
 - 로그아웃 기능 [2021-0618]
 - 휴면계정 활성화 기능 [2021-0618]
@@ -39,13 +44,6 @@
 - 내 정보 수정하기[2021-0730]
 - 회원 탈퇴하기[2021-0801]
 
-
-
-3. 개발 버전
-- Java SE Development Kit 8 241
-- Apache Tomcat 9.0
-- Oracle Database 11g Express Edition
-
 4. 저장소
 - 로컬 저장소 : D:/개발/프로젝트/공동구매-프로젝트/GongGu-Project/gonggu
 - 원격 저장소 : https://github.com/hwany7/GongGu-Project.git
@@ -53,6 +51,7 @@
 5. 추가 라이브러리
 - Bootstrap v3.3.2
 - jquery-3.5.1
+- ckEdit4-2020
 
 6. 사용한 jar 목록
 - servlet-api.jar [2021-0616]

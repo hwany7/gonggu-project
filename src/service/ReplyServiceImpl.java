@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.inter.ReplyDao;
-import dao.inter.ReviewDao;
+import dao.inter.ReplyRepository;
+import dao.inter.ReviewRepository;
 import dto.ReplyDto;
 import dto.join.ReplyContentDto;
 import service.inter.PageService;
@@ -21,10 +21,10 @@ import util.PageInfo;
 public class ReplyServiceImpl implements ReplyService {
 	
 	@Resource
-	private ReplyDao replyDao;
+	private ReplyRepository replyDao;
 	
 	@Resource
-	private ReviewDao reviewDao; 
+	private ReviewRepository reviewDao; 
 	
 	@Resource
 	private PageService pageService;

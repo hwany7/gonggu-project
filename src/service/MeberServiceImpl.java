@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import dao.inter.MemberDao;
+import dao.inter.MemberRepository;
 import dto.MemberDto;
 import service.inter.MemberService;
 import util.MailSend;
@@ -19,8 +19,7 @@ import util.RandomCode;
 @Service
 public class MeberServiceImpl implements MemberService{
 	
-	@Resource
-	private MemberDao memberDao;
+	private MemberRepository memberDao;
 	
 	//메인 로그인 방식
 	@Override

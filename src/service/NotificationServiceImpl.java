@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import dao.inter.NotificationDao;
+import dao.inter.NotificationRepository;
 import dto.NotificationDto;
 import service.inter.NotificationService;
 
@@ -14,7 +14,7 @@ import service.inter.NotificationService;
 public class NotificationServiceImpl implements NotificationService {
 	
 	@Resource
-	private NotificationDao notificationDao;
+	private NotificationRepository notificationDao;
 	
 	//알림 받아오기
 	@Override

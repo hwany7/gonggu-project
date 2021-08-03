@@ -16,7 +16,7 @@
 						http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<context:component-scan base-package="bean"/>
-	<context:component-scan base-package="handler"/>
+	<context:component-scan base-package="controller"/>
 	<context:component-scan base-package="dao"/>
 	<context:component-scan base-package="service"/>
 	

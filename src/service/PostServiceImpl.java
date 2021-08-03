@@ -15,9 +15,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.inter.ApplicationDao;
-import dao.inter.PostDao;
-import dao.inter.ReviewDao;
+import dao.inter.ApplicationRepository;
+import dao.inter.PostRepository;
+import dao.inter.ReviewRepository;
 import dto.ApplicationDto;
 import dto.ReviewDto;
 import dto.join.PostContentDto;
@@ -31,13 +31,13 @@ import util.PageInfo;
 public class PostServiceImpl implements PostService {
 	
 	@Resource
-	private PostDao postDao;
+	private PostRepository postDao;
 	
 	@Resource
-	private ApplicationDao applicationDao;
+	private ApplicationRepository applicationDao;
 	
 	@Resource
-	private ReviewDao reviewDao;
+	private ReviewRepository reviewDao;
 	
 	@Resource
 	private PageService pageService;

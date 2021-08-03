@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import dao.inter.MemberDao;
-import dao.inter.PaymentDao;
+import dao.inter.MemberRepository;
+import dao.inter.PaymentRepository;
 import dto.MemberDto;
 import dto.PaymentDto;
 import service.inter.PaymentService;
@@ -14,10 +14,10 @@ import service.inter.PaymentService;
 public class PaymentServiceImpl implements PaymentService {
 
 	@Resource
-	private MemberDao memberDao;
+	private MemberRepository memberDao;
 	
 	@Resource
-	private PaymentDao paymentDao;
+	private PaymentRepository paymentDao;
 	
 	
 	//결제폼에 사용할 회원 정보 가져오기(지금은 간단해서 멤버정보)

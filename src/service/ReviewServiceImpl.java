@@ -9,9 +9,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.inter.PaymentDao;
-import dao.inter.ReplyDao;
-import dao.inter.ReviewDao;
+import dao.inter.PaymentRepository;
+import dao.inter.ReplyRepository;
+import dao.inter.ReviewRepository;
 import dto.ReviewDto;
 import dto.join.ReplyContentDto;
 import dto.join.ReviewContentDto;
@@ -23,13 +23,13 @@ import util.PageInfo;
 public class ReviewServiceImpl implements ReviewService {
 
 	@Resource
-	private ReviewDao reviewDao;
+	private ReviewRepository reviewDao;
 	
 	@Resource
-	private ReplyDao replyDao;
+	private ReplyRepository replyDao;
 	
 	@Resource
-	private PaymentDao paymentDao;
+	private PaymentRepository paymentDao;
 	
 	@Resource
 	private PageService pageService;
