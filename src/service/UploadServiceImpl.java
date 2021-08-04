@@ -6,11 +6,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -22,8 +22,13 @@ import util.UploadPath;
 @Service
 public class UploadServiceImpl implements UploadService{
 	
-	@Resource
-	private UploadPath uploadPath;
+	private final UploadPath uploadPath;
+	
+	@Autowired
+	public UploadServiceImpl(UploadPath uploadPath) {
+		
+		this.uploadPath = uploadPath;
+	}
 	
 	//ckEdit4 이미지 파일 서버로 업로드
 	@Override

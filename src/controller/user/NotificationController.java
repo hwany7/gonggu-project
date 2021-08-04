@@ -2,8 +2,7 @@ package controller.user;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +16,13 @@ import service.inter.NotificationService;
 @Controller
 public class NotificationController {
 	
-	@Resource
-	private NotificationService notificationService;
+	private final NotificationService notificationService;
+	
+	@Autowired
+	public NotificationController(NotificationService notificationService) {
+		
+		this.notificationService = notificationService;
+	}
 	
 	//알림 얻기
 	@RequestMapping("/notifications")

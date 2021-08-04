@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +19,17 @@ import util.PageInfo;
 @Service
 public class ReplyServiceImpl implements ReplyService {
 	
-	@Resource
-	private ReplyRepository replyDao;
+	private final ReplyRepository replyRepository;
+	private final ReviewRepository reviewRepository; 
+	private final PageService pageService;
 	
-	@Resource
-	private ReviewRepository reviewDao; 
-	
-	@Resource
-	private PageService pageService;
+	@Autowired
+	public ReplyServiceImpl(ReplyRepository replyRepository, ReviewRepository reviewRepository,  PageService pageService) {
+		
+		this.replyRepository = replyRepository;
+		this.reviewRepository = reviewRepository;
+		this.pageService = pageService;
+	}
 	
 	@Transactional
 	@Override
@@ -35,10 +37,10 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		ReplyDto replyDto = new ReplyDto(member_id, review_num, content);
 		
-		int result = replyDao.insertReply(replyDto);
+		int result = replyRepository.insertReply(replyDto);
 		
 		if(result == 1) {
-			reviewDao.addReplyCount(review_num);
+			reviewRepository.addReplyCount(review_num);
 		}
 		
 		return result;
@@ -48,10 +50,10 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public int deleteReply(int reply_num, int review_num) {
 		
-		int result = replyDao.deleteReply(reply_num);;
+		int result = replyRepository.deleteReply(reply_num);;
 
 		if(result == 1) {
-			reviewDao.subtractReplyCount(review_num);
+			reviewRepository.subtractReplyCount(review_num);
 			
 		}
 
@@ -63,7 +65,7 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		int cnt = replyDao.getMyReplyCount(member_id);
+		int cnt = replyRepository.getMyReplyCount(member_id);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -71,7 +73,7 @@ public class ReplyServiceImpl implements ReplyService {
 			
 			info.setMember_id(member_id);
 			
-			List<ReplyContentDto> replys = replyDao.getMyReplysByInfo(info);	
+			List<ReplyContentDto> replys = replyRepository.getMyReplysByInfo(info);	
 					
 			map.put("replys", replys);
 		}

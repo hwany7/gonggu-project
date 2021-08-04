@@ -2,9 +2,8 @@ package dao.mybatis;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.NotificationRepository;
@@ -13,8 +12,13 @@ import dto.NotificationDto;
 @Repository
 public class MyBatisNotificationRepository implements NotificationRepository {
 	
-	@Resource
-	private SqlSession session;
+	private final SqlSession session;
+	
+	@Autowired
+	public MyBatisNotificationRepository(SqlSession session) {
+		
+		this.session = session;
+	}
 	
 	//ID로 안 읽은 알림 받아오기
 	@Override

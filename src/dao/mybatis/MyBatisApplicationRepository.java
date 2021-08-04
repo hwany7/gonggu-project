@@ -2,9 +2,8 @@ package dao.mybatis;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.ApplicationRepository;
@@ -13,8 +12,13 @@ import dto.ApplicationDto;
 @Repository
 public class MyBatisApplicationRepository implements ApplicationRepository {
 	
-	@Resource
-	private SqlSession session;
+	private final SqlSession session;
+	
+	@Autowired
+	public MyBatisApplicationRepository(SqlSession session) {
+		
+		this.session = session;
+	}
 	
 	//app id 찾기
 	@Override

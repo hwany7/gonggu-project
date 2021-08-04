@@ -1,7 +1,6 @@
 package controller.user;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -13,8 +12,13 @@ import service.inter.MemberService;
 @Controller
 public class LoginController {
 
-	@Resource
-	private MemberService memberService;
+	private final MemberService memberService;
+	
+	@Autowired
+	public LoginController(MemberService memberService) {
+		
+		this.memberService = memberService;
+	}
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/login")

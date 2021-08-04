@@ -3,9 +3,8 @@ package dao.mybatis;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.ReviewRepository;
@@ -16,8 +15,14 @@ import util.PageInfo;
 @Repository
 public class MyBatisReviewRepository implements ReviewRepository{
 	
-	@Resource
-	private SqlSession session;
+	private final SqlSession session;
+	
+	@Autowired
+	public MyBatisReviewRepository(SqlSession session) {
+		
+		this.session = session;
+	}
+	
 	
 	//post Content 에 들어갈 탑리뷰 3개
 	@Override

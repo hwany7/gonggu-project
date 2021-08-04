@@ -1,7 +1,6 @@
 package controller.user;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -13,9 +12,14 @@ import service.inter.ReplyService;
 @Controller
 public class ReplyController {
 	
-	@Resource
-	private ReplyService replyService;
-
+	private final ReplyService replyService;
+	
+	@Autowired
+	public ReplyController(ReplyService replyService) {
+		
+		this.replyService = replyService;
+	}
+	
 	//댓글 작성하기
 	@RequestMapping("/reviews/review/reply/writepro")
 	public ModelAndView writeReplyPro(int review_num, String content){

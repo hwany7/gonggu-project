@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,23 +21,25 @@ import util.PageInfo;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-	@Resource
-	private ReviewRepository reviewDao;
+	private final ReviewRepository reviewRepository;
+	private final ReplyRepository replyRepository;
+	private final PaymentRepository paymentRepository;
+	private final PageService pageService;
 	
-	@Resource
-	private ReplyRepository replyDao;
-	
-	@Resource
-	private PaymentRepository paymentDao;
-	
-	@Resource
-	private PageService pageService;
+	@Autowired
+	public ReviewServiceImpl(ReviewRepository reviewRepository, ReplyRepository replyRepository, PaymentRepository paymentRepository, PageService pageService) {
+		
+		this.reviewRepository = reviewRepository;
+		this.replyRepository = replyRepository;
+		this.paymentRepository = paymentRepository;
+		this.pageService = pageService;
+	}
 	
 	@Override
 	public Map<String, Object> getReviewList(String pageNum, String search) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		int cnt = (search == null) ? reviewDao.getReviewCount() : reviewDao.getReviewCountBySearch(search);
+		int cnt = (search == null) ? reviewRepository.getReviewCount() : reviewRepository.getReviewCountBySearch(search);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -46,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			info.setSearch(search);	
 			
-			List<ReviewContentDto> reviews = reviewDao.getReviewsByInfo(info);	
+			List<ReviewContentDto> reviews = reviewRepository.getReviewsByInfo(info);	
 								
 			map.put("reviews", pageService.preprocessingFromReviewList(reviews));
 		}
@@ -62,12 +63,12 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		ReviewContentDto review = reviewDao.getReview(review_num);
+		ReviewContentDto review = reviewRepository.getReview(review_num);
 		map.put("review", review);	
 		
-		reviewDao.addReadCount(review_num);
+		reviewRepository.addReadCount(review_num);
 		
-		List<ReplyContentDto> replys = replyDao.getReplys(review_num);
+		List<ReplyContentDto> replys = replyRepository.getReplys(review_num);
 		map.put("replys", replys);
 	
 		return map;
@@ -77,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewContentDto getReview(int review_num) {
 		
-		ReviewContentDto review = reviewDao.getReview(review_num);
+		ReviewContentDto review = reviewRepository.getReview(review_num);
 		
 		return review;
 	}
@@ -93,10 +94,10 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("member_id", member_id);
 		map.put("review_num", review_num);
 		
-		if( reviewDao.getCheckLike(map) == 0 ) {
+		if( reviewRepository.getCheckLike(map) == 0 ) {
 			
-			reviewDao.insertLike(map);
-			result = reviewDao.addLikeCount(review_num);
+			reviewRepository.insertLike(map);
+			result = reviewRepository.addLikeCount(review_num);
 		}
 	
 		return result;
@@ -107,11 +108,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int deleteReview(int review_num) {
 		
-		ReviewDto reviewDto = reviewDao.getReviewDto(review_num);
-		int result = reviewDao.insertReviewToDeletedReview(reviewDto);
+		ReviewDto reviewDto = reviewRepository.getReviewDto(review_num);
+		int result = reviewRepository.insertReviewToDeletedReview(reviewDto);
 		
 		if(result == 1) {
-			result = reviewDao.deleteReview(review_num);
+			result = reviewRepository.deleteReview(review_num);
 		}
 		
 		return result;
@@ -122,7 +123,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public Map<String, Object> getMyReviewList(String pageNum, int member_id) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		int cnt = reviewDao.getMyReviewCount(member_id);
+		int cnt = reviewRepository.getMyReviewCount(member_id);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -130,7 +131,7 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			info.setMember_id(member_id);
 			
-			List<ReviewContentDto> reviews = reviewDao.getMyReviewsByInfo(info);	
+			List<ReviewContentDto> reviews = reviewRepository.getMyReviewsByInfo(info);	
 								
 			map.put("reviews", pageService.preprocessingFromReviewList(reviews));
 		}
@@ -145,10 +146,10 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int addReview(ReviewDto reviewDto) {
 		
-		int result = reviewDao.insertReview(reviewDto);
+		int result = reviewRepository.insertReview(reviewDto);
 			
 		if(result == 1) {
-			result = paymentDao.updateWritable(reviewDto.getPayment_id());
+			result = paymentRepository.updateWritable(reviewDto.getPayment_id());
 		}
 
 		return result;
@@ -158,7 +159,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int modifyReview(ReviewDto reviewDto) {
 		
-		return reviewDao.updateReview(reviewDto);
+		return reviewRepository.updateReview(reviewDto);
 	}
 	
 }

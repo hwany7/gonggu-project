@@ -2,8 +2,7 @@ package controller.user;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -23,21 +22,23 @@ import util.AppCancelReason;
 @Controller
 public class MyPageController {
 	
-	@Resource
-	private PostService postService;
-
-	@Resource
-	private PaymentService paymentService;
-
-	@Resource
-	private ReviewService reviewService;
-
-	@Resource
-	private ReplyService replyService;
-
-	@Resource
-	private MemberService memberService;
+	private final PostService postService;
+	private final PaymentService paymentService;
+	private final ReviewService reviewService;
+	private final ReplyService replyService;
+	private final MemberService memberService;
 	
+	@Autowired
+	public MyPageController(PostService postService, PaymentService paymentService, ReviewService reviewService, ReplyService replyService, MemberService memberService) {
+		
+		this.postService = postService;
+		this.paymentService = paymentService;
+		this.reviewService = reviewService;
+		this.replyService = replyService;
+		this.memberService = memberService;
+	}
+
+
 	@RequestMapping("/mypage/posts/payable")
 	public ModelAndView payable(String pageNum) {
 		

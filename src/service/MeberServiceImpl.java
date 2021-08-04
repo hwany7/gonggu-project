@@ -3,9 +3,9 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -19,9 +19,19 @@ import util.RandomCode;
 @Service
 public class MeberServiceImpl implements MemberService{
 	
-	private MemberRepository memberDao;
+	private final MemberRepository memberRepository;
 	
-	//메인 로그인 방식
+	@Autowired
+    public MeberServiceImpl(MemberRepository memberRepository) {
+		
+        this.memberRepository = memberRepository;
+    }
+	
+	
+	/**
+	 * 메인 로그인 방식
+	 */
+	
 	@Override
 	public int directLogin(String member_email, String password) {
 		
@@ -32,7 +42,7 @@ public class MeberServiceImpl implements MemberService{
 		map.put("member_email", member_email);
 		map.put("password", password);
 		
-		MemberDto memberDto = memberDao.getMemberByEmailAndPassword(map);
+		MemberDto memberDto = memberRepository.getMemberByEmailAndPassword(map);
 		
 		if (memberDto == null) {
 			result = 0;
@@ -63,10 +73,10 @@ public class MeberServiceImpl implements MemberService{
 	public int activateUser(int member_id, String password) {
 		
 		int result = 0;
-		MemberDto memberDto = memberDao.getMember(member_id);
+		MemberDto memberDto = memberRepository.getMember(member_id);
 		
 		if(memberDto.getPassword().equals(password)) {
-			memberDao.activateStatus(member_id);
+			memberRepository.activateStatus(member_id);
 			result = 1;
 		}
 		
@@ -77,14 +87,14 @@ public class MeberServiceImpl implements MemberService{
 	@Override
 	public MemberDto getMember(int member_id) {
 
-		return memberDao.getMember(member_id);
+		return memberRepository.getMember(member_id);
 	}
 	
 	//멤버 체크하기
 	@Override
 	public int checkMember(int member_id, String password) {
 		
-		MemberDto memberDto = memberDao.getMember(member_id);
+		MemberDto memberDto = memberRepository.getMember(member_id);
 
 		int result = (memberDto.getPassword().equals(password)) ? 1 : 0;
 		
@@ -95,7 +105,7 @@ public class MeberServiceImpl implements MemberService{
 	@Override
 	public int modifyMember(MemberDto member) {
 
-		int result = memberDao.updateMember(member);
+		int result = memberRepository.updateMember(member);
 		
 		if(result == 1) {
 			((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().setAttribute("nickname", member.getNickname());
@@ -108,7 +118,7 @@ public class MeberServiceImpl implements MemberService{
 	@Override
 	public int signout(int member_id, String password) {
 		
-		MemberDto member = memberDao.getMember(member_id);
+		MemberDto member = memberRepository.getMember(member_id);
 		
 		int result = 0;
 
@@ -117,7 +127,7 @@ public class MeberServiceImpl implements MemberService{
 			map.put("member_id", member_id);
 			map.put("member_status", "inactive");
 			
-			result = memberDao.updateStatus(map);
+			result = memberRepository.updateStatus(map);
 
 			((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
 		}
@@ -129,14 +139,14 @@ public class MeberServiceImpl implements MemberService{
 	@Override
 	public int checkDuplicateForEmail(String member_email) {
 		
-		return memberDao.checkEmail(member_email);
+		return memberRepository.checkEmail(member_email);
 	}
 	
 	//닉네임 중복 검사 기능
 	@Override
 	public int checkDuplicateForNickname(String nickname) {
 		
-		return memberDao.checkNickname(nickname);
+		return memberRepository.checkNickname(nickname);
 	}
 	
 	//메일 인증 기능
@@ -156,7 +166,7 @@ public class MeberServiceImpl implements MemberService{
 	@Override
 	public int registeMember(MemberDto member) {
 				
-		return memberDao.insertMember(member);
+		return memberRepository.insertMember(member);
 	}
 
 }

@@ -10,8 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,6 @@ import dao.inter.ApplicationRepository;
 import dao.inter.PostRepository;
 import dao.inter.ReviewRepository;
 import dto.ApplicationDto;
-import dto.ReviewDto;
 import dto.join.PostContentDto;
 import dto.join.ReviewContentDto;
 import service.inter.PageService;
@@ -30,23 +28,25 @@ import util.PageInfo;
 @Service
 public class PostServiceImpl implements PostService {
 	
-	@Resource
-	private PostRepository postDao;
+	private final PostRepository postRepository;
+	private final ApplicationRepository applicationRepository;
+	private final ReviewRepository reviewRepository;
+	private final PageService pageService;
 	
-	@Resource
-	private ApplicationRepository applicationDao;
-	
-	@Resource
-	private ReviewRepository reviewDao;
-	
-	@Resource
-	private PageService pageService;
+	@Autowired
+    public PostServiceImpl(PostRepository postRepository, ApplicationRepository applicationRepository, ReviewRepository reviewRepository, PageService pageService) {
+		
+        this.postRepository = postRepository;
+        this.applicationRepository = applicationRepository;
+        this.reviewRepository = reviewRepository;
+        this.pageService = pageService;
+    }
 	
 	//메인페이지 - 게시글 얻기
 	@Override
 	public List<PostContentDto> getMainPost() {
 		
-		return postDao.getPostsTopFive();
+		return postRepository.getPostsTopFive();
 	}
 	
 	//포스트 페이지 - 포스트 정보 얻기
@@ -56,11 +56,11 @@ public class PostServiceImpl implements PostService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//Post
-		PostContentDto post = postDao.getPost(post_id);
+		PostContentDto post = postRepository.getPost(post_id);
 		map.put("post", post);
 		
 		//Review	
-		List<ReviewContentDto> reviews = reviewDao.getReviewsTopThree(post.getPost_id());
+		List<ReviewContentDto> reviews = reviewRepository.getReviewsTopThree(post.getPost_id());
 			
 		if(reviews != null) {		
 			reviews = pageService.preprocessingFromReviewList(reviews);
@@ -79,13 +79,13 @@ public class PostServiceImpl implements PostService {
 		int cnt = 0;
 			
 		if(category_id == 0) {
-			cnt = (search == null) ? postDao.getPostCount() : postDao.getPostCountBySearch(search);
+			cnt = (search == null) ? postRepository.getPostCount() : postRepository.getPostCountBySearch(search);
 		}else if(category_id == -1) {
-			cnt = (search == null) ? postDao.getPostCountAboutFinishedStatus() : postDao.getPostCountAboutFinishedStatusBySearch(search);
+			cnt = (search == null) ? postRepository.getPostCountAboutFinishedStatus() : postRepository.getPostCountAboutFinishedStatusBySearch(search);
 		}else {
 			map.put("category_id", category_id);
 			map.put("search", search);
-			cnt = (search == null) ? postDao.getPostCountByCategory(category_id) : postDao.getPostCountByCategoryAndSerarch(map);
+			cnt = (search == null) ? postRepository.getPostCountByCategory(category_id) : postRepository.getPostCountByCategoryAndSerarch(map);
 			map.clear();
 		}
 		
@@ -96,8 +96,8 @@ public class PostServiceImpl implements PostService {
 			info.setSearch(search);	
 			info.setCategory_id(category_id);
 								
-			List<PostContentDto> posts = (category_id == 0) ? postDao.getPostsByInfo(info) :
-														(category_id == -1) ? postDao.getPostsByInfoAboutFinishedStatus(info) : postDao.getPostsByInfoAboutCategory(info);			
+			List<PostContentDto> posts = (category_id == 0) ? postRepository.getPostsByInfo(info) :
+														(category_id == -1) ? postRepository.getPostsByInfoAboutFinishedStatus(info) : postRepository.getPostsByInfoAboutCategory(info);			
 			
 			map.put("posts", pageService.preprocessingFromPostList(posts));
 		}
@@ -119,8 +119,8 @@ public class PostServiceImpl implements PostService {
 		map.put("amount", amount);
 		
 		//게시글의 신청 정보를 가져온다
-		int curamount = postDao.getCurrentAmount(post_id);
-		int minamount = postDao.getMinAmount(post_id);
+		int curamount = postRepository.getCurrentAmount(post_id);
+		int minamount = postRepository.getMinAmount(post_id);
 		int amountCheck = minamount - curamount - amount;
 			
 		// 진행 수량 이상으로 신청시 신청 막는 방어코드
@@ -128,10 +128,10 @@ public class PostServiceImpl implements PostService {
 
 			result = -1;
 		} else {
-			result = applicationDao.insertApplication(map);
+			result = applicationRepository.insertApplication(map);
 			
 			if(result == 1) {
-				postDao.updateCurrentAmount(map);
+				postRepository.updateCurrentAmount(map);
 			}
 		}
 		
@@ -146,7 +146,7 @@ public class PostServiceImpl implements PostService {
 		map.put("member_id", member_id);
 		map.put("post_status", post_status);
 
-		int cnt = (post_status.equals("S")) ? postDao.getMyPostCountAboutPayment(member_id) : postDao.getMyPostCountByStatusAndMemberId(map);
+		int cnt = (post_status.equals("S")) ? postRepository.getMyPostCountAboutPayment(member_id) : postRepository.getMyPostCountByStatusAndMemberId(map);
 		
 		PageInfo info = pageService.process(cnt, pageNum);
 		
@@ -155,7 +155,7 @@ public class PostServiceImpl implements PostService {
 			info.setMember_id(member_id);
 			info.setPost_status(post_status);
 					
-			List<PostContentDto> posts = (post_status.equals("S")) ? postDao.getMyPostsByInfoAboutpayement(info) : postDao.getMyPostsByInfoAboutStatus(info);
+			List<PostContentDto> posts = (post_status.equals("S")) ? postRepository.getMyPostsByInfoAboutpayement(info) : postRepository.getMyPostsByInfoAboutStatus(info);
 	
 			map.put("posts", pageService.preprocessingFromPostList(posts));
 		}
@@ -170,12 +170,12 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int cancelApp(int application_id, AppCancelReason reason) {
 		
-		ApplicationDto applicationDto = applicationDao.getApplication(application_id);
+		ApplicationDto applicationDto = applicationRepository.getApplication(application_id);
 
-		int result = applicationDao.deleteApplication(application_id);
+		int result = applicationRepository.deleteApplication(application_id);
 		
 		if(result == 1) {
-			applicationDao.decreaseCurrentAmount(applicationDto);
+			applicationRepository.decreaseCurrentAmount(applicationDto);
 		}
 		
 		//파일 패스 생성

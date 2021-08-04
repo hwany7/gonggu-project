@@ -14,7 +14,7 @@
 										<div class="col-md-4 col-xs-4">
 											<div class="div-center max-width-400">
 												<div class="mainPostImag">
-													<a href="/gonggu/posts/post?post_id=${posts[0].post_id}">		
+													<a href="/gonggu/posts/post?post_id=${posts[0].post_id}">
 														<img src="${posts[0].image}" class="mainPostImag">	
 													</a>		
 												</div>	

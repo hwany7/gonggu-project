@@ -2,8 +2,7 @@ package service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.inter.NotificationRepository;
@@ -13,18 +12,23 @@ import service.inter.NotificationService;
 @Service
 public class NotificationServiceImpl implements NotificationService {
 	
-	@Resource
-	private NotificationRepository notificationDao;
+	private final NotificationRepository notificationRepository;
+	
+	@Autowired
+    public NotificationServiceImpl(NotificationRepository notificationRepository) {
+		
+        this.notificationRepository = notificationRepository;
+    }
 	
 	//알림 받아오기
 	@Override
 	public List<NotificationDto> getNotification(int member_id) {
 		
 		//알림 가져오기
-		List<NotificationDto> notifications = notificationDao.getNotifications(member_id);
+		List<NotificationDto> notifications = notificationRepository.getNotifications(member_id);
 		
 		//알림 상태 읽기로 바꾸기
-		notificationDao.updateStatusToRead(member_id);
+		notificationRepository.updateStatusToRead(member_id);
 		
 		return notifications;
 	}
@@ -34,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
 	public int checkNotificationNotRead(int member_id) {
 		
 		int result = 0;
-		int count = notificationDao.checkStatusNotRead(member_id);
+		int count = notificationRepository.checkStatusNotRead(member_id);
 		
 		if(count != 0) {
 			result = 1;
@@ -47,9 +51,9 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public List<NotificationDto> deleteAllNotification(int member_id) {
 		
-		notificationDao.deleteAllNotification(member_id);
+		notificationRepository.deleteAllNotification(member_id);
 		
-		return notificationDao.getNotifications(member_id);
+		return notificationRepository.getNotifications(member_id);
 	}
 	
 }

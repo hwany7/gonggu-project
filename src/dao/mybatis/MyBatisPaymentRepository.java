@@ -1,8 +1,7 @@
 package dao.mybatis;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.PaymentRepository;
@@ -11,8 +10,13 @@ import dto.PaymentDto;
 @Repository
 public class MyBatisPaymentRepository implements PaymentRepository {
 	
-	@Resource
-	private SqlSession session;
+	private final SqlSession session;
+	
+	@Autowired
+	public MyBatisPaymentRepository(SqlSession session) {
+		
+		this.session = session;
+	}
 	
 	//페이먼트 등록
 	@Override

@@ -2,9 +2,7 @@ package controller.user;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -18,8 +16,13 @@ import service.inter.ReviewService;
 @Controller
 public class ReviewController {
 	
-	@Resource
-	ReviewService reviewService;
+	private final ReviewService reviewService;
+	
+	@Autowired
+	public ReviewController(ReviewService reviewService) {
+		
+		this.reviewService = reviewService;
+	}
 	
 	//리뷰 리스트보기
 	@RequestMapping("/reviews")

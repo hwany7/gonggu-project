@@ -2,9 +2,8 @@ package dao.mybatis;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.inter.MemberRepository;
@@ -13,8 +12,13 @@ import dto.MemberDto;
 @Repository
 public class MyBatisMemberRepository implements MemberRepository {
 	
-	@Resource
-	private SqlSession session;
+	private final SqlSession session;
+	
+	@Autowired
+	public MyBatisMemberRepository(SqlSession session) {
+		
+		this.session = session;
+	}
 	
 	//멤버 가져오기
 	@Override
