@@ -153,7 +153,7 @@ function checkPoll() {
 //리뷰쓰기 폼 체크
 function checkReview(){
 	
-	var title = writeReviewForm.title.value;s
+	var title = writeReviewForm.title.value;
 	var content = $('textarea[name=content]').val();
 
 	if(!title){

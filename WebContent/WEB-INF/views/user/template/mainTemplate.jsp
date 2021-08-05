@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GongGu</title>
+		<link rel="shortcut icon" href="#">
 	</head>
 	<body>
 		<!-- 네이게이션 -->

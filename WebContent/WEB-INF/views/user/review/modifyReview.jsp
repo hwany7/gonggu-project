@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    	<script type="text/javascript">
+		<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+		<script type="text/javascript">
 			$(function(){
 				CKEDITOR.replace( 'editor', {
-					filebrowserUploadUrl: 'reviewImageUpload',
+					filebrowserUploadUrl: '/gonggu/upload/image/ckedit',
 					height : 300,
 					language: 'ko'
 				});
 			});
 		</script>
-		
+	
 		<div class="row">
 			<div class="cropping" style="height: 100px;">
 				<img src="/gonggu/resources/img/tamplate3.jpg">

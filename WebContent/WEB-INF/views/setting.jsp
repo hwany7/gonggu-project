@@ -14,6 +14,5 @@
 <!-- 자바 스크립트 작성 -->
 <script src="${path}/asset/jquery/js/jquery-3.5.1.js"></script> 
 <script src="${path}/asset/bootstrap/js/bootstrap.js"></script>
-<script src="${path}/asset/ckeditor/ckeditor.js"></script>
 <script src="${path}/js/user.js"></script>
 <script src="${path}/js/usercheck.js"></script>
