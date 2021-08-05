@@ -3,12 +3,11 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import dao.inter.MemberRepository;
 import dto.MemberDto;
@@ -33,10 +32,10 @@ public class MeberServiceImpl implements MemberService{
 	 */
 	
 	@Override
-	public int directLogin(String member_email, String password) {
+	public int directLogin(String member_email, String password, HttpServletRequest request) {
 		
 		int result = 0;
-		HttpSession session = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
+		HttpSession session = request.getSession();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_email", member_email);
@@ -107,10 +106,6 @@ public class MeberServiceImpl implements MemberService{
 
 		int result = memberRepository.updateMember(member);
 		
-		if(result == 1) {
-			((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().setAttribute("nickname", member.getNickname());
-		}
-
 		return result;
 	}
 	
@@ -129,7 +124,6 @@ public class MeberServiceImpl implements MemberService{
 			
 			result = memberRepository.updateStatus(map);
 
-			((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
 		}
 
 		return result;

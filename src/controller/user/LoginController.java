@@ -1,10 +1,11 @@
 package controller.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.inter.MemberService;
@@ -33,24 +34,26 @@ public class LoginController {
 	
 	//로그인 기능
 	@RequestMapping("/loginpro")
-	public ModelAndView logInPro(String member_email, String password) {
+	public ModelAndView logInPro(String member_email, String password, HttpServletRequest request) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/loginPro");
 
-		mav.addObject("result", memberService.directLogin(member_email, password));
+		mav.addObject("result", memberService.directLogin(member_email, password, request));
 		
 		return mav;
 	}
 	
 	//휴면 계정 활성화 폼으로 이동
 	@RequestMapping("/login/activatestatus")
-	public ModelAndView activateStatus() {
+	public ModelAndView activateStatus(HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView("user/template/beginTemplate");
 		mav.addObject("page", "/WEB-INF/views/user/login/activateStatus");
 		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
-		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
+		HttpSession session = request.getSession();
+
+		int member_id = Integer.parseInt(session.getAttribute("member_id").toString());
+		session.invalidate();
 
 		mav.addObject("member_id", member_id);
 		
@@ -70,10 +73,10 @@ public class LoginController {
 	
 	//로그 아웃
 	@RequestMapping("/logout")
-	public String logOutPro() {
+	public String logOutPro(HttpServletRequest request) {
 		
-		((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().invalidate();
-	
+		request.getSession().invalidate();
+		
 		return "redirect:/login";
 	}
 	

@@ -2,14 +2,11 @@ package controller.user;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.inter.PostService;
@@ -55,11 +52,11 @@ public class PostController {
 	
 	//구매 신청하기
 	@RequestMapping("/posts/post/applypro")
-	public ModelAndView applyPro(int post_id, int amount) {
+	public ModelAndView applyPro(int post_id, int amount, HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/applyPro");
 		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		int member_id = Integer.parseInt(request.getSession().getAttribute("member_id").toString());
 		
 		mav.addObject("result", postService.addPostApply(member_id, post_id, amount));
 		

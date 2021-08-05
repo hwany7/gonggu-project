@@ -2,11 +2,11 @@ package controller.user;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReviewDto;
@@ -57,11 +57,11 @@ public class ReviewController {
 	
 	//좋아요 누르기
 	@RequestMapping("/reviews/review/likepro")
-	public ModelAndView likeReviewPro(int review_num) {
+	public ModelAndView likeReviewPro(int review_num, HttpServletRequest request) {
 			
 		ModelAndView mav = new ModelAndView("user/pro/likeReviewPro");
 		
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		int member_id = Integer.parseInt(request.getSession().getAttribute("member_id").toString());
 					
 		mav.addObject("result", reviewService.likeReview(member_id, review_num));
 		mav.addObject("review_num", review_num);
@@ -121,11 +121,12 @@ public class ReviewController {
 	
 	//리뷰 작성하기
 	@RequestMapping("/reviews/review/writePro")
-	public ModelAndView writeReviewPro(ReviewDto reviewDto) {
+	public ModelAndView writeReviewPro(ReviewDto reviewDto, HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView("user/pro/writeReviewPro");
 			
-		int member_id = Integer.parseInt(((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("member_id").toString());
+		int member_id = Integer.parseInt(request.getSession().getAttribute("member_id").toString());
+		
 		reviewDto.setMember_id(member_id);
 			
 		mav.addObject("result", reviewService.addReview(reviewDto));

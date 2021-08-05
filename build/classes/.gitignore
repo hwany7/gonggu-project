@@ -1,7 +1,2 @@
-/bean/
-/controller/
-/dao/
-/dto/
-/mybatis/
 /service/
-/util/
+/controller/
