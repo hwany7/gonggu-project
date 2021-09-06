@@ -7,73 +7,73 @@
 
 2. 동작 이미지
 - 로그인 화면
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210617_%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%8F%BC%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)  
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210617_%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%ED%8F%BC%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)  
 
 - 휴면계정 활성화
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210617_%ED%9C%B4%EB%A9%B4%20%EA%B3%84%EC%A0%95%20%ED%99%9C%EC%84%B1%ED%99%94.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210617_%ED%9C%B4%EB%A9%B4%20%EA%B3%84%EC%A0%95%20%ED%99%9C%EC%84%B1%ED%99%94.png?raw=true)
 
 - 이메일 인증
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210621_%EB%A9%94%EC%9D%BC%20%EC%9D%B8%EC%A6%9D.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210621_%EB%A9%94%EC%9D%BC%20%EC%9D%B8%EC%A6%9D.png?raw=true)
 
 - 주소 찾기
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210621_%EC%A7%91%EC%A3%BC%EC%86%8C%20%EC%B0%BE%EA%B8%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210621_%EC%A7%91%EC%A3%BC%EC%86%8C%20%EC%B0%BE%EA%B8%B0.png?raw=true)
 
 - 회원 가입
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210622_%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210622_%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
   
 - 메인 페이지
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210626_%EB%A9%94%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210626_%EB%A9%94%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
   
 - 알림 기능
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210627_%EC%95%8C%EB%A6%BC%20%EA%B8%B0%EB%8A%A5.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210627_%EC%95%8C%EB%A6%BC%20%EA%B8%B0%EB%8A%A5.png?raw=true)
   
 - 포스트 컨텐츠
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210629_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%BB%A8%ED%85%90%EC%B8%A0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210629_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%BB%A8%ED%85%90%EC%B8%A0.png?raw=true)
   
 - 포스트 컨텐츠(2)
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210629_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%BB%A8%ED%85%90%EC%B8%A0(2).png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210629_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%BB%A8%ED%85%90%EC%B8%A0(2).png?raw=true)
   
 - 리뷰 콘텐츠
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210701_%EB%A6%AC%EB%B7%B0%20%EC%BD%98%ED%85%90%EC%B8%A0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210701_%EB%A6%AC%EB%B7%B0%20%EC%BD%98%ED%85%90%EC%B8%A0.png?raw=true)
   
 - 포스트 리뷰
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210701_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EB%A6%AC%EB%B7%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210701_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EB%A6%AC%EB%B7%B0.png?raw=true)
   
 - 리뷰 콘텐츠 댓글
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210702_%EB%A6%AC%EB%B7%B0%20%EC%BD%98%ED%85%90%EC%B8%A0%20%EB%8C%93%EA%B8%80.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210702_%EB%A6%AC%EB%B7%B0%20%EC%BD%98%ED%85%90%EC%B8%A0%20%EB%8C%93%EA%B8%80.png?raw=true)
   
 - 검색창 및 페이징
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210709_%EA%B2%80%EC%83%89%EC%B0%BD%20%EB%B0%8F%20%ED%8E%98%EC%9D%B4%EC%A7%95.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210709_%EA%B2%80%EC%83%89%EC%B0%BD%20%EB%B0%8F%20%ED%8E%98%EC%9D%B4%EC%A7%95.png?raw=true)
   
 - 리뷰 페이지
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210712_%EB%A6%AC%EB%B7%B0%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210712_%EB%A6%AC%EB%B7%B0%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
   
 - 마이 페이지
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210716_%EB%A7%88%EC%9D%B4%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210716_%EB%A7%88%EC%9D%B4%20%ED%8E%98%EC%9D%B4%EC%A7%80.png?raw=true)
   
 - 공동구매 신청 취소
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210718_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%8B%A0%EC%B2%AD%20%EC%B7%A8%EC%86%8C.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210718_%ED%8F%AC%EC%8A%A4%ED%8A%B8%20%EC%8B%A0%EC%B2%AD%20%EC%B7%A8%EC%86%8C.png?raw=true)
   
 - 리뷰작성(에디터)
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210721_%EB%A6%AC%EB%B7%B0%20%EC%9E%91%EC%84%B1.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210721_%EB%A6%AC%EB%B7%B0%20%EC%9E%91%EC%84%B1.png?raw=true)
   
 - 에디터 이미지 업로드
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210723_ckEdit4%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%97%85%EB%A1%9C%EB%93%9C.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210723_ckEdit4%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%97%85%EB%A1%9C%EB%93%9C.png?raw=true)
   
 - 리뷰 수정 버튼
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210724_%EB%A6%AC%EB%B7%B0%20%EC%88%98%EC%A0%95%20%EB%B2%84%ED%8A%BC.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210724_%EB%A6%AC%EB%B7%B0%20%EC%88%98%EC%A0%95%20%EB%B2%84%ED%8A%BC.png?raw=true)
   
 - 내 댓글 보기
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210726_%EB%82%B4%20%EB%8C%93%EA%B8%80%20%EB%B3%B4%EA%B8%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210726_%EB%82%B4%20%EB%8C%93%EA%B8%80%20%EB%B3%B4%EA%B8%B0.png?raw=true)
   
 - 내 정보 보기
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210728_%EB%82%B4%EC%A0%95%EB%B3%B4%20%EB%B3%B4%EA%B8%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210728_%EB%82%B4%EC%A0%95%EB%B3%B4%20%EB%B3%B4%EA%B8%B0.png?raw=true)
   
 - 내 정보 수정하기
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210730_%EB%82%B4%EC%A0%95%EB%B3%B4%20%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210730_%EB%82%B4%EC%A0%95%EB%B3%B4%20%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0.png?raw=true)
   
 - 회원 탈퇴하기
-###![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210801_%ED%9A%8C%EC%9B%90%20%ED%83%88%ED%87%B4%ED%95%98%EA%B8%B0.png?raw=true)
+### ![image](https://github.com/hwany7/gonggu-project/blob/main/Sreenshot/210801_%ED%9A%8C%EC%9B%90%20%ED%83%88%ED%87%B4%ED%95%98%EA%B8%B0.png?raw=true)
 
 3. 개발 버전
 - Java SE Development Kit 8 241
